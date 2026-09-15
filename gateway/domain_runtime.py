@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import secrets
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from fastapi import HTTPException, Request
@@ -14,11 +15,15 @@ from grandice_privacy.media import MediaPrivacyError
 
 from . import db
 from .auth import ApiKey
+from .config import get_settings
 
 DOMAIN_PRIVACY_MODES = {"off", "client", "sidecar", "hosted"}
 MAX_DOMAIN_BODY_BYTES = 2 * 1024 * 1024
 MAX_JSON_DEPTH = 14
 MAX_JSON_NODES = 25_000
+DOMAIN_AUDIT_PURGE_INTERVAL_SECONDS = 60 * 60
+_last_domain_audit_purge = 0.0
+_domain_audit_purge_lock = asyncio.Lock()
 
 
 def new_request_id() -> str:
@@ -144,6 +149,24 @@ async def record_domain_run(
             methodology_version,
         ),
     )
+    await _purge_expired_domain_runs()
+
+
+async def _purge_expired_domain_runs() -> None:
+    global _last_domain_audit_purge
+    now = time.monotonic()
+    if now - _last_domain_audit_purge < DOMAIN_AUDIT_PURGE_INTERVAL_SECONDS:
+        return
+    async with _domain_audit_purge_lock:
+        now = time.monotonic()
+        if now - _last_domain_audit_purge < DOMAIN_AUDIT_PURGE_INTERVAL_SECONDS:
+            return
+        retention_days = max(1, get_settings().domain_audit_retention_days)
+        cutoff = (
+            datetime.now(timezone.utc) - timedelta(days=retention_days)
+        ).isoformat(timespec="seconds")
+        await db.execute("DELETE FROM domain_runs WHERE ts < ?", (cutoff,))
+        _last_domain_audit_purge = now
 
 
 def domain_envelope(

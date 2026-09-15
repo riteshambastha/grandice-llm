@@ -20,6 +20,7 @@
     <div class="docs-header-actions">
       <a class="status-chip" href="/health"><i></i> API status</a>
       <a href="/financial-advisor">Financial agents</a>
+      <a href="/legal-contracts">Legal contracts</a>
       <a href="/contact">Contact us</a>
       <a href="/">Back to website</a>
     </div>
@@ -42,6 +43,8 @@
         <a href="/financial-advisor">Financial white paper ↗</a>
         <a href="#financial-apis">Financial APIs</a>
         <a href="#managed-agents">Managed agents</a>
+        <a href="/legal-contracts">Legal white paper ↗</a>
+        <a href="#legal-contracts">Legal contract APIs</a>
         <a href="#models">Models</a>
         <span>Core endpoints</span>
         <a href="#list-models">List models</a>
@@ -342,8 +345,8 @@ Content-Type: application/json
 
       <section class="doc-section docs-anchor" id="managed-agents">
         <div class="doc-kicker">TYPED AGENT RUNTIME</div>
-        <h2>Managed financial agents</h2>
-        <p>Grandice agents begin as constrained, typed workflows rather than unrestricted autonomous chat. Each definition declares its tools, privacy policy, source requirements and review boundary.</p>
+        <h2>Managed domain agents</h2>
+        <p>Grandice agents are constrained, typed workflows rather than unrestricted autonomous chat. Each definition declares internal capabilities, privacy policy, caller-source requirements, execution deadline and professional-review boundary.</p>
         <div class="admin-endpoints">
           <div><span class="method get">GET</span><code>/v1/agents</code><p>List available agent definitions and guardrail metadata.</p></div>
           <div><span class="method post">POST</span><code>/v1/agents/runs</code><p>Validate typed inputs and execute a registered workflow.</p></div>
@@ -370,7 +373,30 @@ Content-Type: application/json
     }
   }
 }</code></pre>
-        <div class="docs-note">Initial agents are <code>financial.portfolio-analyst.v1</code>, <code>financial.risk-assessment.v1</code> and <code>financial.company-analyst.v1</code>. Legal and market-research agents will build on the same runtime after their source, policy and evaluation contracts are implemented.</div>
+        <div class="docs-note">Available agents include three financial workflows plus <code>legal.contract-reviewer.v1</code> and <code>legal.contract-comparator.v1</code>. Market-research agents will follow after their retrieval, freshness and citation contracts are implemented.</div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="legal-contracts">
+        <div class="doc-kicker">DOMAIN INTELLIGENCE · LEGAL</div>
+        <h2>Legal Contract Intelligence APIs</h2>
+        <p>Deterministic commercial-contract clause extraction, playbook issue spotting and original-to-revised comparison. Contract text remains inert data: these workflows do not invoke an LLM, browse, execute embedded instructions or modify documents.</p>
+        <div class="admin-endpoints">
+          <div><span class="method post">POST</span><code>/v1/legal/contracts/review</code><p>Classify clauses, bind exact source spans, apply explainable fixed rules and evaluate a bounded literal-only playbook.</p></div>
+          <div><span class="method post">POST</span><code>/v1/legal/contracts/compare</code><p>Report added, removed, modified, unchanged or ambiguous clauses and supported risk deltas.</p></div>
+        </div>
+        <ul class="docs-list">
+          <li>Each document is capped at 200,000 characters; extracted clauses, findings and changes are separately bounded.</li>
+          <li>Evidence includes document/source IDs, Unicode code-point coordinates and SHA-256 bindings for documents, spans and excerpts.</li>
+          <li>Comparison uses exact hashes and bounded token similarity—never unbounded all-pairs semantic matching.</li>
+          <li>Playbooks accept typed clause categories and literal phrases, not regex, prompts, URLs, code or tools.</li>
+          <li>Privacy Shield can tokenize locally before transfer; the gateway then applies a <code>legal-strict-v1</code> residual scan before validation.</li>
+          <li>Outputs are issue-spotting artifacts, not legal advice, and always require qualified legal review.</li>
+        </ul>
+        <div class="docs-callout">
+          <strong>Document instructions have no execution authority.</strong>
+          <p>Contract text cannot select an agent, alter a playbook, call a tool, browse, change severity or approve an outcome. The current implementation contains no model or network call in legal analysis.</p>
+        </div>
+        <a class="docs-inline-link" href="/legal-contracts">Read the architecture and governance white paper →</a>
       </section>
 
       <section class="doc-section docs-anchor" id="models">

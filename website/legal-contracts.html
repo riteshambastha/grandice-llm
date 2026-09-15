@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Grandice Legal Contract Intelligence white paper: deterministic clause review and comparison with Privacy Shield, cryptographically bound source spans, bounded playbooks, metadata-only audit, and mandatory legal review.">
+  <title>Legal Contract Intelligence White Paper — Grandice</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/financial-advisor.css">
+  <link rel="stylesheet" href="/assets/legal-contracts.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body class="paper-body legal-paper-body">
+  <header class="paper-header screen-only">
+    <a class="brand" href="/" aria-label="Grandice home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+      <span>grandice</span><b>Legal contracts</b>
+    </a>
+    <nav>
+      <a href="#architecture">Architecture</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#privacy">Privacy</a>
+      <a href="/api-docs#legal-contracts">API docs</a>
+      <a class="paper-download" href="/assets/grandice-legal-contract-intelligence-white-paper-v3.pdf" download>Download PDF</a>
+    </nav>
+  </header>
+
+  <main class="white-paper legal-white-paper">
+    <section class="paper-cover legal-cover">
+      <div class="cover-grid" aria-hidden="true"></div>
+      <div class="cover-mark">
+        <span class="brand-mark"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+        GRANDICE DOMAIN INTELLIGENCE
+      </div>
+      <div class="cover-copy">
+        <div class="paper-label">TECHNICAL WHITE PAPER · VERSION 1.0</div>
+        <h1>Legal Contract Intelligence</h1>
+        <p class="cover-subtitle">Deterministic contract review and comparison with bounded authority, source-bound evidence, layered privacy, and mandatory legal review.</p>
+        <p class="cover-positioning">An implementation-oriented architecture for commercial clause classification, literal-only playbooks, explainable issue spotting, and directional contract change analysis.</p>
+      </div>
+      <div class="cover-boundary">
+        <span>SEGMENT</span><i></i><span>COMPARE</span><i></i><span>ESCALATE</span>
+      </div>
+      <div class="cover-meta">
+        <div><span>Published</span><strong>September 2026</strong></div>
+        <div><span>Methodology</span><strong>grandice-legal-deterministic-1.0.0</strong></div>
+        <div><span>Status</span><strong>Initial implementation</strong></div>
+      </div>
+    </section>
+
+    <section class="paper-section abstract-section" id="abstract">
+      <div class="section-number">00</div>
+      <div>
+        <p class="section-kicker">ABSTRACT</p>
+        <h2>Contract issue spotting—not autonomous legal judgment.</h2>
+        <p class="lead">Grandice provides two constrained legal workflows: one reviews a commercial contract against a fixed clause taxonomy and bounded playbook; the other compares an original contract to a revised version and reports clause-level changes and supported risk deltas.</p>
+        <p>The implementation is deterministic. Contract text is never passed to an LLM, interpreted as instructions, used to construct tool calls, browsed, or persisted by the legal analysis module. Every cited clause and finding is tied to caller-supplied source metadata and cryptographic document and span digests.</p>
+        <p>Grandice Privacy Shield can tokenize sensitive values locally before transfer. The gateway applies an additional configured residual scan to raw legal JSON before schema validation. Results disclose assumptions, limitations, omitted counts, and an invariant professional-review requirement.</p>
+        <aside class="thesis">
+          <strong>Core thesis</strong>
+          <p>In legal operations, useful automation should organize evidence and surface defined review questions. It should not silently convert lexical patterns into legal conclusions or execution authority.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="paper-section scope-section">
+      <div class="section-number">01</div>
+      <div>
+        <p class="section-kicker">EXECUTIVE PERSPECTIVE</p>
+        <h2>Make recurring review steps reproducible without obscuring ambiguity.</h2>
+        <p>Commercial review often combines clause inventories, organization-specific checklists, version comparison, and escalation. Unstructured workflows make it difficult to reproduce why an issue was raised, distinguish a missing clause from failed extraction, or verify that evidence came from the correct contract version.</p>
+        <div class="problem-grid">
+          <article><span>01</span><h3>Inconsistent triage</h3><p>Reviewers use different labels, thresholds, and checklists for similar language.</p></article>
+          <article><span>02</span><h3>Detached evidence</h3><p>Findings circulate without exact locations or reliable document-version bindings.</p></article>
+          <article><span>03</span><h3>False certainty</h3><p>Lexical similarity can be presented as legal equivalence when wording is ambiguous.</p></article>
+          <article><span>04</span><h3>Confidential copies</h3><p>Full-content logging can create a secondary repository for sensitive deal material.</p></article>
+        </div>
+        <p>Grandice addresses the repeatable issue-spotting layer. Source authenticity, legal interpretation, negotiation position, jurisdiction-specific analysis, approval, and downstream action remain with the adopting institution and qualified professionals.</p>
+      </div>
+    </section>
+
+    <section class="paper-section nonclaims-section">
+      <div class="section-number">02</div>
+      <div>
+        <p class="section-kicker">SCOPE AND RESPONSIBILITY BOUNDARY</p>
+        <h2>Strong controls without overstating what pattern-based review can establish.</h2>
+        <div class="boundary-grid">
+          <div class="boundary-yes">
+            <h3>Implemented</h3>
+            <ul>
+              <li>Typed commercial-contract inputs</li>
+              <li>Deterministic segmentation and taxonomy classification</li>
+              <li>Literal fixed rules and bounded caller playbooks</li>
+              <li>Original-to-revised clause comparison</li>
+              <li>Explicit ambiguous-match outcomes</li>
+              <li>Document, span, and excerpt SHA-256 bindings</li>
+              <li>Local Privacy Shield integration and gateway residual scan</li>
+              <li>Metadata-only domain audit records</li>
+              <li>Mandatory qualified legal review</li>
+            </ul>
+          </div>
+          <div class="boundary-no">
+            <h3>Outside current authority</h3>
+            <ul>
+              <li>Legal advice, legal conclusions, or attorney replacement</li>
+              <li>Enforceability, validity, compliance, or legal-effect determinations</li>
+              <li>Source authenticity or signature verification</li>
+              <li>Comprehensive clause, risk, or sensitive-data detection</li>
+              <li>Case-law retrieval, browsing, filing, signing, or negotiation</li>
+              <li>Automatic approval, redlining, or downstream execution</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section principles-section">
+      <div class="section-number">03</div>
+      <div>
+        <p class="section-kicker">DESIGN PRINCIPLES</p>
+        <h2>Evidence first. Authority last.</h2>
+        <div class="principle-list">
+          <article><b>01</b><div><h3>Document-as-data isolation</h3><p>Contract text has no control-plane authority. Prompt-like text, JSON, URLs, and fake tool calls remain inert characters.</p></div></article>
+          <article><b>02</b><div><h3>Deterministic authoritative path</h3><p>Fixed parser, taxonomy, rules, matching thresholds, and methodology versions drive every authoritative output.</p></div></article>
+          <article><b>03</b><div><h3>Bound every dimension</h3><p>Body, text, JSON, clauses, findings, playbooks, excerpts, candidates, changes, and processing deadlines all have limits.</p></div></article>
+          <article><b>04</b><div><h3>Bind evidence to versions</h3><p>Document and span digests prevent an evidence location from being silently reassigned to another version.</p></div></article>
+          <article><b>05</b><div><h3>Disclose incompleteness</h3><p>Caps and ambiguous matches change explicit completeness fields and warnings; they do not disappear silently.</p></div></article>
+          <article><b>06</b><div><h3>Human review is invariant</h3><p>Neither a contract nor a playbook can suppress warnings, alter severity logic, or remove the professional-review gate.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section architecture-section" id="architecture">
+      <div class="section-number">04</div>
+      <div>
+        <p class="section-kicker">SYSTEM ARCHITECTURE</p>
+        <h2>A bounded path from protected contract text to review evidence.</h2>
+        <p>The strongest privacy mode protects content before it leaves the caller environment. The gateway then authenticates, enforces quotas and structural bounds, scans raw JSON, validates the legal schema, and dispatches only to predefined deterministic code.</p>
+        <figure class="diagram">
+          <svg viewBox="0 0 1040 500" role="img" aria-label="Legal contract intelligence architecture">
+            <defs><marker id="legal-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z"/></marker></defs>
+            <rect class="lane" x="18" y="38" width="300" height="410" rx="14"/><text class="lane-title" x="42" y="70">CALLER TRUST BOUNDARY</text>
+            <rect class="lane" x="338" y="38" width="290" height="410" rx="14"/><text class="lane-title" x="362" y="70">GRANDICE GATEWAY</text>
+            <rect class="lane" x="648" y="38" width="374" height="410" rx="14"/><text class="lane-title" x="672" y="70">LEGAL DOMAIN RUNTIME</text>
+            <g class="node primary"><rect x="55" y="105" width="225" height="74" rx="8"/><text x="168" y="136">Privacy SDK / sidecar</text><text class="sub" x="168" y="157">LOCAL TOKEN MAP</text></g>
+            <g class="node"><rect x="55" y="250" width="225" height="74" rx="8"/><text x="168" y="281">Typed legal request</text><text class="sub" x="168" y="302">DOCUMENT + SOURCES</text></g>
+            <g class="node"><rect x="374" y="105" width="216" height="74" rx="8"/><text x="482" y="136">Auth + request bounds</text><text class="sub" x="482" y="157">2 MiB · DEPTH · NODES</text></g>
+            <g class="node caution"><rect x="374" y="250" width="216" height="74" rx="8"/><text x="482" y="281">Residual privacy scan</text><text class="sub" x="482" y="302">BEFORE SCHEMA VALIDATION</text></g>
+            <g class="node primary"><rect x="684" y="105" width="300" height="74" rx="8"/><text x="834" y="136">Segment + classify + hash</text><text class="sub" x="834" y="157">NO MODEL OR NETWORK CALL</text></g>
+            <g class="node"><rect x="684" y="250" width="300" height="74" rx="8"/><text x="834" y="281">Rules / playbook / compare</text><text class="sub" x="834" y="302">BOUNDED DETERMINISTIC WORK</text></g>
+            <g class="node review"><rect x="684" y="365" width="300" height="55" rx="8"/><text x="834" y="397">Qualified legal review</text></g>
+            <path class="arrow" marker-end="url(#legal-arrow)" d="M280 142H374"/><path class="arrow" marker-end="url(#legal-arrow)" d="M280 287H374"/>
+            <path class="arrow" marker-end="url(#legal-arrow)" d="M482 179V250"/><path class="arrow" marker-end="url(#legal-arrow)" d="M590 287H684"/>
+            <path class="arrow" marker-end="url(#legal-arrow)" d="M834 179V250"/><path class="arrow" marker-end="url(#legal-arrow)" d="M834 324V365"/>
+          </svg>
+          <figcaption>Figure 1. Authoritative legal outputs are produced only by predefined deterministic functions. The model gateway remains available elsewhere in Grandice, but is not in this legal execution path.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="paper-section agents-section">
+      <div class="section-number">05</div>
+      <div>
+        <p class="section-kicker">MANAGED WORKFLOWS</p>
+        <h2>Two named agents, each mapped to one typed function.</h2>
+        <div class="agent-detail-grid two-up">
+          <article><span class="agent-tag">REVIEW</span><h3>Contract Review Agent</h3><code>legal.contract-reviewer.v1</code><p>Segments one document, classifies clauses, evaluates fixed risks and a bounded playbook, and returns source-bound evidence.</p><p class="exclusion">No legal conclusions, drafting, source verification, browsing, or execution.</p></article>
+          <article><span class="agent-tag">COMPARE</span><h3>Contract Comparison Agent</h3><code>legal.contract-comparator.v1</code><p>Compares original to revised using typed category blocking, exact hashes, bounded token similarity, and risk-delta keys.</p><p class="exclusion">No claim of semantic equivalence or complete redline fidelity.</p></article>
+        </div>
+        <div class="legal-invariant"><strong>Registry invariant</strong><span>deterministic = true</span><span>professional_review_required = true</span><span>execution deadline = 5s / 10s</span></div>
+      </div>
+    </section>
+
+    <section class="paper-section methodology-section" id="methodology">
+      <div class="section-number">06</div>
+      <div>
+        <p class="section-kicker">REVIEW METHODOLOGY</p>
+        <h2>Clause inventory, fixed taxonomy, and explainable rule evidence.</h2>
+        <div class="method-block"><div class="method-heading"><span>06.1</span><h3>Segmentation</h3></div><p>Lines with bounded recognized headings, numbering, or capitalization start clauses. Each segment records document ID, source ID, Unicode code-point and line coordinates, excerpt, classification method, and document/span/excerpt digests.</p></div>
+        <div class="method-block"><div class="method-heading"><span>06.2</span><h3>Commercial taxonomy</h3></div><p>Categories cover services, scope, service levels, fees, payment, taxes, term, termination, renewal, warranties, liability, indemnity, insurance, confidentiality, data protection, security, intellectual property, licensing, assignment, subcontracting, compliance, audit, records, governing law, disputes, force majeure, notices, change control, and standard boilerplate.</p></div>
+        <div class="method-block"><div class="method-heading"><span>06.3</span><h3>Fixed issue-spotting rules</h3></div><p>Current rules identify supported language for potentially unlimited liability, broad indemnity, unilateral termination, automatic renewal, assignment imbalance, confidentiality and data-protection gaps, missing liability caps, required clauses, prohibited literals, governing-law preference mismatch, and declared review policies.</p></div>
+        <div class="method-block"><div class="method-heading"><span>06.4</span><h3>Evidence semantics</h3></div><p>A match means a configured literal or absence rule fired. It does not mean the clause is unenforceable, unacceptable, illegal, one-sided in context, or complete. “Not detected” is not equivalent to “legally absent.”</p></div>
+      </div>
+    </section>
+
+    <section class="paper-section playbook-section">
+      <div class="section-number">07</div>
+      <div>
+        <p class="section-kicker">PLAYBOOK CONTROL</p>
+        <h2>Typed review policy—not executable policy.</h2>
+        <p>A caller can send an immutable playbook inside a request. The schema accepts only bounded known fields. It does not accept regular expressions, prompts, templates, code, URLs, imports, tools, dynamic field paths, approval actions, or severity overrides for mandatory platform warnings.</p>
+        <div class="boundary-grid compact-boundary">
+          <div class="boundary-yes"><h3>Accepted controls</h3><ul><li>Required typed clause categories</li><li>Case-insensitive literal prohibited phrases</li><li>Preferred governing-law label</li><li>Liability-cap requirement</li><li>Bounded clause-scoped review policies</li></ul></div>
+          <div class="boundary-no"><h3>Rejected authority</h3><ul><li>Caller regular expressions</li><li>Document or playbook instructions</li><li>Network and retrieval configuration</li><li>Executable expressions or tools</li><li>Automatic approval or remediation</li></ul></div>
+        </div>
+        <div class="docs-note legal-doc-note">Inline playbooks are caller-supplied request data. Production institutions should version, approve, authorize, and tenant-scope playbook selection in their application layer.</div>
+      </div>
+    </section>
+
+    <section class="paper-section compare-section">
+      <div class="section-number">08</div>
+      <div>
+        <p class="section-kicker">COMPARISON METHODOLOGY</p>
+        <h2>Direction, bounded similarity, and explicit ambiguity.</h2>
+        <p>The declared direction is always <code>original_to_revised</code>. Exact span hashes match first. Remaining candidates are blocked by clause category and position, with no more than sixteen revised candidates and 512 normalized tokens per original clause.</p>
+        <figure class="diagram">
+          <svg viewBox="0 0 1040 360" role="img" aria-label="Bounded clause comparison flow">
+            <defs><marker id="compare-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z"/></marker></defs>
+            <g class="node"><rect x="25" y="70" width="180" height="78" rx="8"/><text x="115" y="103">Original clauses</text><text class="sub" x="115" y="125">MAX 250</text></g>
+            <g class="node"><rect x="25" y="220" width="180" height="78" rx="8"/><text x="115" y="253">Revised clauses</text><text class="sub" x="115" y="275">MAX 250</text></g>
+            <g class="node primary"><rect x="285" y="145" width="205" height="78" rx="8"/><text x="388" y="178">Category blocking</text><text class="sub" x="388" y="200">≤ 16 CANDIDATES</text></g>
+            <g class="node"><rect x="565" y="145" width="205" height="78" rx="8"/><text x="668" y="178">Hash + token score</text><text class="sub" x="668" y="200">≤ 512 TOKENS</text></g>
+            <g class="node review"><rect x="845" y="55" width="170" height="60" rx="8"/><text x="930" y="89">Exact / unchanged</text></g>
+            <g class="node caution"><rect x="845" y="150" width="170" height="60" rx="8"/><text x="930" y="184">Modified / ambiguous</text></g>
+            <g class="node reject"><rect x="845" y="245" width="170" height="60" rx="8"/><text x="930" y="279">Added / removed</text></g>
+            <path class="arrow" marker-end="url(#compare-arrow)" d="M205 109C250 109 250 165 285 175"/><path class="arrow" marker-end="url(#compare-arrow)" d="M205 259C250 259 250 203 285 193"/>
+            <path class="arrow" marker-end="url(#compare-arrow)" d="M490 184H565"/><path class="arrow" marker-end="url(#compare-arrow)" d="M770 184C810 184 815 85 845 85"/><path class="arrow" marker-end="url(#compare-arrow)" d="M770 184H845"/><path class="arrow" marker-end="url(#compare-arrow)" d="M770 184C810 184 815 275 845 275"/>
+          </svg>
+          <figcaption>Figure 2. Candidate blocking prevents unrestricted all-pairs comparison. Similarity is lexical evidence, not a semantic or legal-equivalence score.</figcaption>
+        </figure>
+        <div class="risk-scale legal-status-scale"><div class="lower"><b>EXACT</b><span>hash-bound</span></div><div class="moderate"><b>AMBIGUOUS</b><span>alternatives disclosed</span></div><div class="higher"><b>UNMATCHED</b><span>added / removed</span></div></div>
+        <p>Risk deltas identify supported findings that are new, resolved, or persistent. IDs use canonical rule and clause-category identity; prohibited literal rules additionally bind a phrase digest. Deltas remain limited to the implemented rules and supplied playbook.</p>
+      </div>
+    </section>
+
+    <section class="paper-section source-section">
+      <div class="section-number">09</div>
+      <div>
+        <p class="section-kicker">PROVENANCE AND SPAN INTEGRITY</p>
+        <h2>Every evidence location is bound to a document version.</h2>
+        <p>Caller citations identify the asserted source; Grandice does not verify their authenticity. The legal runtime computes SHA-256 values for document text, exact source spans, and rendered excerpts. Coordinates use versioned zero-based, end-exclusive Unicode code points.</p>
+        <figure class="diagram source-diagram">
+          <svg viewBox="0 0 1040 390" role="img" aria-label="Evidence binding model">
+            <defs><marker id="source-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z"/></marker></defs>
+            <g class="source-box"><rect x="30" y="75" width="245" height="230" rx="8"/><text x="153" y="112">CALLER SOURCE</text><text class="sub" x="153" y="149">source_id</text><text class="sub" x="153" y="176">citation</text><text class="sub" x="153" y="203">as_of</text><text class="note" x="153" y="270">ATTRIBUTED · NOT VERIFIED</text></g>
+            <g class="record-box"><rect x="397" y="75" width="245" height="230" rx="8"/><text x="520" y="112">DOCUMENT VERSION</text><text class="sub" x="520" y="149">document_id</text><text class="sub" x="520" y="176">source_id</text><text class="sub" x="520" y="203">document_sha256</text><text class="sub" x="520" y="230">coordinate_unit</text></g>
+            <g class="record-box"><rect x="765" y="75" width="245" height="230" rx="8"/><text x="888" y="112">EVIDENCE SPAN</text><text class="sub" x="888" y="149">char_start / char_end</text><text class="sub" x="888" y="176">line_start / line_end</text><text class="sub" x="888" y="203">span_sha256</text><text class="sub" x="888" y="230">excerpt_sha256</text></g>
+            <path class="arrow" marker-end="url(#source-arrow)" d="M275 190H397"/><path class="arrow" marker-end="url(#source-arrow)" d="M642 190H765"/>
+          </svg>
+          <figcaption>Figure 3. Cryptographic binding detects evidence/version mix-ups. It does not authenticate who supplied the contract or prove the legal reliability of the source.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="paper-section privacy-paper-section" id="privacy">
+      <div class="section-number">10</div>
+      <div>
+        <p class="section-kicker">PRIVACY AND CONFIDENTIALITY</p>
+        <h2>Protect locally, scan again, retain less.</h2>
+        <p>Contracts routinely contain party names, contacts, addresses, signatures, pricing, trade secrets, and negotiation context. Local protection is the preferred path for confidential workloads because configured residual detection is defense in depth—not proof that a contract contains no sensitive information.</p>
+        <figure class="diagram privacy-diagram">
+          <svg viewBox="0 0 1040 360" role="img" aria-label="Layered legal privacy controls">
+            <defs><marker id="privacy-arrow-legal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z"/></marker></defs>
+            <rect class="risk-boundary" x="22" y="35" width="430" height="290" rx="14"/>
+            <g class="privacy-step"><rect x="50" y="90" width="170" height="150" rx="8"/><text class="step-no" x="70" y="116">01 · LOCAL</text><text class="step-title" x="70" y="153">SDK / sidecar</text><text x="70" y="183">TOKENIZE VALUES</text><text x="70" y="205">KEEP MAP LOCAL</text></g>
+            <g class="privacy-step"><rect x="250" y="90" width="170" height="150" rx="8"/><text class="step-no" x="270" y="116">02 · TRANSFER</text><text class="step-title" x="270" y="153">Protected JSON</text><text x="270" y="183">OPAQUE TOKENS</text><text x="270" y="205">TYPED CONTRACT</text></g>
+            <g class="privacy-step"><rect x="500" y="90" width="210" height="150" rx="8"/><text class="step-no" x="520" y="116">03 · GATEWAY</text><text class="step-title" x="520" y="153">Residual scan</text><text x="520" y="183">RAW JSON FIRST</text><text x="520" y="205">REJECT DETECTIONS</text></g>
+            <g class="privacy-step"><rect x="760" y="90" width="230" height="150" rx="8"/><text class="step-no" x="780" y="116">04 · RUNTIME</text><text class="step-title" x="780" y="153">In-memory analysis</text><text x="780" y="183">NO CONTENT AUDIT</text><text x="780" y="205">LOCAL REHYDRATION</text></g>
+            <path class="arrow" marker-end="url(#privacy-arrow-legal)" d="M220 165H250"/><path class="arrow" marker-end="url(#privacy-arrow-legal)" d="M420 165H500"/><path class="arrow" marker-end="url(#privacy-arrow-legal)" d="M710 165H760"/>
+          </svg>
+          <figcaption>Figure 4. A local token map enables protected transfer and caller-side rehydration. Direct hosted requests expose original content to gateway memory even when the legal module does not persist it.</figcaption>
+        </figure>
+        <div class="privacy-facts">
+          <div><strong>Preferred</strong><span>Client SDK or loopback sidecar before transfer</span></div>
+          <div><strong>Second layer</strong><span><code>legal-strict-v1</code> raw-JSON residual scan</span></div>
+          <div><strong>Audit</strong><span>Operational metadata; no document or response body</span></div>
+          <div><strong>Claim boundary</strong><span>Configured detector coverage is best effort</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section governance-section" id="governance">
+      <div class="section-number">11</div>
+      <div>
+        <p class="section-kicker">AUDIT AND GOVERNANCE</p>
+        <h2>Trace operations without building a contract-content archive.</h2>
+        <p>Each terminal API outcome records request ID, time, authenticated key and available organization/member references, endpoint, agent, asserted privacy mode, status, duration, schema names, source/warning counts, and methodology version. Contract text, excerpts, citations, findings, token maps, and response bodies are excluded.</p>
+        <div class="audit-receipt">
+          <div class="receipt-head"><span>domain.run</span><b>CONTENT RETAINED: FALSE</b></div>
+          <div class="receipt-grid">
+            <span>request_id</span><code>dom_...</code><span>agent</span><code>legal.contract-reviewer.v1</code>
+            <span>status</span><code>200</code><span>privacy_mode</span><code>sidecar</code>
+            <span>input_schema</span><code>ContractAnalysisInput</code><span>output_schema</span><code>ContractAnalysis</code>
+            <span>methodology</span><code>grandice-legal-deterministic-1.0.0</code><span>content</span><code>not stored</code>
+          </div>
+        </div>
+        <p>Primary domain audit metadata is purged at gateway startup and by an hourly opportunistic cleanup after the configured period—90 days by default. Reverse-proxy logs, crash reporting, encrypted backups, and institutional observability have separate lifecycles and require deployment-specific review.</p>
+      </div>
+    </section>
+
+    <section class="paper-section runtime-section">
+      <div class="section-number">12</div>
+      <div>
+        <p class="section-kicker">RUNTIME CONTROLS</p>
+        <h2>Resource limits are part of the authority model.</h2>
+        <div class="control-metrics legal-control-metrics">
+          <div><b>2 MiB</b><span>gateway request body</span></div>
+          <div><b>200k</b><span>characters per document</span></div>
+          <div><b>250</b><span>clauses per document</span></div>
+          <div><b>250</b><span>findings / changes</span></div>
+          <div><b>512</b><span>tokens per comparison</span></div>
+          <div><b>16</b><span>candidates per clause</span></div>
+          <div><b>50</b><span>review policies</span></div>
+          <div><b>320</b><span>excerpt characters</span></div>
+          <div><b>5s / 10s</b><span>review / compare deadline</span></div>
+        </div>
+        <p>API deadlines bound caller waiting time. The token and candidate caps remove the unbounded quadratic comparison path that a timeout alone cannot stop in a worker thread. Exact omitted counts and <code>complete: false</code> are returned when supported output caps are reached.</p>
+      </div>
+    </section>
+
+    <section class="paper-section integration-section">
+      <div class="section-number">13</div>
+      <div>
+        <p class="section-kicker">DEVELOPER INTEGRATION</p>
+        <h2>Direct APIs or the common managed-agent envelope.</h2>
+        <div class="api-paths">
+          <div><span>POST</span><code>/v1/legal/contracts/review</code></div>
+          <div><span>POST</span><code>/v1/legal/contracts/compare</code></div>
+          <div><span>GET</span><code>/v1/agents</code></div>
+          <div><span>POST</span><code>/v1/agents/runs</code></div>
+          <div><span>GET</span><code>/v1/domain/runs/{request_id}</code></div>
+        </div>
+        <div class="response-example">
+<pre><code>{
+  "metadata": {
+    "as_of": "2026-09-15",
+    "sources": [{
+      "source_id": "msa-source",
+      "citation": "Caller contract repository record",
+      "as_of": "2026-09-15"
+    }]
+  },
+  "document": {
+    "document_id": "msa-v7",
+    "source_id": "msa-source",
+    "document_type": "master_services_agreement",
+    "text": "1. Services\n..."
+  },
+  "playbook": {
+    "playbook_id": "commercial-standard",
+    "version": "3",
+    "required_clause_types": ["confidentiality", "data_protection"],
+    "liability_cap_required": true
+  }
+}</code></pre>
+        </div>
+        <p>For local tokenization, preserve one request-scoped token map for all documents in a comparison and rehydrate only returned display fields in the caller trust boundary. Never rehydrate into control fields such as agent IDs, playbook IDs, clause categories, status, or severity.</p>
+      </div>
+    </section>
+
+    <section class="paper-section evaluation-section">
+      <div class="section-number">14</div>
+      <div>
+        <p class="section-kicker">EVALUATION ROADMAP</p>
+        <h2>Measure extraction, comparison, safety, and reviewer utility separately.</h2>
+        <div class="roadmap">
+          <article><span>TRACK 01</span><h3>Clause extraction</h3><ul><li>Heading and boundary precision/recall</li><li>Taxonomy accuracy by document type</li><li>Unicode and line-span reproduction</li><li>Unknown-category calibration</li></ul></article>
+          <article><span>TRACK 02</span><h3>Rule behavior</h3><ul><li>Attorney-reviewed golden contracts</li><li>False-positive/negative analysis per rule</li><li>Playbook conformance and literal safety</li><li>Stable finding IDs across runs</li></ul></article>
+          <article><span>TRACK 03</span><h3>Comparison</h3><ul><li>Known-edit and reversal fixtures</li><li>Duplicate heading ambiguity</li><li>Moves, rewrites, additions, removals</li><li>Cross-document digest isolation</li></ul></article>
+          <article><span>TRACK 04</span><h3>Operational safety</h3><ul><li>Maximum-size latency and concurrency</li><li>Prompt-injection inertness</li><li>Privacy detector stress tests</li><li>Audit and log content inspection</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section limitations-section">
+      <div class="section-number">15</div>
+      <div>
+        <p class="section-kicker">CURRENT LIMITATIONS</p>
+        <h2>What a deterministic lexical system can miss.</h2>
+        <div class="limitations-columns">
+          <article><h3>Interpretive limits</h3><ul><li>Defined-term interactions across distant clauses</li><li>Exceptions, schedules, exhibits, and incorporated documents</li><li>Commercial context and negotiating leverage</li><li>Jurisdiction-specific enforceability and doctrine</li><li>Legal equivalence after substantial rewriting</li></ul></article>
+          <article><h3>Extraction limits</h3><ul><li>Scanned PDFs require upstream extraction</li><li>Tables and unusual formatting can reduce segmentation quality</li><li>Unsupported synonyms may classify as unknown</li><li>Only the first bounded outputs are returned</li><li>Caller sources are attributed, not authenticated</li></ul></article>
+          <article><h3>Privacy limits</h3><ul><li>Names and context-dependent secrets may evade pattern detectors</li><li>Direct hosted use exposes original content to process memory</li><li>Audit metadata and infrastructure backups have lifecycles</li><li>Local tokenization can change display coordinates after rehydration</li><li>Deployers must validate logging and observability configuration</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section conclusion-section">
+      <div class="section-number">16</div>
+      <div>
+        <p class="section-kicker">CONCLUSION</p>
+        <h2>Contract intelligence should make review evidence easier to inspect—not easier to overtrust.</h2>
+        <p class="lead">Grandice combines deterministic clause processing, bounded comparison, literal-only playbooks, cryptographically bound evidence, Privacy Shield integration, metadata-only audit, and an explicit qualified-review boundary.</p>
+        <p>The result is a developer-controlled issue-spotting layer, not an autonomous legal actor. Production adoption still requires source controls, approved playbooks, tenant authorization, representative legal evaluation, privacy and security review, retention governance, and qualified professional supervision.</p>
+        <div class="conclusion-line"><span>INERT DOCUMENTS</span><i></i><span>BOUND EVIDENCE</span><i></i><span>HUMAN LEGAL JUDGMENT</span></div>
+      </div>
+    </section>
+
+    <section class="paper-section appendix-section">
+      <div class="section-number">A</div>
+      <div>
+        <p class="section-kicker">APPENDIX</p>
+        <h2>Response invariants and implementation references</h2>
+        <div class="response-example">
+<pre><code>{
+  "request_id": "dom_...",
+  "privacy": {
+    "mode": "sidecar",
+    "residual_check": {
+      "status": "passed",
+      "coverage": "configured_policy_detectors",
+      "guarantee": "best_effort"
+    },
+    "content_retained": false
+  },
+  "data": {
+    "methodology_version": "grandice-legal-deterministic-1.0.0",
+    "complete": true,
+    "legal_advice": false,
+    "content_persisted": false,
+    "professional_review_required": true
+  }
+}</code></pre>
+        </div>
+        <div class="reference-list">
+          <div><code>grandice_domain/legal.py</code><span>Legal schemas, taxonomy, segmentation, rules, evidence hashing, and comparison</span></div>
+          <div><code>grandice_domain/agents.py</code><span>Versioned legal workflow registry and declared capabilities</span></div>
+          <div><code>gateway/routes/legal.py</code><span>Authenticated direct legal APIs, deadlines, audit, and response headers</span></div>
+          <div><code>gateway/domain_runtime.py</code><span>Raw-JSON limits, residual privacy enforcement, audit write, and envelope</span></div>
+          <div><code>LEGAL-APIS.md</code><span>Input contracts, limits, privacy guidance, and responsibility boundary</span></div>
+          <div><code>tests/test_legal_domain.py</code><span>Core behavior, evidence, ambiguity, delta, injection, and cap tests</span></div>
+        </div>
+        <div class="legal-note">
+          <strong>Important notice</strong>
+          <p>This document describes the September 2026 initial implementation. It is technical product documentation, not legal, privacy, security, regulatory, or compliance advice. Grandice does not verify sources or replace qualified legal professionals. Adopting institutions must perform their own validation and governance review.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paper-footer screen-only">
+    <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span><span>grandice</span></a>
+    <p>Controlled domain intelligence for developer-owned workflows.</p>
+    <div><a href="/api-docs#legal-contracts">API documentation</a><a href="/assets/grandice-legal-contract-intelligence-white-paper-v3.pdf" download>PDF white paper</a><a href="/contact">Contact</a></div>
+  </footer>
+</body>
+</html>

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import time
 from typing import Any
@@ -25,7 +26,11 @@ router = APIRouter(prefix="/v1/agents", tags=["agents"])
 class AgentRunRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    agent: str = Field(min_length=1)
+    agent: str = Field(
+        min_length=1,
+        max_length=80,
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+    )
     inputs: dict[str, Any]
 
 
@@ -74,6 +79,7 @@ async def run_agent(
             json.dumps(raw_run, separators=(",", ":"))
         )
     except ValidationError as exc:
+        errors = exc.errors(include_input=False, include_context=False)
         await record_domain_run(
             request_id=request_id,
             key=key,
@@ -91,10 +97,8 @@ async def run_agent(
             422,
             {
                 "message": "Agent run envelope failed strict validation.",
-                "errors": exc.errors(
-                    include_input=False,
-                    include_context=False,
-                ),
+                "errors": errors[:50],
+                "omitted_error_count": max(0, len(errors) - 50),
             },
         ) from exc
     except HTTPException as exc:
@@ -115,6 +119,20 @@ async def run_agent(
     try:
         definition = get_agent(run.agent)
     except ValueError as exc:
+        await record_domain_run(
+            request_id=request_id,
+            key=key,
+            endpoint="/v1/agents/runs",
+            privacy_mode=privacy_mode,
+            status=404,
+            started=started,
+            input_schema="AgentRunRequest",
+            output_schema=None,
+            source_count=0,
+            warning_count=0,
+            methodology_version=METHODOLOGY_VERSION,
+            agent=None,
+        )
         raise HTTPException(404, str(exc)) from exc
 
     try:
@@ -128,8 +146,18 @@ async def run_agent(
         payload = definition.input_model.model_validate_json(
             json.dumps(run.inputs, separators=(",", ":"))
         )
-        result = definition.analyzer(payload)
+        try:
+            result = await asyncio.wait_for(
+                asyncio.to_thread(definition.analyzer, payload),
+                timeout=definition.execution_timeout_seconds,
+            )
+        except TimeoutError as exc:
+            raise HTTPException(
+                503,
+                "Agent execution exceeded its bounded processing deadline.",
+            ) from exc
     except ValidationError as exc:
+        errors = exc.errors(include_input=False, include_context=False)
         await record_domain_run(
             request_id=request_id,
             key=key,
@@ -148,10 +176,8 @@ async def run_agent(
             422,
             {
                 "message": "Agent inputs failed strict schema validation.",
-                "errors": exc.errors(
-                    include_input=False,
-                    include_context=False,
-                ),
+                "errors": errors[:50],
+                "omitted_error_count": max(0, len(errors) - 50),
             },
         ) from exc
     except HTTPException as exc:
@@ -161,6 +187,22 @@ async def run_agent(
             endpoint="/v1/agents/runs",
             privacy_mode=privacy_mode,
             status=exc.status_code,
+            started=started,
+            input_schema=definition.input_model.__name__,
+            output_schema=None,
+            source_count=0,
+            warning_count=0,
+            methodology_version=METHODOLOGY_VERSION,
+            agent=definition.id,
+        )
+        raise
+    except Exception:
+        await record_domain_run(
+            request_id=request_id,
+            key=key,
+            endpoint="/v1/agents/runs",
+            privacy_mode=privacy_mode,
+            status=500,
             started=started,
             input_schema=definition.input_model.__name__,
             output_schema=None,
@@ -187,6 +229,8 @@ async def run_agent(
     )
     response.headers["X-Grandice-Request-Id"] = request_id
     response.headers["X-Grandice-Content-Retained"] = "false"
+    if definition.domain == "legal":
+        response.headers["X-Grandice-Legal-Advice"] = "false"
     envelope = domain_envelope(
         request_id=request_id,
         privacy_mode=privacy_mode,

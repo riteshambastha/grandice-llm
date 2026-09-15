@@ -6,6 +6,12 @@ from typing import Any, Callable
 from pydantic import BaseModel
 
 from .company import CompanyAnalysisInput, analyze_company
+from .legal import (
+    ContractAnalysisInput,
+    ContractComparisonInput,
+    analyze_contract,
+    compare_contracts,
+)
 from .portfolio import PortfolioAnalysisInput, analyze_portfolio
 from .risk import RiskAssessmentInput, assess_client_risk
 
@@ -18,9 +24,10 @@ class AgentDefinition:
     description: str
     input_model: type[BaseModel]
     analyzer: Callable[[Any], BaseModel]
-    tools: tuple[str, ...]
+    capabilities: tuple[str, ...]
     privacy_policy: str
-    source_grounded: bool = True
+    execution_timeout_seconds: float = 5.0
+    caller_source_attributed: bool = True
     deterministic: bool = True
     professional_review_required: bool = True
 
@@ -31,9 +38,10 @@ class AgentDefinition:
             "name": self.name,
             "description": self.description,
             "input_schema": self.input_model.__name__,
-            "tools": list(self.tools),
+            "capabilities": list(self.capabilities),
             "privacy_policy": self.privacy_policy,
-            "source_grounded": self.source_grounded,
+            "execution_timeout_seconds": self.execution_timeout_seconds,
+            "caller_source_attributed": self.caller_source_attributed,
             "deterministic": self.deterministic,
             "professional_review_required": self.professional_review_required,
         }
@@ -50,7 +58,7 @@ AGENTS: dict[str, AgentDefinition] = {
         ),
         input_model=PortfolioAnalysisInput,
         analyzer=analyze_portfolio,
-        tools=(
+        capabilities=(
             "decimal_portfolio_math",
             "allocation_aggregator",
             "concentration_rules",
@@ -67,7 +75,7 @@ AGENTS: dict[str, AgentDefinition] = {
         ),
         input_model=RiskAssessmentInput,
         analyzer=assess_client_risk,
-        tools=("weighted_risk_score", "risk_band_rules"),
+        capabilities=("weighted_risk_score", "risk_band_rules"),
         privacy_policy="financial-strict-v1",
     ),
     "financial.company-analyst.v1": AgentDefinition(
@@ -80,12 +88,50 @@ AGENTS: dict[str, AgentDefinition] = {
         ),
         input_model=CompanyAnalysisInput,
         analyzer=analyze_company,
-        tools=(
+        capabilities=(
             "financial_statement_ratios",
             "growth_calculator",
             "valuation_arithmetic",
         ),
         privacy_policy="financial-strict-v1",
+    ),
+    "legal.contract-reviewer.v1": AgentDefinition(
+        id="legal.contract-reviewer.v1",
+        domain="legal",
+        name="Contract Review Agent",
+        description=(
+            "Segments commercial contracts, classifies clauses, applies fixed "
+            "risk rules and a bounded literal-only review playbook."
+        ),
+        input_model=ContractAnalysisInput,
+        analyzer=analyze_contract,
+        capabilities=(
+            "deterministic_clause_segmenter",
+            "legal_clause_taxonomy",
+            "literal_playbook_rules",
+            "source_span_hasher",
+        ),
+        privacy_policy="legal-strict-v1",
+        execution_timeout_seconds=5.0,
+    ),
+    "legal.contract-comparator.v1": AgentDefinition(
+        id="legal.contract-comparator.v1",
+        domain="legal",
+        name="Contract Comparison Agent",
+        description=(
+            "Compares original-to-revised clauses with bounded deterministic "
+            "candidate matching and reports explainable risk deltas."
+        ),
+        input_model=ContractComparisonInput,
+        analyzer=compare_contracts,
+        capabilities=(
+            "typed_clause_alignment",
+            "bounded_text_similarity",
+            "risk_delta_calculator",
+            "source_span_hasher",
+        ),
+        privacy_policy="legal-strict-v1",
+        execution_timeout_seconds=10.0,
     ),
 }
 
@@ -94,5 +140,5 @@ def get_agent(agent_id: str) -> AgentDefinition:
     try:
         return AGENTS[agent_id]
     except KeyError as exc:
-        raise ValueError(f"Unknown agent '{agent_id}'.") from exc
+        raise ValueError("Unknown agent.") from exc
 

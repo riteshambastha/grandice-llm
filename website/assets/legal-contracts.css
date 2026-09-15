@@ -1,0 +1,101 @@
+.legal-cover::before {
+  position: absolute;
+  top: 145px;
+  right: 80px;
+  width: 210px;
+  height: 278px;
+  border: 1px solid rgba(115,239,246,.22);
+  border-radius: 7px;
+  background:
+    linear-gradient(rgba(115,239,246,.18), rgba(115,239,246,.18)) 28px 52px / 104px 2px no-repeat,
+    linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 28px 83px / 150px 1px no-repeat,
+    linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 28px 107px / 150px 1px no-repeat,
+    linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 28px 131px / 125px 1px no-repeat,
+    linear-gradient(rgba(115,239,246,.14), rgba(115,239,246,.14)) 28px 177px / 65px 18px no-repeat,
+    linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 28px 225px / 150px 1px no-repeat;
+  box-shadow: -22px 22px 0 rgba(115,239,246,.025);
+  content: "";
+  transform: rotate(5deg);
+}
+
+.legal-cover .cover-copy { max-width: 790px; }
+.legal-cover .cover-copy h1 { max-width: 700px; font-size: clamp(52px, 6.5vw, 82px); }
+.legal-cover .cover-positioning { max-width: 690px; }
+
+.agent-detail-grid.two-up { grid-template-columns: repeat(2, 1fr); }
+.legal-invariant {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin-top: 20px;
+  background: #dce5e7;
+}
+.legal-invariant strong,
+.legal-invariant span {
+  flex: 1 1 180px;
+  padding: 15px 17px;
+  background: #fff;
+  color: #526a74;
+  font-family: var(--mono);
+  font-size: 9px;
+}
+.legal-invariant strong { color: #087888; }
+
+.compact-boundary { margin-top: 25px; }
+.compact-boundary > div { padding: 24px; }
+.legal-doc-note,
+.roadmap-note {
+  margin-top: 23px;
+  padding: 18px 21px;
+  border-left: 3px solid #27aebd;
+  color: #526b75;
+  background: #eef8f9;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.legal-status-scale { grid-template-columns: repeat(3, 1fr); }
+.legal-control-metrics b { font-size: 19px; }
+.legal-control-metrics div:nth-last-child(-n+3) { border-bottom: 0; }
+
+.legal-paper-body code { overflow-wrap: anywhere; }
+.compare-section code,
+.integration-section code { color: #087888; }
+
+@media (max-width: 900px) {
+  .legal-cover::before { opacity: .35; right: -60px; }
+  .agent-detail-grid.two-up { grid-template-columns: 1fr; }
+}
+
+@media print {
+  .legal-cover::before { right: 15mm; top: 35mm; transform: scale(.8) rotate(5deg); transform-origin: top right; }
+  .legal-cover .cover-copy h1 { font-size: 48pt; }
+  .architecture-section,
+  .methodology-section,
+  .compare-section,
+  .source-section,
+  .privacy-paper-section,
+  .governance-section,
+  .runtime-section,
+  .evaluation-section,
+  .limitations-section,
+  .appendix-section { break-before: page; }
+  .agents-section,
+  .playbook-section,
+  .integration-section,
+  .conclusion-section { break-before: page; }
+  .agent-detail-grid.two-up { display: block !important; }
+  .agent-detail-grid.two-up article { margin-bottom: 12px; }
+  .legal-invariant { display: block; background: transparent; }
+  .legal-invariant strong,
+  .legal-invariant span { display: block; border-bottom: 1px solid #dce5e7; }
+  .legal-status-scale { break-inside: avoid; }
+  .legal-doc-note,
+  .roadmap-note { break-inside: avoid; }
+  .evaluation-section { padding-top: 8mm; padding-bottom: 8mm; }
+  .evaluation-section .roadmap { margin-top: 5mm; }
+  .evaluation-section .roadmap article { margin-bottom: 2mm; padding: 10px 14px; }
+  .evaluation-section .roadmap h3 { margin: 5px 0 7px; }
+  .evaluation-section .roadmap li { margin: 3px 0; font-size: 7.5pt; }
+  .evaluation-section .roadmap-note { margin-top: 3mm; padding: 10px 13px; font-size: 7.5pt; }
+}

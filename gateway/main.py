@@ -11,7 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from . import backup, db, monitoring, upstream
 from .auth import ApiKey, require_api_key
 from .config import get_settings, load_aliases
-from .routes import admin, agents, contact, domain, financial, openai, privacy
+from .routes import admin, agents, contact, domain, financial, legal, openai, privacy
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s  %(levelname)-7s %(name)s  %(message)s"
@@ -57,6 +57,7 @@ app.mount("/assets", StaticFiles(directory=WEBSITE_DIR / "assets"), name="websit
 app.include_router(openai.router)
 app.include_router(privacy.router)
 app.include_router(financial.router)
+app.include_router(legal.router)
 app.include_router(agents.router)
 app.include_router(domain.router)
 app.include_router(admin.router)
@@ -76,6 +77,11 @@ async def api_documentation() -> FileResponse:
 @app.get("/financial-advisor", include_in_schema=False)
 async def financial_advisor_white_paper() -> FileResponse:
     return FileResponse(WEBSITE_DIR / "financial-advisor.html")
+
+
+@app.get("/legal-contracts", include_in_schema=False)
+async def legal_contract_intelligence_white_paper() -> FileResponse:
+    return FileResponse(WEBSITE_DIR / "legal-contracts.html")
 
 
 @app.get("/contact", include_in_schema=False)

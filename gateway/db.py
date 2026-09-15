@@ -1,6 +1,7 @@
 import asyncio
 import sqlite3
 from collections.abc import Iterable
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -138,6 +139,11 @@ def init_db() -> None:
         conn.execute("CREATE INDEX IF NOT EXISTS idx_keys_member ON api_keys (member_id)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_usage_org ON usage_log (org_id)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_usage_member ON usage_log (member_id)")
+        retention_days = max(1, get_settings().domain_audit_retention_days)
+        cutoff = (
+            datetime.now(timezone.utc) - timedelta(days=retention_days)
+        ).isoformat(timespec="seconds")
+        conn.execute("DELETE FROM domain_runs WHERE ts < ?", (cutoff,))
         conn.commit()
 
 

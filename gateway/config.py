@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     cors_origins: str = "*"
     inject_stream_usage: bool = True
     privacy_media_max_bytes: int = 50 * 1024 * 1024
+    domain_audit_retention_days: int = 90
     privacy_whisper_model_path: Path = (
         Path.home()
         / ".grandice"

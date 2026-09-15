@@ -10,13 +10,11 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from pydantic import BaseModel, ValidationError
 
 from grandice_domain import (
-    METHODOLOGY_VERSION,
-    CompanyAnalysisInput,
-    PortfolioAnalysisInput,
-    RiskAssessmentInput,
-    analyze_company,
-    analyze_portfolio,
-    assess_client_risk,
+    LEGAL_METHODOLOGY_VERSION,
+    ContractAnalysisInput,
+    ContractComparisonInput,
+    analyze_contract,
+    compare_contracts,
 )
 
 from ..auth import ApiKey, require_api_key
@@ -29,7 +27,7 @@ from ..domain_runtime import (
 )
 from .openai import _enforce_limit
 
-router = APIRouter(prefix="/v1/financial", tags=["financial"])
+router = APIRouter(prefix="/v1/legal/contracts", tags=["legal"])
 
 InputModel = TypeVar("InputModel", bound=BaseModel)
 OutputModel = TypeVar("OutputModel", bound=BaseModel)
@@ -43,7 +41,7 @@ async def _execute(
     key: ApiKey,
     input_model: type[InputModel],
     analyzer: Callable[[InputModel], OutputModel],
-    agent: str | None = None,
+    timeout_seconds: float,
 ) -> dict[str, Any]:
     _enforce_limit(key)
     started = time.monotonic()
@@ -55,7 +53,7 @@ async def _execute(
         privacy_mode = enforce_domain_privacy(
             request,
             raw_payload,
-            policy="financial-strict-v1",
+            policy="legal-strict-v1",
         )
         payload = input_model.model_validate_json(
             json.dumps(raw_payload, separators=(",", ":"))
@@ -63,12 +61,12 @@ async def _execute(
         try:
             result = await asyncio.wait_for(
                 asyncio.to_thread(analyzer, payload),
-                timeout=5.0,
+                timeout=timeout_seconds,
             )
         except TimeoutError as exc:
             raise HTTPException(
                 503,
-                "Financial analysis exceeded its bounded processing deadline.",
+                "Legal analysis exceeded its bounded processing deadline.",
             ) from exc
     except ValidationError as exc:
         errors = exc.errors(include_input=False, include_context=False)
@@ -83,13 +81,12 @@ async def _execute(
             output_schema=None,
             source_count=0,
             warning_count=0,
-            methodology_version=METHODOLOGY_VERSION,
-            agent=agent,
+            methodology_version=LEGAL_METHODOLOGY_VERSION,
         )
         raise HTTPException(
             422,
             {
-                "message": "Domain inputs failed strict schema validation.",
+                "message": "Legal inputs failed strict schema validation.",
                 "errors": errors[:50],
                 "omitted_error_count": max(0, len(errors) - 50),
             },
@@ -109,8 +106,7 @@ async def _execute(
                 len(payload.metadata.sources) if payload is not None else 0
             ),
             warning_count=0,
-            methodology_version=METHODOLOGY_VERSION,
-            agent=agent,
+            methodology_version=LEGAL_METHODOLOGY_VERSION,
         )
         raise
 
@@ -126,10 +122,10 @@ async def _execute(
         source_count=len(payload.metadata.sources),
         warning_count=len(result.warnings),
         methodology_version=result.methodology_version,
-        agent=agent,
     )
     response.headers["X-Grandice-Request-Id"] = request_id
     response.headers["X-Grandice-Content-Retained"] = "false"
+    response.headers["X-Grandice-Legal-Advice"] = "false"
     return domain_envelope(
         request_id=request_id,
         privacy_mode=privacy_mode,
@@ -138,85 +134,59 @@ async def _execute(
 
 
 @router.post(
-    "/portfolio/analyze",
+    "/review",
     openapi_extra={
         "requestBody": {
             "required": True,
             "content": {
                 "application/json": {
-                    "schema": PortfolioAnalysisInput.model_json_schema()
+                    "schema": ContractAnalysisInput.model_json_schema()
                 }
             },
         }
     },
 )
-async def portfolio_analysis(
+async def review_contract(
     request: Request,
     response: Response,
     key: ApiKey = Depends(require_api_key),
 ) -> dict[str, Any]:
     return await _execute(
-        endpoint="/v1/financial/portfolio/analyze",
+        endpoint="/v1/legal/contracts/review",
         request=request,
         response=response,
         key=key,
-        input_model=PortfolioAnalysisInput,
-        analyzer=analyze_portfolio,
+        input_model=ContractAnalysisInput,
+        analyzer=analyze_contract,
+        timeout_seconds=5.0,
     )
 
 
 @router.post(
-    "/risk-assessment",
+    "/compare",
     openapi_extra={
         "requestBody": {
             "required": True,
             "content": {
                 "application/json": {
-                    "schema": RiskAssessmentInput.model_json_schema()
+                    "schema": ContractComparisonInput.model_json_schema()
                 }
             },
         }
     },
 )
-async def risk_assessment(
+async def compare_contract_versions(
     request: Request,
     response: Response,
     key: ApiKey = Depends(require_api_key),
 ) -> dict[str, Any]:
     return await _execute(
-        endpoint="/v1/financial/risk-assessment",
+        endpoint="/v1/legal/contracts/compare",
         request=request,
         response=response,
         key=key,
-        input_model=RiskAssessmentInput,
-        analyzer=assess_client_risk,
-    )
-
-
-@router.post(
-    "/company/analyze",
-    openapi_extra={
-        "requestBody": {
-            "required": True,
-            "content": {
-                "application/json": {
-                    "schema": CompanyAnalysisInput.model_json_schema()
-                }
-            },
-        }
-    },
-)
-async def company_analysis(
-    request: Request,
-    response: Response,
-    key: ApiKey = Depends(require_api_key),
-) -> dict[str, Any]:
-    return await _execute(
-        endpoint="/v1/financial/company/analyze",
-        request=request,
-        response=response,
-        key=key,
-        input_model=CompanyAnalysisInput,
-        analyzer=analyze_company,
+        input_model=ContractComparisonInput,
+        analyzer=compare_contracts,
+        timeout_seconds=10.0,
     )
 

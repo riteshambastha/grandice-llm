@@ -259,6 +259,7 @@ code { font-family: var(--mono); }
 .feature-card > code { display: inline-block; margin-top: 28px; padding: 10px 13px; border-radius: 6px; color: #0d7582; background: #edf7f8; font-size: 11px; }
 .feature-card p code { color: #127f8d; }
 .feature-link { display: block; margin-top: 22px; color: #087f8e; font-size: 12px; font-weight: 720; }
+.feature-link.compact { margin-top: 8px; }
 .feature-link:hover { color: #045c67; }
 
 .privacy-section { color: var(--white); background: #09202c; }

@@ -175,11 +175,23 @@ class DomainApiTests(unittest.TestCase):
         response = self.client.get("/v1/agents")
         self.assertEqual(response.status_code, 200)
         definitions = response.json()["data"]
-        self.assertEqual(len(definitions), 3)
+        self.assertEqual(len(definitions), 5)
+        self.assertEqual(
+            {item["id"] for item in definitions},
+            {
+                "financial.portfolio-analyst.v1",
+                "financial.risk-assessment.v1",
+                "financial.company-analyst.v1",
+                "legal.contract-reviewer.v1",
+                "legal.contract-comparator.v1",
+            },
+        )
         self.assertTrue(
             all(item["professional_review_required"] for item in definitions)
         )
-        self.assertTrue(all(item["source_grounded"] for item in definitions))
+        self.assertTrue(
+            all(item["caller_source_attributed"] for item in definitions)
+        )
 
     @patch(
         "gateway.routes.domain.db.fetch_one",
