@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Contact Grandice with a question, partnership enquiry or product feedback.">
+  <title>Contact Us — Grandice</title>
+  <link rel="stylesheet" href="/assets/styles.css?v=20260914">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="/assets/app.js?v=20260914b" defer></script>
+</head>
+<body class="contact-body">
+  <header class="site-header contact-header" data-header>
+    <a class="brand" href="/" aria-label="Grandice home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" role="img"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg>
+      </span>
+      <span>grandice</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-nav-toggle>
+      <span></span><span></span>
+    </button>
+    <nav class="main-nav" data-nav>
+      <a href="/#why">Why Grandice</a>
+      <a href="/#platform">Platform</a>
+      <a href="/#models">Models</a>
+      <a href="/contact" aria-current="page">Contact us</a>
+      <a class="nav-cta" href="/api-docs">API documentation <span>↗</span></a>
+    </nav>
+  </header>
+
+  <main class="contact-main">
+    <div class="contact-glow" aria-hidden="true"></div>
+    <section class="contact-intro">
+      <div class="eyebrow"><span></span> Start a conversation</div>
+      <h1>Tell us what you are building.</h1>
+      <p>
+        Have a question about the platform, an integration idea or feedback for
+        our team? Send us a note and we will reply by email.
+      </p>
+      <div class="contact-points">
+        <div><span>01</span><p><strong>Platform questions</strong>Architecture, models, capabilities and deployment.</p></div>
+        <div><span>02</span><p><strong>Team access</strong>API access and application onboarding for your team.</p></div>
+        <div><span>03</span><p><strong>Feedback</strong>Tell us what would make Grandice more useful.</p></div>
+      </div>
+    </section>
+
+    <section class="contact-card" aria-labelledby="contact-form-heading">
+      <div class="contact-card-heading">
+        <span>CONTACT GRANDICE</span>
+        <h2 id="contact-form-heading">How can we help?</h2>
+      </div>
+      <form data-contact-form novalidate>
+        <div class="form-field">
+          <label for="contact-name">Name</label>
+          <input id="contact-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+        </div>
+        <div class="form-field">
+          <label for="contact-email">Email</label>
+          <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+        </div>
+        <div class="form-field">
+          <label for="contact-question">Question or feedback</label>
+          <textarea id="contact-question" name="question" rows="7" minlength="10" maxlength="5000" required></textarea>
+          <small>Up to 5,000 characters</small>
+        </div>
+        <div class="contact-honeypot" aria-hidden="true">
+          <label for="contact-website">Website</label>
+          <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="captcha-row">
+          <div class="cf-turnstile" data-sitekey="{{TURNSTILE_SITE_KEY}}" data-action="contact" data-theme="light"></div>
+          <span>Protected by Cloudflare Turnstile</span>
+        </div>
+        <div class="form-status" role="alert" aria-live="polite" data-contact-status></div>
+        <button class="button button-primary contact-submit" type="submit">
+          <span data-submit-label>Send message</span><span aria-hidden="true">→</span>
+        </button>
+        <p class="form-privacy">Your details are used only to respond to this enquiry.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer contact-footer">
+    <a class="brand footer-brand" href="/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg>
+      </span>
+      <span>grandice</span>
+    </a>
+    <p>Private AI infrastructure. Built for sustainable scale.</p>
+    <div><a href="/">Website</a><a href="/api-docs">API documentation</a><a href="/contact">Contact us</a></div>
+    <small>© 2026 Grandice. All rights reserved.</small>
+  </footer>
+</body>
+</html>

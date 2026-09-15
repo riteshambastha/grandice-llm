@@ -1,0 +1,15 @@
+{
+  "aliases": {
+    "chat": "qwen3:8b",
+    "smart": "qwen3.5:9b",
+    "fast": "qwen3.5:4b",
+    "code": "qwen2.5-coder:7b",
+    "vision": "qwen2.5vl:7b",
+    "embed": "nomic-embed-text"
+  },
+  "reasoning": {
+    "_comment": "Reasoning models emit a long internal monologue by default, which costs latency and tokens even for trivial prompts (measured: 136 tokens vs 5 for a two-word answer). The gateway therefore turns thinking off unless a caller explicitly asks for it by sending its own reasoning_effort.",
+    "default_effort": "none",
+    "applies_to": ["qwen3", "deepseek-r1", "qwq", "gpt-oss", "magistral", "smollm3"]
+  }
+}

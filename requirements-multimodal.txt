@@ -1,0 +1,11 @@
+# Optional local-only multimodal privacy dependencies.
+# System executables (not installed by pip): tesseract, ffmpeg, and ffprobe.
+# Supply faster-whisper with a pre-existing local model directory; the processor
+# sets local_files_only=True and never downloads a model.
+Pillow==12.3.0
+pytesseract==0.3.13
+opencv-contrib-python-headless==5.0.0.93
+numpy==2.4.6
+faster-whisper==1.2.1
+
+# The OpenCV contrib build supplies local QR and 1D/2D barcode detection.

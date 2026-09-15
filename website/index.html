@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Grandice provides private inference and auditable, source-grounded workflows through developer-friendly APIs, with local-first sensitive-data protection.">
+  <title>Grandice — Own your AI infrastructure</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header" data-header>
+      <a class="brand" href="/" aria-label="Grandice home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="img"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg>
+        </span>
+        <span>grandice</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+      <nav class="main-nav" data-nav>
+        <a href="#why">Why Grandice</a>
+        <a href="#platform">Platform</a>
+        <a href="#privacy">Privacy Shield</a>
+        <a href="/financial-advisor">Financial agents</a>
+        <a href="#models">Models</a>
+        <a href="#security">Security</a>
+        <a href="/contact">Contact us</a>
+        <a class="nav-cta" href="/api-docs">API documentation <span>↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> Private AI infrastructure</div>
+          <h1>Stop renting intelligence <em>by the token.</em></h1>
+          <p class="hero-lead">
+            A self-hosted AI platform for teams that are done watching usage meters
+            drain their technology budget. Run capable open models behind one secure,
+            provider-grade API.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="/api-docs">Explore the API <span>→</span></a>
+            <a class="button button-secondary" href="#platform">See how it works</a>
+          </div>
+          <div class="hero-proof">
+            <div><strong>0</strong><span>per-token vendor fees</span></div>
+            <div><strong>6</strong><span>purpose-built model options</span></div>
+            <div><strong>100%</strong><span>self-hosted inference</span></div>
+          </div>
+        </div>
+
+        <div class="hero-console" aria-label="Example API request">
+          <div class="console-top">
+            <div class="console-dots"><i></i><i></i><i></i></div>
+            <span>POST /v1/chat/completions</span>
+            <span class="live-pill"><i></i> Live</span>
+          </div>
+          <div class="console-code">
+            <span class="code-muted">$</span> curl <span class="code-cyan">https://llm.grand-ice.com</span>\<br>
+            &nbsp;&nbsp;<span class="code-muted">-H</span> <span class="code-string">"Authorization: Bearer $KEY"</span> \<br>
+            &nbsp;&nbsp;<span class="code-muted">-d</span> <span class="code-string">'{</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"model"</span>: <span class="code-string">"smart"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"messages"</span>: [...]<br>
+            &nbsp;&nbsp;<span class="code-string">}'</span>
+          </div>
+          <div class="console-result">
+            <div class="result-icon">✓</div>
+            <div><strong>200 OK</strong><span>Private inference completed</span></div>
+            <div class="result-time">2.4s</div>
+          </div>
+          <div class="console-grid">
+            <div><span>Model route</span><strong>smart → qwen3.5:9b</strong></div>
+            <div><span>Data destination</span><strong>Your infrastructure</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-strip" aria-label="Platform characteristics">
+        <span>PROVIDER-GRADE API</span><i></i>
+        <span>LOCAL INFERENCE</span><i></i>
+        <span>API KEY SECURITY</span><i></i>
+        <span>LOCAL-FIRST PRIVACY</span><i></i>
+        <span>USAGE CONTROLS</span><i></i>
+        <span>OPEN-WEIGHT MODELS</span>
+      </section>
+
+      <section class="section problem-section" id="why">
+        <div class="section-heading">
+          <div class="eyebrow dark"><span></span> The economics are broken</div>
+          <h2>Your AI budget should fund products—not unpredictable token bills.</h2>
+        </div>
+        <div class="problem-layout">
+          <div class="problem-statement">
+            <p>
+              Prototypes are cheap. Production is not. Once customers, agents and
+              internal workflows start making millions of calls, every useful
+              interaction becomes another line item.
+            </p>
+            <p>
+              Grandice changes the unit economics: invest in infrastructure once,
+              then use it continuously without a vendor charging for every input
+              and output token.
+            </p>
+          </div>
+          <div class="cost-card">
+            <div class="cost-card-label">The traditional AI bill</div>
+            <div class="cost-line"><span>Input tokens</span><strong>metered</strong></div>
+            <div class="cost-line"><span>Output tokens</span><strong>metered</strong></div>
+            <div class="cost-line"><span>Embedding calls</span><strong>metered</strong></div>
+            <div class="cost-line"><span>Usage growth</span><strong>budget risk ↑</strong></div>
+            <div class="cost-total"><span>Grandice token bill</span><strong>$0.00</strong></div>
+            <small>Hardware, electricity and operations remain your responsibility.</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="section platform-section" id="platform">
+        <div class="section-heading centered">
+          <div class="eyebrow"><span></span> One private AI layer</div>
+          <h2>The capabilities teams expect from leading LLM platforms. The infrastructure you control.</h2>
+          <p>Move from hosted providers without rebuilding your application stack.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card feature-card-wide">
+            <div class="feature-number">01</div>
+            <div class="feature-icon">⌁</div>
+            <h3>Familiar integration</h3>
+            <p>Point your preferred HTTP client or SDK at one base URL. Chat, streaming, tools, vision and embeddings follow familiar request formats.</p>
+            <code>base_url="https://llm.grand-ice.com/v1"</code>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">02</div>
+            <div class="feature-icon">◇</div>
+            <h3>Private by design</h3>
+            <p>Prompts and model inference stay on infrastructure you operate—not in a third-party model provider’s cloud.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">03</div>
+            <div class="feature-icon">↯</div>
+            <h3>Predictable economics</h3>
+            <p>No per-token vendor invoice. Capacity is determined by your hardware, concurrency and operating policy.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">04</div>
+            <div class="feature-icon">⌘</div>
+            <h3>Governed access</h3>
+            <p>Issue a unique key per team or application, restrict model access, set rate limits and review usage centrally.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">05</div>
+            <div class="feature-icon">⇄</div>
+            <h3>Models without lock-in</h3>
+            <p>Stable aliases decouple applications from model versions. Upgrade the model behind <code>smart</code> without touching client code.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">06</div>
+            <div class="feature-icon">◎</div>
+            <h3>Auditable domain workflows</h3>
+            <p>Typed financial APIs now separate deterministic calculations, source metadata, privacy checks and professional-review requirements.</p>
+            <code>POST /v1/financial/portfolio/analyze</code>
+            <a class="feature-link" href="/financial-advisor">Read the financial agents white paper →</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section privacy-section" id="privacy">
+        <div class="privacy-intro">
+          <div>
+            <div class="eyebrow dark"><span></span> Grandice Privacy Shield</div>
+            <h2>Sensitive data can stop before the network starts.</h2>
+          </div>
+          <div>
+            <p>
+              Grandice provides auditable, source-grounded domain workflows through
+              developer-friendly APIs. Privacy Shield adds a local protection boundary
+              for prompts, structured data and multimodal inputs before those workflows run.
+            </p>
+            <a class="text-link" href="/api-docs#privacy-overview">Explore the privacy APIs <span>→</span></a>
+          </div>
+        </div>
+
+        <div class="privacy-modes">
+          <article>
+            <span class="privacy-mode-label">01 · ZERO TRANSFER</span>
+            <h3>Client-side SDKs</h3>
+            <p>Python and TypeScript protection runs inside your application. Original values and reversible token maps stay in your process.</p>
+            <code>mode: "client"</code>
+          </article>
+          <article class="featured">
+            <span class="privacy-mode-label">02 · ZERO TRANSFER</span>
+            <h3>Local privacy sidecar</h3>
+            <p>Point an existing OpenAI-compatible application at a loopback proxy for policy enforcement, local media processing and safe rehydration.</p>
+            <code>localhost:8090/v1</code>
+          </article>
+          <article>
+            <span class="privacy-mode-label">03 · ZERO RETENTION</span>
+            <h3>Hosted redaction API</h3>
+            <p>Detect, mask or tokenize JSON with a single authenticated request. Original content reaches Grandice memory but is not written by the privacy layer.</p>
+            <code>POST /v1/privacy/redact</code>
+          </article>
+        </div>
+
+        <div class="privacy-proof">
+          <div><strong>Text + JSON</strong><span>Recursive detection, masking and tokenization</span></div>
+          <div><strong>Images + audio + video</strong><span>Local OCR, visual, speech and metadata pipelines</span></div>
+          <div><strong>Fail closed</strong><span>Unsupported inputs are blocked instead of sent unprotected</span></div>
+          <div><strong>Privacy receipts</strong><span>Policy and counts without original sensitive values</span></div>
+        </div>
+        <div class="privacy-runtime">
+          <div>
+            <span class="live-pill"><i></i> Local media runtime active</span>
+            <strong>Multimodal protection is installed and validated on this host.</strong>
+          </div>
+          <ul aria-label="Installed privacy capabilities">
+            <li>Tesseract OCR</li>
+            <li>Face detection</li>
+            <li>QR + barcode detection</li>
+            <li>FFmpeg frame processing</li>
+            <li>Local Whisper transcription</li>
+            <li>Metadata removal</li>
+          </ul>
+        </div>
+        <p class="privacy-disclosure">
+          Zero-transfer applies only when protection runs in the client SDK or local sidecar.
+          Hosted processing is zero-retention, not zero-transfer. Automated detection has
+          limitations and high-risk outputs still require review.
+        </p>
+      </section>
+
+      <section class="section models-section" id="models">
+        <div class="models-intro">
+          <div class="eyebrow dark"><span></span> The model fleet</div>
+          <h2>Choose the right intelligence for every workload.</h2>
+          <p>Simple aliases make capability selection clear for developers and end users.</p>
+          <a class="text-link" href="/api-docs#models">View model documentation <span>→</span></a>
+        </div>
+        <div class="model-list">
+          <div class="model-row featured">
+            <div class="model-badge">S</div><div><strong>smart</strong><span>Complex work, vision, tools &amp; code</span></div><small>Qwen 3.5 · 9B</small>
+          </div>
+          <div class="model-row">
+            <div class="model-badge">F</div><div><strong>fast</strong><span>Low-latency chat &amp; vision</span></div><small>Qwen 3.5 · 4B</small>
+          </div>
+          <div class="model-row">
+            <div class="model-badge">C</div><div><strong>chat</strong><span>General conversation &amp; tools</span></div><small>Qwen 3 · 8B</small>
+          </div>
+          <div class="model-row">
+            <div class="model-badge">&lt;/&gt;</div><div><strong>code</strong><span>Generation, review &amp; completion</span></div><small>Qwen 2.5 Coder · 7B</small>
+          </div>
+          <div class="model-row">
+            <div class="model-badge">◉</div><div><strong>vision</strong><span>Images, screenshots &amp; OCR</span></div><small>Qwen 2.5 VL · 7B</small>
+          </div>
+          <div class="model-row">
+            <div class="model-badge">E</div><div><strong>embed</strong><span>RAG &amp; semantic search</span></div><small>Nomic Embed Text</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="architecture-band">
+        <div class="architecture-copy">
+          <div class="eyebrow"><span></span> Clear by architecture</div>
+          <h2>Your apps connect securely. Your data stays close.</h2>
+          <p>Client SDKs or the local sidecar can sanitize sensitive values before transmission. Cloudflare provides encrypted ingress, the authenticated gateway governs every request, and model weights remain isolated on the private host.</p>
+        </div>
+        <div class="architecture-flow" aria-label="Grandice request architecture">
+          <div class="flow-node"><i>01</i><strong>Your applications</strong><span>SDK · local privacy</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node accent"><i>02</i><strong>Grandice gateway</strong><span>Auth · policy · logs</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><i>03</i><strong>Local models</strong><span>Private inference</span></div>
+        </div>
+      </section>
+
+      <section class="section security-section" id="security">
+        <div class="section-heading">
+          <div class="eyebrow dark"><span></span> Built for responsible access</div>
+          <h2>Freedom from token fees does not mean freedom from controls.</h2>
+        </div>
+        <div class="security-grid">
+          <div><span>01</span><h3>Per-application API keys</h3><p>Separate credentials make access revocable and usage attributable.</p></div>
+          <div><span>02</span><h3>Model-level permissions</h3><p>Limit each key to the capabilities that application actually needs.</p></div>
+          <div><span>03</span><h3>Rate limiting</h3><p>Protect finite local capacity from accidental loops and abusive traffic.</p></div>
+          <div><span>04</span><h3>Private model host</h3><p>Ollama stays bound to localhost; only the authenticated gateway is published.</p></div>
+          <div><span>05</span><h3>Privacy policy enforcement</h3><p>Versioned policies, residual checks and fail-closed processing prevent known sensitive data from silently bypassing protection.</p></div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div>
+          <div class="eyebrow"><span></span> Build without the meter running</div>
+          <h2>Give your applications an AI budget they cannot exhaust.</h2>
+        </div>
+        <a class="button button-light" href="/api-docs">Read the API documentation <span>→</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="/">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+        <span>grandice</span>
+      </a>
+      <p>Private, self-hosted AI infrastructure. No per-token vendor fees.</p>
+      <div><a href="/api-docs">API documentation</a><a href="/financial-advisor">Financial agents</a><a href="/contact">Contact us</a><a href="/health">System health</a></div>
+      <small>© 2026 Grandice. Built on open-weight models.</small>
+    </footer>
+  </div>
+</body>
+</html>

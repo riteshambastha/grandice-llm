@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Complete API documentation for the Grandice self-hosted, provider-grade AI platform.">
+  <title>API Documentation — Grandice</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body class="docs-body">
+  <header class="docs-header">
+    <a class="brand" href="/" aria-label="Grandice home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg>
+      </span>
+      <span>grandice</span>
+      <b>API docs</b>
+    </a>
+    <div class="docs-header-actions">
+      <a class="status-chip" href="/health"><i></i> API status</a>
+      <a href="/financial-advisor">Financial agents</a>
+      <a href="/contact">Contact us</a>
+      <a href="/">Back to website</a>
+    </div>
+  </header>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar">
+      <div class="docs-version">DOCUMENTATION <span>v1.0</span></div>
+      <nav data-docs-nav>
+        <a href="#introduction" class="active">Introduction</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="#authentication">Authentication</a>
+        <span>Privacy Shield</span>
+        <a href="#privacy-overview">Privacy overview</a>
+        <a href="#privacy-modes">Deployment modes</a>
+        <a href="#privacy-endpoints">Privacy endpoints</a>
+        <a href="#privacy-sdks">SDKs and sidecar</a>
+        <a href="#privacy-media">Multimodal privacy</a>
+        <span>Domain intelligence</span>
+        <a href="/financial-advisor">Financial white paper ↗</a>
+        <a href="#financial-apis">Financial APIs</a>
+        <a href="#managed-agents">Managed agents</a>
+        <a href="#models">Models</a>
+        <span>Core endpoints</span>
+        <a href="#list-models">List models</a>
+        <a href="#chat">Chat completions</a>
+        <a href="#streaming">Streaming</a>
+        <a href="#vision">Vision</a>
+        <a href="#tools">Tool calling</a>
+        <a href="#embeddings">Embeddings</a>
+        <a href="#completions">Text completions</a>
+        <span>Operations</span>
+        <a href="#status">Status</a>
+        <a href="#errors">Errors</a>
+        <a href="#limits">Rate limits</a>
+        <a href="#admin">Admin API</a>
+      </nav>
+      <div class="sidebar-help">
+        <strong>Need a key?</strong>
+        <p>Ask your Grandice administrator for a dedicated application key.</p>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <section class="docs-hero docs-anchor" id="introduction">
+        <div class="eyebrow dark"><span></span> Developer documentation</div>
+        <h1>Grandice API</h1>
+        <p>
+          An authenticated, provider-grade API for privately hosted models and
+          local-first sensitive-data protection.
+        </p>
+        <div class="base-url-card">
+          <div><span>BASE URL</span><code>https://llm.grand-ice.com/v1</code></div>
+          <button class="copy-button" type="button" data-copy="https://llm.grand-ice.com/v1">Copy</button>
+        </div>
+        <div class="docs-callout">
+          <strong>No external model-provider account is required.</strong>
+          <p>The API uses familiar chat-completion request formats, while inference runs on Grandice-owned infrastructure. Use a Grandice <code>gll-…</code> key.</p>
+        </div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="quickstart">
+        <div class="doc-kicker">GET STARTED</div>
+        <h2>Quickstart</h2>
+        <p>Make your first request using the <code>smart</code> model alias.</p>
+        <div class="code-panel">
+          <div class="code-tabs" role="tablist">
+            <button class="active" data-code-tab="curl">cURL</button>
+            <button data-code-tab="python">Python</button>
+            <button data-code-tab="node">Node.js</button>
+          </div>
+          <div class="code-block active" data-code-panel="curl">
+            <button class="copy-code" type="button" aria-label="Copy code">Copy</button>
+<pre><code>curl https://llm.grand-ice.com/v1/chat/completions \
+  -H "Authorization: Bearer $GRANDICE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "smart",
+    "messages": [
+      {"role": "user", "content": "Explain private AI in one sentence."}
+    ]
+  }'</code></pre>
+          </div>
+          <div class="code-block" data-code-panel="python">
+            <button class="copy-code" type="button" aria-label="Copy code">Copy</button>
+<pre><code>import os
+import httpx
+
+response = httpx.post(
+    "https://llm.grand-ice.com/v1/chat/completions",
+    headers={"Authorization": f"Bearer {os.environ['GRANDICE_API_KEY']}"},
+    json={
+        "model": "smart",
+        "messages": [
+            {"role": "user", "content": "Explain private AI in one sentence."}
+        ],
+    },
+    timeout=120,
+)
+response.raise_for_status()
+print(response.json()["choices"][0]["message"]["content"])</code></pre>
+          </div>
+          <div class="code-block" data-code-panel="node">
+            <button class="copy-code" type="button" aria-label="Copy code">Copy</button>
+<pre><code>const response = await fetch(
+  "https://llm.grand-ice.com/v1/chat/completions",
+  {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.GRANDICE_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "smart",
+      messages: [
+        { role: "user", content: "Explain private AI in one sentence." },
+      ],
+    }),
+  },
+);
+if (!response.ok) {
+  throw new Error(`Grandice request failed: ${response.status}`);
+}
+const data = await response.json();
+console.log(data.choices[0].message.content);</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="authentication">
+        <div class="doc-kicker">SECURITY</div>
+        <h2>Authentication</h2>
+        <p>Every <code>/v1</code> request requires a Grandice API key in the standard bearer header.</p>
+        <div class="mini-code"><code>Authorization: Bearer gll-your-application-key</code><button class="copy-code" type="button">Copy</button></div>
+        <div class="doc-grid">
+          <div><strong>Keep keys server-side</strong><p>Never embed a key in frontend JavaScript, mobile binaries or a public repository.</p></div>
+          <div><strong>One key per application</strong><p>Separate keys make limits, access, usage and revocation manageable.</p></div>
+        </div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="privacy-overview">
+        <div class="doc-kicker">GRANDICE PRIVACY SHIELD</div>
+        <h2>Protect sensitive data before inference</h2>
+        <p>Privacy Shield detects and transforms sensitive values in prompts and structured data. The same versioned policies power client SDKs, a local OpenAI-compatible sidecar and authenticated hosted utilities.</p>
+        <div class="docs-callout">
+          <strong>Zero-transfer and zero-retention are different guarantees.</strong>
+          <p>Client SDK and sidecar protection runs in your environment, so original values do not reach Grandice. Hosted privacy receives original content in memory and is therefore zero-retention—not zero-transfer.</p>
+        </div>
+        <div class="doc-grid">
+          <div><strong>Fail-closed processing</strong><p>Unsupported bodies, remote media, unsafe streaming and incomplete multimedia coverage are rejected instead of forwarded unprotected.</p></div>
+          <div><strong>Metadata-only receipts</strong><p>Receipts report policy versions, processing location and entity counts without returning original sensitive values.</p></div>
+        </div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="privacy-modes">
+        <div class="doc-kicker">DEPLOYMENT BOUNDARY</div>
+        <h2>Choose where protection runs</h2>
+        <div class="privacy-doc-modes">
+          <div><code>client</code><strong>Python or TypeScript SDK</strong><p>Tokenization and the reversible vault remain inside the application process. Best for applications you control.</p><span>ZERO TRANSFER</span></div>
+          <div><code>sidecar</code><strong>Local compatibility proxy</strong><p>Existing OpenAI-compatible applications point to <code>127.0.0.1:8090/v1</code>. Best when changing application code is difficult.</p><span>ZERO TRANSFER</span></div>
+          <div><code>hosted</code><strong>Gateway privacy middleware</strong><p>Grandice masks the request before model inference and masks the response before returning it. Original input reaches gateway memory.</p><span>ZERO RETENTION</span></div>
+        </div>
+        <p>Apply hosted privacy to an existing model request without a separate preprocessing call:</p>
+<pre class="standalone-code"><code>POST /v1/chat/completions
+Authorization: Bearer gll-...
+X-Grandice-Privacy-Mode: hosted
+X-Grandice-Privacy-Policy: financial-strict-v1
+Content-Type: application/json</code></pre>
+        <div class="docs-note"><strong>Streaming:</strong> hosted and local automatic rehydration currently reject <code>stream: true</code>. A protected token can span stream chunks, so returning an incompletely inspected stream would break the privacy contract.</div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="privacy-endpoints">
+        <div class="doc-kicker">HOSTED UTILITIES</div>
+        <h2>Privacy endpoints</h2>
+        <p>These routes require a normal Grandice API key and share its request-per-minute limit.</p>
+        <div class="admin-endpoints">
+          <div><span class="method get">GET</span><code>/v1/privacy/capabilities</code><p>Report installed structured-data and local multimedia capabilities.</p></div>
+          <div><span class="method get">GET</span><code>/v1/privacy/policies</code><p>List versioned policies and enabled entity categories.</p></div>
+          <div><span class="method post">POST</span><code>/v1/privacy/detect</code><p>Return finding locations and categories without transforming the input.</p></div>
+          <div><span class="method post">POST</span><code>/v1/privacy/redact</code><p>Irreversibly mask detected values.</p></div>
+          <div><span class="method post">POST</span><code>/v1/privacy/tokenize</code><p>Replace repeated values with consistent ephemeral placeholders. The hosted service does not retain a restoration map.</p></div>
+          <div><span class="method post">POST</span><code>/v1/privacy/media/redact</code><p>Local sidecar multimedia route. The hosted route currently refuses disk-backed media processing.</p></div>
+        </div>
+        <div class="response-label">Request</div>
+<pre class="standalone-code"><code>{
+  "policy": "financial-strict-v1",
+  "data": {
+    "prompt": "Email alice@example.com about account 87432291."
+  }
+}</code></pre>
+        <div class="response-label">Redaction response</div>
+<pre class="standalone-code"><code>{
+  "data": {
+    "prompt": "Email a***@example.com about ******* ****2291."
+  },
+  "findings": [
+    {
+      "entity_type": "EMAIL_ADDRESS",
+      "path": "$.prompt",
+      "start": 6,
+      "end": 23,
+      "confidence": 0.98,
+      "detector": "pattern:email_address"
+    }
+  ],
+  "receipt": {
+    "processing_location": "hosted",
+    "policy": "financial-strict-v1",
+    "raw_content_transferred": true,
+    "content_retained": false
+  }
+}</code></pre>
+        <div class="docs-note">Finding objects deliberately omit original values. Built-in policies are <code>general-v1</code>, <code>strict-v1</code>, <code>financial-strict-v1</code> and <code>legal-strict-v1</code>.</div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="privacy-sdks">
+        <div class="doc-kicker">ZERO-TRANSFER INTEGRATION</div>
+        <h2>Client SDKs and local sidecar</h2>
+        <p>The Python client creates a request-scoped local vault, sends only tokenized JSON and safely restores user-visible response text.</p>
+<pre class="standalone-code"><code>from grandice_privacy import GrandicePrivacyClient
+
+with GrandicePrivacyClient(
+    base_url="https://llm.grand-ice.com/v1",
+    api_key="gll-...",
+    policy="financial-strict-v1",
+) as client:
+    response = client.post(
+        "/chat/completions",
+        json={
+            "model": "smart",
+            "messages": [{
+                "role": "user",
+                "content": "Email alice@example.com about account 87432291."
+            }],
+        },
+    )</code></pre>
+        <p>TypeScript applications can wrap <code>fetch</code> with <code>createPrivacyFetch</code>. Binary and unsupported request body types are refused rather than sent unchanged.</p>
+<pre class="standalone-code"><code>import { createPrivacyFetch } from "@grandice/privacy";
+
+const privacyFetch = createPrivacyFetch({
+  policy: "financial-strict-v1",
+});</code></pre>
+        <p>For an existing application, start the sidecar and change only the base URL:</p>
+<pre class="standalone-code"><code>.\scripts\start-privacy-sidecar.ps1 `
+  -Upstream "https://llm.grand-ice.com" `
+  -Policy "financial-strict-v1"
+
+# Application base URL
+http://127.0.0.1:8090/v1</code></pre>
+        <div class="docs-note"><strong>Safe restoration:</strong> automatic rehydration is limited to user-visible <code>content</code>, <code>text</code> and <code>output_text</code>. Tokens inside tool calls and function arguments remain protected to prevent secret injection into executable operations.</div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="privacy-media">
+        <div class="doc-kicker">LOCAL MULTIMODAL PROCESSING</div>
+        <h2>Images, audio and video</h2>
+        <p>The sidecar pipeline strips metadata; redacts OCR-matched text, faces, QR codes and barcodes; mutes sensitive speech intervals using local transcription; and processes every video frame plus its audio track.</p>
+        <div class="parameter-list">
+          <div><code>content_base64</code><span>string · required</span><p>Base64 content or a matching data URL.</p></div>
+          <div><code>media_type</code><span>string · required</span><p>Supported image, audio or video MIME type.</p></div>
+          <div><code>policy</code><span>string · optional</span><p>Defaults to the sidecar policy.</p></div>
+        </div>
+<pre class="standalone-code"><code>POST http://127.0.0.1:8090/v1/privacy/media/redact
+Content-Type: application/json
+
+{
+  "media_type": "image/png",
+  "policy": "strict-v1",
+  "content_base64": "iVBORw0KGgo..."
+}</code></pre>
+        <ul class="docs-list">
+          <li>Remote media URLs are refused because they cannot be sanitized before retrieval.</li>
+          <li>Strict image and video processing requires local OCR, face, QR and barcode detectors.</li>
+          <li>Audio and video require FFmpeg, FFprobe and a preinstalled local Whisper model.</li>
+          <li>The processor never downloads a speech model while handling a request.</li>
+        </ul>
+        <div class="docs-callout">
+          <strong>Automated detection is not a proof that media contains no sensitive information.</strong>
+          <p>OCR, speech recognition and visual detectors can miss content. High-risk financial and legal material requires human review and representative accuracy evaluations.</p>
+        </div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="financial-apis">
+        <div class="doc-kicker">DOMAIN INTELLIGENCE · FINANCIAL</div>
+        <h2>Deterministic financial analysis APIs</h2>
+        <p>The first domain release performs exact decimal calculations from caller-cited inputs. It does not rely on model arithmetic and does not produce personalized buy, sell, product or allocation recommendations.</p>
+        <div class="admin-endpoints">
+          <div><span class="method post">POST</span><code>/v1/financial/portfolio/analyze</code><p>Weights, asset/sector/country allocation, HHI, effective positions, concentration and diversification flags.</p></div>
+          <div><span class="method post">POST</span><code>/v1/financial/risk-assessment</code><p>Transparent weighted scoring across bounded, non-identifying risk dimensions.</p></div>
+          <div><span class="method post">POST</span><code>/v1/financial/company/analyze</code><p>Historical growth, margins, net debt, leverage and valuation multiples when supported by supplied inputs.</p></div>
+        </div>
+        <div class="response-label">Portfolio request</div>
+<pre class="standalone-code"><code>{
+  "metadata": {
+    "as_of": "2026-09-14",
+    "sources": [{
+      "source_id": "custodian",
+      "citation": "Caller-supplied custodian record",
+      "as_of": "2026-09-14"
+    }]
+  },
+  "reporting_currency": "USD",
+  "positions": [{
+    "instrument_id": "FUND-A",
+    "market_value": "75000.00",
+    "asset_class": "Equity",
+    "sector": "Diversified",
+    "country": "US",
+    "source_id": "custodian"
+  }]
+}</code></pre>
+        <ul class="docs-list">
+          <li>Send monetary values as decimal strings; binary floating-point values are rejected.</li>
+          <li>Every fact-bearing record must reference caller-provided source metadata and an as-of date.</li>
+          <li>After authentication, quota and size checks, configured detectors scan raw JSON before schema validation.</li>
+          <li>The residual check is best-effort policy coverage—not proof that no personal data exists.</li>
+          <li>Responses include assumptions, limitations, warnings, methodology version and <code>professional_review_required: true</code>.</li>
+          <li>Audit storage contains run metadata only—not request or response bodies.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section docs-anchor" id="managed-agents">
+        <div class="doc-kicker">TYPED AGENT RUNTIME</div>
+        <h2>Managed financial agents</h2>
+        <p>Grandice agents begin as constrained, typed workflows rather than unrestricted autonomous chat. Each definition declares its tools, privacy policy, source requirements and review boundary.</p>
+        <div class="admin-endpoints">
+          <div><span class="method get">GET</span><code>/v1/agents</code><p>List available agent definitions and guardrail metadata.</p></div>
+          <div><span class="method post">POST</span><code>/v1/agents/runs</code><p>Validate typed inputs and execute a registered workflow.</p></div>
+          <div><span class="method get">GET</span><code>/v1/domain/runs/{request_id}</code><p>Retrieve body-free audit metadata for a run created by the same API key.</p></div>
+        </div>
+<pre class="standalone-code"><code>{
+  "agent": "financial.risk-assessment.v1",
+  "inputs": {
+    "metadata": {
+      "as_of": "2026-09-14",
+      "sources": [{
+        "source_id": "questionnaire",
+        "citation": "Caller-supplied questionnaire",
+        "as_of": "2026-09-14"
+      }]
+    },
+    "profile": {
+      "source_id": "questionnaire",
+      "loss_tolerance": 3,
+      "time_horizon": 4,
+      "financial_stability": 3,
+      "liquidity_flexibility": 2,
+      "investment_knowledge": 3
+    }
+  }
+}</code></pre>
+        <div class="docs-note">Initial agents are <code>financial.portfolio-analyst.v1</code>, <code>financial.risk-assessment.v1</code> and <code>financial.company-analyst.v1</code>. Legal and market-research agents will build on the same runtime after their source, policy and evaluation contracts are implemented.</div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="models">
+        <div class="doc-kicker">MODEL ROUTING</div>
+        <h2>Available model aliases</h2>
+        <p>Use stable aliases in application code. Grandice can upgrade the underlying model without requiring a client deployment.</p>
+        <div class="docs-model-grid">
+          <div class="docs-model featured"><code>smart</code><span>Qwen 3.5 · 9B</span><p>Best overall quality. Chat, reasoning, code, vision and tools.</p></div>
+          <div class="docs-model"><code>fast</code><span>Qwen 3.5 · 4B</span><p>Lower latency for routine chat, vision and tool workflows.</p></div>
+          <div class="docs-model"><code>chat</code><span>Qwen 3 · 8B</span><p>General-purpose conversation, structured output and tools.</p></div>
+          <div class="docs-model"><code>code</code><span>Qwen 2.5 Coder · 7B</span><p>Code generation, explanation, review and completion.</p></div>
+          <div class="docs-model"><code>vision</code><span>Qwen 2.5 VL · 7B</span><p>Image analysis, screenshots, OCR and visual questions.</p></div>
+          <div class="docs-model"><code>embed</code><span>Nomic Embed Text</span><p>Vector embeddings for retrieval and semantic search.</p></div>
+        </div>
+        <div class="docs-note"><strong>Reasoning policy:</strong> thinking is disabled by default to reduce latency. Send <code>"reasoning_effort": "medium"</code> when deliberate reasoning is needed.</div>
+      </section>
+
+      <section class="doc-section endpoint docs-anchor" id="list-models">
+        <div class="endpoint-title"><span class="method get">GET</span><code>/v1/models</code></div>
+        <h2>List models</h2>
+        <p>Returns models available to the current key, including capability metadata and friendly aliases.</p>
+        <div class="response-label">Example response</div>
+<pre class="standalone-code"><code>{
+  "object": "list",
+  "data": [
+    {
+      "id": "smart",
+      "object": "model",
+      "owned_by": "grandice",
+      "aliases_to": "qwen3.5:9b",
+      "info": {
+        "meta": {
+          "capabilities": {
+            "builtin_tools": true,
+            "vision": true,
+            "reasoning": true
+          }
+        }
+      }
+    }
+  ]
+}</code></pre>
+      </section>
+
+      <section class="doc-section endpoint docs-anchor" id="chat">
+        <div class="endpoint-title"><span class="method post">POST</span><code>/v1/chat/completions</code></div>
+        <h2>Chat completions</h2>
+        <p>Generates a response from a conversation. Supports system prompts, multi-turn messages, JSON output, reasoning, tools and images when supported by the selected model.</p>
+        <div class="parameter-list">
+          <div><code>model</code><span>string · required</span><p>A model alias such as <code>smart</code>, <code>fast</code> or <code>code</code>.</p></div>
+          <div><code>messages</code><span>array · required</span><p>Conversation messages with <code>system</code>, <code>user</code>, <code>assistant</code> or <code>tool</code> roles.</p></div>
+          <div><code>stream</code><span>boolean · optional</span><p>Set to <code>true</code> to receive server-sent events.</p></div>
+          <div><code>temperature</code><span>number · optional</span><p>Sampling temperature. Lower values are more deterministic.</p></div>
+          <div><code>max_tokens</code><span>integer · optional</span><p>Maximum number of generated output tokens.</p></div>
+          <div><code>reasoning_effort</code><span>string · optional</span><p>Use <code>none</code>, <code>low</code>, <code>medium</code> or <code>high</code> on reasoning models.</p></div>
+        </div>
+        <div class="response-label">Minimal request</div>
+<pre class="standalone-code"><code>{
+  "model": "smart",
+  "messages": [
+    {"role": "system", "content": "Be concise and accurate."},
+    {"role": "user", "content": "What is retrieval-augmented generation?"}
+  ],
+  "temperature": 0.2
+}</code></pre>
+      </section>
+
+      <section class="doc-section docs-anchor" id="streaming">
+        <div class="doc-kicker">REAL-TIME OUTPUT</div>
+        <h2>Streaming</h2>
+        <p>Set <code>"stream": true</code>. The response uses <code>text/event-stream</code>, with each event prefixed by <code>data:</code> and terminated by <code>[DONE]</code>.</p>
+<pre class="standalone-code"><code>const stream = await client.chat.completions.create({
+  model: "fast",
+  messages: [{ role: "user", content: "Write a product tagline." }],
+  stream: true,
+});
+
+for await (const chunk of stream) {
+  process.stdout.write(chunk.choices[0]?.delta?.content ?? "");
+}</code></pre>
+      </section>
+
+      <section class="doc-section docs-anchor" id="vision">
+        <div class="doc-kicker">MULTIMODAL</div>
+        <h2>Vision requests</h2>
+        <p>Use <code>smart</code>, <code>fast</code> or <code>vision</code>. Supply an HTTPS image URL or a base64 data URL.</p>
+<pre class="standalone-code"><code>{
+  "model": "vision",
+  "messages": [{
+    "role": "user",
+    "content": [
+      {"type": "text", "text": "Extract the text and summarize this image."},
+      {
+        "type": "image_url",
+        "image_url": {"url": "data:image/jpeg;base64,BASE64_IMAGE"}
+      }
+    ]
+  }]
+}</code></pre>
+        <div class="docs-note">The dedicated <code>vision</code> model does not support tool calling. Use <code>smart</code> when a workflow requires both images and tools.</div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="tools">
+        <div class="doc-kicker">FUNCTION CALLING</div>
+        <h2>Tool calling</h2>
+        <p>Describe functions in <code>tools</code>. The model may return <code>tool_calls</code>; execute those functions in your application and send the result back with role <code>tool</code>.</p>
+<pre class="standalone-code"><code>{
+  "model": "smart",
+  "messages": [{"role": "user", "content": "What is the weather in Boston?"}],
+  "tools": [{
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get current weather for a city",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "city": {"type": "string"}
+        },
+        "required": ["city"]
+      }
+    }
+  }],
+  "tool_choice": "auto"
+}</code></pre>
+      </section>
+
+      <section class="doc-section endpoint docs-anchor" id="embeddings">
+        <div class="endpoint-title"><span class="method post">POST</span><code>/v1/embeddings</code></div>
+        <h2>Embeddings</h2>
+        <p>Converts text into vectors for semantic search, clustering and retrieval-augmented generation.</p>
+<pre class="standalone-code"><code>{
+  "model": "embed",
+  "input": [
+    "Grandice runs models on private infrastructure.",
+    "Applications connect through an authenticated API."
+  ]
+}</code></pre>
+        <div class="docs-note"><strong>Vector consistency:</strong> use the same embedding model for indexing and querying. Rebuild an index before changing embedding models.</div>
+      </section>
+
+      <section class="doc-section endpoint docs-anchor" id="completions">
+        <div class="endpoint-title"><span class="method post">POST</span><code>/v1/completions</code></div>
+        <h2>Legacy text completions</h2>
+        <p>Accepts a plain <code>prompt</code> and returns generated text. New integrations should prefer chat completions.</p>
+<pre class="standalone-code"><code>{
+  "model": "code",
+  "prompt": "Write a Python function that validates an email address.",
+  "max_tokens": 300
+}</code></pre>
+      </section>
+
+      <section class="doc-section endpoint docs-anchor" id="status">
+        <div class="endpoint-title"><span class="method get">GET</span><code>/status</code></div>
+        <h2>Service status</h2>
+        <p>Returns the calling application name, request limit, installed models and current aliases. Requires a standard API key.</p>
+        <p><code>GET /health</code> is an unauthenticated liveness check that returns only gateway and Ollama availability.</p>
+      </section>
+
+      <section class="doc-section docs-anchor" id="errors">
+        <div class="doc-kicker">TROUBLESHOOTING</div>
+        <h2>HTTP errors</h2>
+        <div class="error-list">
+          <div><code>400</code><strong>Bad request</strong><span>Malformed JSON or invalid request fields.</span></div>
+          <div><code>401</code><strong>Unauthorized</strong><span>Missing, invalid or revoked API key.</span></div>
+          <div><code>403</code><strong>Forbidden</strong><span>The key is not permitted to use the requested model.</span></div>
+          <div><code>429</code><strong>Rate limited</strong><span>The key exceeded its requests-per-minute allowance.</span></div>
+          <div><code>502</code><strong>Model unavailable</strong><span>The gateway could not reach the local inference service.</span></div>
+        </div>
+      </section>
+
+      <section class="doc-section docs-anchor" id="limits">
+        <div class="doc-kicker">CAPACITY</div>
+        <h2>Rate limits and timeouts</h2>
+        <p>Limits are assigned per API key and measured in requests per minute. A <code>429</code> response means the current window is full.</p>
+        <ul class="docs-list">
+          <li>Use streaming for long user-facing generations.</li>
+          <li>Configure client timeouts up to 600 seconds for cold model loads and complex reasoning.</li>
+          <li>Retry transient <code>429</code> and <code>502</code> responses with exponential backoff and jitter.</li>
+          <li>Do not automatically retry authentication or permission errors.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section docs-anchor" id="admin">
+        <div class="doc-kicker">OPERATORS ONLY</div>
+        <h2>Admin API</h2>
+        <p>Administrative routes use the separate <code>ADMIN_TOKEN</code>, not an application’s <code>gll-…</code> key. Never distribute this token to clients.</p>
+        <div class="admin-endpoints">
+          <div><span class="method post">POST</span><code>/admin/keys</code><p>Create a key with a name, RPM limit and optional model allowlist.</p></div>
+          <div><span class="method get">GET</span><code>/admin/keys</code><p>List key metadata and revocation state. Raw secrets are never returned.</p></div>
+          <div><span class="method delete">DELETE</span><code>/admin/keys/{key_id}</code><p>Revoke a key immediately.</p></div>
+          <div><span class="method get">GET</span><code>/admin/usage?days=7</code><p>Summarize requests, tokens, latency and errors by application and model.</p></div>
+        </div>
+      </section>
+
+      <section class="docs-footer-cta">
+        <h2>Ready to connect?</h2>
+        <p>Use your preferred HTTP client or SDK with the Grandice base URL and API key.</p>
+        <button class="button button-primary copy-button" type="button" data-copy="https://llm.grand-ice.com/v1">Copy base URL</button>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

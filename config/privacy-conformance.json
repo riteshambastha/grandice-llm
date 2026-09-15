@@ -1,0 +1,51 @@
+{
+  "version": "1",
+  "cases": [
+    {
+      "id": "email-and-ssn",
+      "policy": "strict-v1",
+      "input": "Email alice@example.com and SSN 123-45-6789.",
+      "entities": [
+        "EMAIL_ADDRESS",
+        "US_SSN"
+      ]
+    },
+    {
+      "id": "financial-account",
+      "policy": "financial-strict-v1",
+      "input": "Review account 87432291 with routing number 021000021.",
+      "entities": [
+        "ACCOUNT_NUMBER",
+        "ROUTING_NUMBER"
+      ]
+    },
+    {
+      "id": "invalid-card",
+      "policy": "general-v1",
+      "input": "Reference 1234 5678 9012 3456.",
+      "entities": []
+    },
+    {
+      "id": "iban",
+      "policy": "general-v1",
+      "input": "Transfer to GB82 WEST 1234 5698 7654 32.",
+      "entities": [
+        "IBAN"
+      ]
+    },
+    {
+      "id": "month-name-date-of-birth",
+      "policy": "strict-v1",
+      "input": "Date of birth: January 2, 1985.",
+      "entities": [
+        "DATE_OF_BIRTH"
+      ]
+    },
+    {
+      "id": "safe-text",
+      "policy": "strict-v1",
+      "input": "Prepare a general market summary.",
+      "entities": []
+    }
+  ]
+}

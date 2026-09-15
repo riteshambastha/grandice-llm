@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Grandice Financial Analysis Agents white paper: deterministic, source-attributed financial decision support with privacy controls, body-free audit receipts, and mandatory professional review.">
+  <title>Financial Analysis Agents White Paper — Grandice</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/financial-advisor.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body class="paper-body">
+  <header class="paper-header screen-only">
+    <a class="brand" href="/" aria-label="Grandice home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg>
+      </span>
+      <span>grandice</span>
+      <b>Financial agents</b>
+    </a>
+    <nav>
+      <a href="#architecture">Architecture</a>
+      <a href="#agents">Agents</a>
+      <a href="#governance">Governance</a>
+      <a href="/api-docs#financial-apis">API docs</a>
+      <a class="paper-download" href="/assets/grandice-financial-analysis-agents-white-paper.pdf?v=20260914-privacy" download>Download PDF</a>
+    </nav>
+  </header>
+
+  <main class="white-paper">
+    <section class="paper-cover">
+      <div class="cover-grid" aria-hidden="true"></div>
+      <div class="cover-mark">
+        <span class="brand-mark"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+        GRANDICE DOMAIN INTELLIGENCE
+      </div>
+      <div class="cover-copy">
+        <div class="paper-label">TECHNICAL WHITE PAPER · VERSION 1.0</div>
+        <h1>Financial Analysis Agents</h1>
+        <p class="cover-subtitle">Deterministic, source-attributed decision support with bounded authority and review-gated outputs.</p>
+        <p class="cover-positioning">An implementation-oriented architecture for portfolio concentration, bounded risk assessment, and historical company financial analysis.</p>
+      </div>
+      <div class="cover-boundary">
+        <span>CALCULATE</span><i></i><span>DISCLOSE</span><i></i><span>REVIEW</span>
+      </div>
+      <div class="cover-meta">
+        <div><span>Published</span><strong>September 2026</strong></div>
+        <div><span>Methodology</span><strong>grandice-domain-1.0.0</strong></div>
+        <div><span>Status</span><strong>Initial implementation</strong></div>
+      </div>
+    </section>
+
+    <section class="paper-section abstract-section" id="abstract">
+      <div class="section-number">00</div>
+      <div>
+        <p class="section-kicker">ABSTRACT</p>
+        <h2>Controlled financial analysis—not autonomous financial advice.</h2>
+        <p class="lead">Grandice provides three constrained financial-analysis agents for portfolio concentration, bounded risk assessment, and historical company-ratio analysis. Each agent dispatches a strict, typed request to predefined deterministic calculations.</p>
+        <p>Inputs include caller-provided source metadata and effective dates. Outputs include methodology version, source citations, assumptions, limitations, warnings, and an invariant requirement for professional review. The architecture deliberately excludes open-ended objectives, web browsing, live market-data retrieval, order execution, account modification, and model-generated tool arguments.</p>
+        <p>Grandice Privacy Shield can protect data locally in the client SDK or sidecar before transfer, and the gateway applies a second residual policy scan before financial schema validation. Detected categories are rejected before calculation, while domain audit records retain operational metadata without request or response bodies.</p>
+        <aside class="thesis">
+          <strong>Core thesis</strong>
+          <p>The useful role of an agent in high-stakes financial workflows is not unlimited autonomy. It is controlled workflow selection, reproducible calculation, explicit provenance, and an enforceable handoff to qualified human judgment.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="paper-section scope-section">
+      <div class="section-number">01</div>
+      <div>
+        <p class="section-kicker">EXECUTIVE PERSPECTIVE</p>
+        <h2>Standardize repeatable analysis without hiding the decision boundary.</h2>
+        <p>Financial teams frequently inherit calculations spread across spreadsheets, scripts, and analyst-specific conventions. Source dates become detached from outputs, formula changes are difficult to trace, and generative systems can add nondeterministic interpretation where repeatability matters.</p>
+        <div class="problem-grid">
+          <article><span>01</span><h3>Formula drift</h3><p>Thresholds and denominator rules diverge between teams and versions.</p></article>
+          <article><span>02</span><h3>Detached provenance</h3><p>Results circulate without the source identifier or effective date that supported them.</p></article>
+          <article><span>03</span><h3>Excessive authority</h3><p>Broad agent permissions conflict with least-authority controls in regulated workflows.</p></article>
+          <article><span>04</span><h3>Content-heavy audit</h3><p>Logging full requests can create a second repository of confidential financial data.</p></article>
+        </div>
+        <p>Grandice addresses the calculation and control-plane portion of this problem. It converts caller-supplied, dated facts into reproducible analytical outputs under declared schemas and methodology versions. The consuming institution remains responsible for source quality, validation, supervision, suitability, communications, and any resulting action.</p>
+      </div>
+    </section>
+
+    <section class="paper-section nonclaims-section">
+      <div class="section-number">02</div>
+      <div>
+        <p class="section-kicker">SCOPE AND RESPONSIBILITY BOUNDARY</p>
+        <h2>Layered privacy and bounded financial authority.</h2>
+        <p>“Financial Advisor Agent” is used as an umbrella product term for a constrained analysis suite and developer control plane. Financial judgment, suitability, compliance approval, and any resulting action remain with qualified professionals and the adopting institution’s governed processes.</p>
+        <div class="boundary-grid">
+          <div class="boundary-yes">
+            <h3>Implemented</h3>
+            <ul>
+              <li>Exact-decimal portfolio arithmetic</li>
+              <li>Transparent bounded risk scoring</li>
+              <li>Historical company-ratio calculations</li>
+              <li>Caller-attributed source metadata</li>
+              <li>Local SDK or sidecar protection before transfer</li>
+              <li>Gateway residual scanning before financial validation</li>
+              <li>Body-free domain audit metadata</li>
+              <li>Mandatory professional-review flag</li>
+            </ul>
+          </div>
+          <div class="boundary-no">
+            <h3>Outside current authority</h3>
+            <ul>
+              <li>Personalized buy, sell, hold, product, or allocation advice</li>
+              <li>Suitability, fiduciary, or regulatory-compliance determinations</li>
+              <li>Live market data, browsing, forecasts, or source verification</li>
+              <li>Order routing, trading, rebalancing, or account modification</li>
+              <li>Model-generated tool calls or unrestricted agent objectives</li>
+              <li>Automatic approval or downstream action without professional review</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section principles-section">
+      <div class="section-number">03</div>
+      <div>
+        <p class="section-kicker">DESIGN PRINCIPLES</p>
+        <h2>Six controls shape the system.</h2>
+        <div class="principle-list">
+          <article><b>01</b><div><h3>Deterministic financial arithmetic</h3><p>Identical valid inputs and methodology versions produce identical calculation outputs.</p></div></article>
+          <article><b>02</b><div><h3>Bounded agent authority</h3><p>Each registered agent accepts one declared schema and invokes only predefined calculations.</p></div></article>
+          <article><b>03</b><div><h3>Source-attributed inputs</h3><p>Fact-bearing records reference caller-provided source identifiers and explicit as-of dates.</p></div></article>
+          <article><b>04</b><div><h3>Data minimization</h3><p>Identity fields, unrestricted objectives, and free-form personal profiles are excluded from financial schemas.</p></div></article>
+          <article><b>05</b><div><h3>Metadata-oriented auditability</h3><p>Receipts retain execution facts while excluding financial request and response bodies.</p></div></article>
+          <article><b>06</b><div><h3>Mandatory professional review</h3><p>Every analysis response carries <code>professional_review_required: true</code>.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section architecture-section" id="architecture">
+      <div class="section-number">04</div>
+      <div>
+        <p class="section-kicker">SYSTEM ARCHITECTURE</p>
+        <h2>A fail-closed request path for configured controls.</h2>
+        <p>The gateway authenticates and bounds the request before financial validation. Raw JSON is inspected for configured sensitive-data patterns, then validated against a strict domain schema. Only validated inputs reach the deterministic calculation layer.</p>
+        <figure class="diagram lifecycle-diagram">
+          <svg viewBox="0 0 1040 735" role="img" aria-labelledby="lifecycle-title lifecycle-desc">
+            <title id="lifecycle-title">Controlled financial analysis request lifecycle</title>
+            <desc id="lifecycle-desc">A request flows through authentication, resource bounds, privacy scan, validation, deterministic workflow, disclosure assembly, audit metadata, and professional review. Detection and validation failures are rejected before calculation.</desc>
+            <defs><marker id="arrow-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z"/></marker></defs>
+            <rect class="lane" x="45" y="38" width="700" height="612" rx="18"/>
+            <text class="lane-title" x="72" y="70">GRANDICE CONTROLLED EXECUTION BOUNDARY</text>
+            <g class="node primary"><rect x="245" y="92" width="300" height="62" rx="10"/><text x="395" y="119">Institution application</text><text class="sub" x="395" y="140">API key · JSON request · privacy mode</text></g>
+            <path class="arrow" d="M395 154V185" marker-end="url(#arrow-a)"/>
+            <g class="node"><rect x="245" y="187" width="300" height="62" rx="10"/><text x="395" y="214">Authentication + quota</text><text class="sub" x="395" y="235">Key, member and organization controls</text></g>
+            <path class="arrow" d="M395 249V280" marker-end="url(#arrow-a)"/>
+            <g class="node"><rect x="245" y="282" width="300" height="62" rx="10"/><text x="395" y="309">Body + structure bounds</text><text class="sub" x="395" y="330">2 MiB · 14 levels · 25,000 values</text></g>
+            <path class="arrow" d="M395 344V375" marker-end="url(#arrow-a)"/>
+            <g class="node caution"><rect x="245" y="377" width="300" height="62" rx="10"/><text x="395" y="404">Privacy residual scan</text><text class="sub" x="395" y="425">Best-effort configured pattern coverage</text></g>
+            <path class="branch" d="M545 408H685" marker-end="url(#arrow-a)"/>
+            <g class="node reject"><rect x="690" y="377" width="255" height="62" rx="10"/><text x="817" y="404">Reject before calculation</text><text class="sub" x="817" y="425">Detected category · HTTP 422</text></g>
+            <path class="arrow" d="M395 439V470" marker-end="url(#arrow-a)"/>
+            <g class="node"><rect x="245" y="472" width="300" height="62" rx="10"/><text x="395" y="499">Strict typed validation</text><text class="sub" x="395" y="520">Exact decimals · sources · extra fields denied</text></g>
+            <path class="branch" d="M545 503H685" marker-end="url(#arrow-a)"/>
+            <g class="node reject"><rect x="690" y="472" width="255" height="62" rx="10"/><text x="817" y="499">Sanitized error</text><text class="sub" x="817" y="520">Invalid values are not echoed</text></g>
+            <path class="arrow" d="M395 534V565" marker-end="url(#arrow-a)"/>
+            <g class="node primary"><rect x="245" y="567" width="300" height="62" rx="10"/><text x="395" y="594">Deterministic workflow</text><text class="sub" x="395" y="615">Metrics · flags · disclosures</text></g>
+            <path class="arrow" d="M545 598H685" marker-end="url(#arrow-a)"/>
+            <g class="node audit"><rect x="690" y="567" width="255" height="62" rx="10"/><text x="817" y="594">Body-free audit metadata</text><text class="sub" x="817" y="615">Run facts only · no analysis payload</text></g>
+            <path class="arrow outside" d="M395 629V666H817V650" marker-end="url(#arrow-a)"/>
+            <g class="node review"><rect x="690" y="650" width="255" height="62" rx="10"/><text x="817" y="677">Professional review</text><text class="sub" x="817" y="698">Institution-owned downstream decision</text></g>
+          </svg>
+          <figcaption><b>Figure 1.</b> Controlled analysis lifecycle. No browsing, live feed, model-generated tool arguments, or trade execution occurs within the boundary.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="paper-section runtime-section" id="agents">
+      <div class="section-number">05</div>
+      <div>
+        <p class="section-kicker">MANAGED-AGENT RUNTIME</p>
+        <h2>One declared schema maps to one deterministic workflow.</h2>
+        <p>In this release, “agent” means a registered typed workflow—not an open-ended planner. Tool names in the registry describe fixed calculation capabilities. They do not represent model-selectable external actions.</p>
+        <figure class="diagram authority-diagram">
+          <svg viewBox="0 0 1040 560" role="img" aria-labelledby="authority-title">
+            <title id="authority-title">Three-agent authority boundary</title>
+            <defs><marker id="arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z"/></marker></defs>
+            <rect class="authority-boundary" x="48" y="44" width="944" height="430" rx="20"/>
+            <text class="lane-title" x="75" y="78">PERMITTED AUTHORITY: DECLARED SCHEMA → PREDEFINED DETERMINISTIC TOOLS</text>
+            <g class="node primary"><rect x="350" y="104" width="340" height="66" rx="10"/><text x="520" y="132">Managed-agent registry</text><text class="sub" x="520" y="153">Versioned IDs · policy · schema · analyzer</text></g>
+            <path class="arrow" d="M520 170V212M520 190H190V212M520 190H850V212" marker-end="url(#arrow-b)"/>
+            <g class="agent-box"><rect x="78" y="218" width="275" height="168" rx="12"/><text class="agent-name" x="105" y="250">Portfolio analyst</text><text class="agent-id" x="105" y="273">financial.portfolio-analyst.v1</text><text x="105" y="310">Decimal portfolio math</text><text x="105" y="336">Allocation aggregation</text><text x="105" y="362">Concentration rules</text></g>
+            <g class="agent-box"><rect x="382" y="218" width="275" height="168" rx="12"/><text class="agent-name" x="409" y="250">Risk assessment</text><text class="agent-id" x="409" y="273">financial.risk-assessment.v1</text><text x="409" y="310">Weighted risk score</text><text x="409" y="336">Bounded dimensions</text><text x="409" y="362">Risk-band rules</text></g>
+            <g class="agent-box"><rect x="686" y="218" width="275" height="168" rx="12"/><text class="agent-name" x="713" y="250">Company analyst</text><text class="agent-id" x="713" y="273">financial.company-analyst.v1</text><text x="713" y="310">Statement ratios</text><text x="713" y="336">Historical growth</text><text x="713" y="362">Valuation arithmetic</text></g>
+            <path class="arrow" d="M215 386V423H520M520 386V443M824 386V423H520" marker-end="url(#arrow-b)"/>
+            <g class="node"><rect x="350" y="415" width="340" height="62" rx="10"/><text x="520" y="442">Common disclosure envelope</text><text class="sub" x="520" y="463">Sources · assumptions · warnings · review</text></g>
+            <g class="prohibited"><text x="75" y="515">OUTSIDE AUTHORITY</text><text x="232" y="515">unrestricted objectives</text><text x="410" y="515">web + market feeds</text><text x="572" y="515">account access</text><text x="708" y="515">orders + trades</text><text x="846" y="515">tool generation</text></g>
+          </svg>
+          <figcaption><b>Figure 2.</b> Agent authority is bounded by code and schema. The common envelope does not convert screening results into approved recommendations.</figcaption>
+        </figure>
+
+        <div class="agent-detail-grid">
+          <article>
+            <span class="agent-tag">PORTFOLIO</span>
+            <h3>Portfolio Analysis Agent</h3>
+            <code>financial.portfolio-analyst.v1</code>
+            <p>Calculates weights, allocation by asset class, sector and country, top concentration, HHI, effective positions, and transparent diversification flags.</p>
+            <p class="exclusion">Excludes correlation, volatility, liquidity, tax, fees, transaction costs, look-through exposure, and allocation recommendations.</p>
+          </article>
+          <article>
+            <span class="agent-tag">RISK</span>
+            <h3>Risk Assessment Agent</h3>
+            <code>financial.risk-assessment.v1</code>
+            <p>Applies disclosed fixed weights to five caller-scored dimensions bounded from one through five, then maps the score to a transparent band.</p>
+            <p class="exclusion">Not a psychometric instrument, suitability determination, or product-selection mechanism.</p>
+          </article>
+          <article>
+            <span class="agent-tag">COMPANY</span>
+            <h3>Company Financial Analysis Agent</h3>
+            <code>financial.company-analyst.v1</code>
+            <p>Calculates historical growth, margins, net debt, leverage, and supported valuation multiples from two or more cited financial periods.</p>
+            <p class="exclusion">Excludes forecasts, peer normalization, DCF, accounting adjustments, and valuation opinions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section methodology-section">
+      <div class="section-number">06</div>
+      <div>
+        <p class="section-kicker">METHODOLOGY</p>
+        <h2>Inspectable formulas replace opaque model arithmetic.</h2>
+
+        <article class="method-block">
+          <div class="method-heading"><span>6.1</span><h3>Portfolio concentration and allocation</h3></div>
+          <p>For each position <i>i</i>, market value <i>V<sub>i</sub></i> is divided by the total portfolio market value. Category allocations aggregate values before division.</p>
+          <div class="formula-row">
+            <div class="formula"><span>Total market value</span>V<sub>total</sub> = Σ V<sub>i</sub></div>
+            <div class="formula"><span>Position weight</span>w<sub>i</sub> = V<sub>i</sub> / V<sub>total</sub></div>
+            <div class="formula"><span>Category weight</span>w<sub>c</sub> = Σ<sub>i∈c</sub> V<sub>i</sub> / V<sub>total</sub></div>
+          </div>
+          <div class="formula-row two">
+            <div class="formula featured"><span>Herfindahl–Hirschman Index</span>HHI = Σ w<sub>i</sub><sup>2</sup></div>
+            <div class="formula featured"><span>Effective positions</span>N<sub>effective</sub> = 1 / HHI</div>
+          </div>
+          <p>Effective positions express concentration equivalence, not economic diversification. Ten holdings do not imply ten effective positions when value is concentrated in a smaller subset.</p>
+          <div class="thresholds">
+            <div><b>&lt; 5</b><span>positions</span></div>
+            <div><b>&gt; 25%</b><span>single position</span></div>
+            <div><b>&gt; 0.18</b><span>HHI</span></div>
+            <div><b>&gt; 80%</b><span>single asset class</span></div>
+          </div>
+          <p class="fine">Current screening thresholds use unrounded values. Rounded output is presentation only. Triggered rules are indicators—not instructions to rebalance.</p>
+        </article>
+
+        <article class="method-block">
+          <div class="method-heading"><span>6.2</span><h3>Bounded risk scoring</h3></div>
+          <p>Each caller-scored rating <i>r<sub>j</sub></i> is an integer from one to five. Ratings are normalized to a zero-to-one-hundred scale and combined with fixed disclosed weights.</p>
+          <div class="formula-row two">
+            <div class="formula featured"><span>Normalized component</span>n<sub>j</sub> = ((r<sub>j</sub> − 1) / 4) × 100</div>
+            <div class="formula featured"><span>Aggregate score</span>S = Σ α<sub>j</sub> n<sub>j</sub></div>
+          </div>
+          <div class="weight-bars" aria-label="Risk score weights">
+            <div><span>Loss tolerance</span><i style="--w:30%"></i><b>30%</b></div>
+            <div><span>Time horizon</span><i style="--w:25%"></i><b>25%</b></div>
+            <div><span>Financial stability</span><i style="--w:20%"></i><b>20%</b></div>
+            <div><span>Liquidity flexibility</span><i style="--w:15%"></i><b>15%</b></div>
+            <div><span>Investment knowledge</span><i style="--w:10%"></i><b>10%</b></div>
+          </div>
+          <div class="risk-scale">
+            <div class="lower"><b>LOWER</b><span>0 ≤ S &lt; 40</span></div>
+            <div class="moderate"><b>MODERATE</b><span>40 ≤ S &lt; 70</span></div>
+            <div class="higher"><b>HIGHER</b><span>70 ≤ S ≤ 100</span></div>
+          </div>
+          <p class="fine">Weights and bands are transparent policy choices. Transparency alone does not establish empirical validity or suitability for a population.</p>
+        </article>
+
+        <article class="method-block">
+          <div class="method-heading"><span>6.3</span><h3>Company financial analysis</h3></div>
+          <div class="formula-list">
+            <div><span>Historical growth</span><code>(Current − Prior) / |Prior|</code><small>Omitted when the prior value is zero</small></div>
+            <div><span>Margin</span><code>Profit measure / Revenue</code><small>Gross, operating, net, and EBITDA where supplied</small></div>
+            <div><span>Net debt</span><code>Total debt − Cash</code><small>Net-debt-to-EBITDA only when EBITDA is positive</small></div>
+            <div><span>Market capitalization</span><code>Diluted shares × Share price</code><small>Requires both latest-period inputs</small></div>
+            <div><span>Enterprise value</span><code>Market cap + Total debt − Cash</code><small>Point-in-time arithmetic</small></div>
+            <div><span>Valuation multiples</span><code>P/S · P/E · EV/EBITDA</code><small>Reported only when denominators support them</small></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="paper-section source-section">
+      <div class="section-number">07</div>
+      <div>
+        <p class="section-kicker">PROVENANCE STRUCTURE</p>
+        <h2>Source attribution is validated; source truth is not inferred.</h2>
+        <p>Each analysis carries an analysis date and one or more source records. Fact-bearing positions, risk profiles, and financial periods reference a declared opaque source identifier.</p>
+        <figure class="diagram source-diagram">
+          <svg viewBox="0 0 1040 420" role="img" aria-labelledby="source-title">
+            <title id="source-title">Source grounding and temporal integrity graph</title>
+            <defs><marker id="arrow-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z"/></marker></defs>
+            <g class="node primary"><rect x="390" y="34" width="260" height="62" rx="10"/><text x="520" y="61">Analysis as_of</text><text class="sub" x="520" y="82">Effective boundary date</text></g>
+            <path class="arrow" d="M520 96V130H190V158M520 130V158M520 130H850V158" marker-end="url(#arrow-c)"/>
+            <g class="source-box"><rect x="72" y="160" width="236" height="98" rx="10"/><text x="96" y="190">SOURCE S1</text><text class="sub" x="96" y="215">opaque ID · citation · as_of</text><text class="note" x="96" y="240">caller-supplied</text></g>
+            <g class="source-box"><rect x="402" y="160" width="236" height="98" rx="10"/><text x="426" y="190">SOURCE S2</text><text class="sub" x="426" y="215">opaque ID · citation · as_of</text><text class="note" x="426" y="240">caller-supplied</text></g>
+            <g class="source-box"><rect x="732" y="160" width="236" height="98" rx="10"/><text x="756" y="190">SOURCE Sn</text><text class="sub" x="756" y="215">opaque ID · citation · as_of</text><text class="note" x="756" y="240">caller-supplied</text></g>
+            <path class="arrow" d="M190 258V306M520 258V306M850 258V306" marker-end="url(#arrow-c)"/>
+            <g class="record-box"><rect x="72" y="308" width="236" height="72" rx="10"/><text x="190" y="337">Position / profile</text><text class="sub" x="190" y="359">source_id resolves to S1</text></g>
+            <g class="record-box"><rect x="402" y="308" width="236" height="72" rx="10"/><text x="520" y="337">Financial period</text><text class="sub" x="520" y="359">source_id resolves to S2</text></g>
+            <g class="record-box"><rect x="732" y="308" width="236" height="72" rx="10"/><text x="850" y="337">Additional record</text><text class="sub" x="850" y="359">source_id resolves to Sn</text></g>
+          </svg>
+          <figcaption><b>Figure 3.</b> Unique and resolvable references plus temporal consistency are enforced. Grandice does not authenticate a publication, verify its contents, or determine economic comparability.</figcaption>
+        </figure>
+        <div class="validation-strip">
+          <span>Unique source IDs</span><span>Resolvable references</span><span>Source date ≤ analysis date</span><span>Period date ≤ source date</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section privacy-paper-section">
+      <div class="section-number">08</div>
+      <div>
+        <p class="section-kicker">PRIVACY AND DATA MINIMIZATION</p>
+        <h2>Layer controls, then describe their limits precisely.</h2>
+        <p>The strongest workflow protects sensitive values locally in the client SDK or loopback sidecar. The domain gateway still performs a residual pattern scan over raw JSON before schema validation. Detected categories cause rejection rather than mutation of typed financial inputs.</p>
+        <figure class="diagram privacy-diagram">
+          <svg viewBox="0 0 1040 430" role="img" aria-labelledby="privacy-title">
+            <title id="privacy-title">Privacy defense in depth</title>
+            <defs><marker id="arrow-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z"/></marker></defs>
+            <rect class="risk-boundary" x="44" y="42" width="952" height="306" rx="20"/>
+            <text class="lane-title" x="70" y="75">RISK REDUCTION — NOT A GUARANTEE OF COMPLETE SENSITIVE-DATA DETECTION</text>
+            <g class="privacy-step"><rect x="70" y="122" width="160" height="126" rx="10"/><text class="step-no" x="92" y="150">01</text><text class="step-title" x="92" y="181">Minimize</text><text x="92" y="207">Opaque identifiers</text><text x="92" y="228">Bounded fields</text></g>
+            <path class="arrow" d="M230 185H267" marker-end="url(#arrow-d)"/>
+            <g class="privacy-step"><rect x="274" y="122" width="160" height="126" rx="10"/><text class="step-no" x="296" y="150">02</text><text class="step-title" x="296" y="181">Protect locally</text><text x="296" y="207">Client SDK</text><text x="296" y="228">Loopback sidecar</text></g>
+            <path class="arrow" d="M434 185H471" marker-end="url(#arrow-d)"/>
+            <g class="privacy-step"><rect x="478" y="122" width="160" height="126" rx="10"/><text class="step-no" x="500" y="150">03</text><text class="step-title" x="500" y="181">Inspect</text><text x="500" y="207">Financial policy</text><text x="500" y="228">Residual patterns</text></g>
+            <path class="arrow" d="M638 185H675" marker-end="url(#arrow-d)"/>
+            <g class="privacy-step"><rect x="682" y="122" width="130" height="126" rx="10"/><text class="step-no" x="704" y="150">04</text><text class="step-title" x="704" y="181">Validate</text><text x="704" y="207">Strict schema</text><text x="704" y="228">Extra denied</text></g>
+            <path class="arrow" d="M812 185H849" marker-end="url(#arrow-d)"/>
+            <g class="privacy-step"><rect x="856" y="122" width="110" height="126" rx="10"/><text class="step-no" x="878" y="150">05</text><text class="step-title" x="878" y="181">Audit</text><text x="878" y="207">Metadata</text><text x="878" y="228">No bodies</text></g>
+            <g class="privacy-legend"><text x="70" y="302">Configured residual detector coverage passed.</text><text x="570" y="302">Local protection remains the preferred first boundary.</text></g>
+            <path class="reject-path" d="M558 248V382H722" marker-end="url(#arrow-d)"/>
+            <g class="node reject"><rect x="728" y="354" width="238" height="56" rx="10"/><text x="847" y="378">Detected → reject</text><text class="sub" x="847" y="398">No financial calculation runs</text></g>
+          </svg>
+          <figcaption><b>Figure 4.</b> Defense in depth combines local protection, residual inspection, schema minimization, and metadata-only domain audit.</figcaption>
+        </figure>
+        <div class="privacy-facts">
+          <div><strong>Preferred</strong><span>Client or sidecar tokenization before transfer</span></div>
+          <div><strong>Server control</strong><span>Best-effort configured detector coverage</span></div>
+          <div><strong>Failure mode</strong><span>Reject detected residual values before calculation</span></div>
+          <div><strong>Audit scope</strong><span>Domain table excludes request and response bodies</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section audit-section">
+      <div class="section-number">09</div>
+      <div>
+        <p class="section-kicker">AUDIT RECEIPTS</p>
+        <h2>Record execution facts without making the audit table a data lake.</h2>
+        <p>Each completed or rejected domain workflow writes a metadata-oriented audit record. Retrieval is scoped to the API key that created the run. The domain record does not contain holdings, questionnaire ratings, citations, monetary values, or analysis output.</p>
+        <div class="receipt-shell">
+          <div class="receipt-header"><span>DOMAIN RUN RECEIPT</span><code>dom_••••••••••••</code></div>
+          <div class="receipt-grid">
+            <div><span>Timestamp</span><b>UTC execution time</b></div>
+            <div><span>Endpoint</span><b>Financial route</b></div>
+            <div><span>Agent</span><b>Versioned agent ID</b></div>
+            <div><span>Privacy mode</span><b>off / client / sidecar / hosted</b></div>
+            <div><span>Status + duration</span><b>Outcome metadata</b></div>
+            <div><span>Schema names</span><b>Input + output contract</b></div>
+            <div><span>Counts</span><b>Sources + warnings</b></div>
+            <div><span>Methodology</span><b>grandice-domain-1.0.0</b></div>
+          </div>
+          <div class="receipt-excluded"><span>EXCLUDED</span> request body · response body · citations · financial values · generated analysis</div>
+        </div>
+        <p class="fine">“Body-free domain audit” describes the Grandice <code>domain_runs</code> record. It does not characterize every surrounding reverse proxy, application, infrastructure, security, or client log.</p>
+      </div>
+    </section>
+
+    <section class="paper-section governance-section" id="governance">
+      <div class="section-number">10</div>
+      <div>
+        <p class="section-kicker">DECISION GOVERNANCE</p>
+        <h2>Calculation ends where accountable judgment begins.</h2>
+        <figure class="diagram decision-diagram">
+          <svg viewBox="0 0 1040 475" role="img" aria-labelledby="decision-title">
+            <title id="decision-title">Calculation and decision boundary</title>
+            <defs><marker id="arrow-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z"/></marker></defs>
+            <g class="node"><rect x="62" y="95" width="210" height="72" rx="10"/><text x="167" y="125">Caller-supplied facts</text><text class="sub" x="167" y="148">Dated · cited · validated</text></g>
+            <path class="arrow" d="M272 131H322" marker-end="url(#arrow-e)"/>
+            <g class="node primary"><rect x="330" y="95" width="210" height="72" rx="10"/><text x="435" y="125">Deterministic calculation</text><text class="sub" x="435" y="148">Versioned methodology</text></g>
+            <path class="arrow" d="M540 131H590" marker-end="url(#arrow-e)"/>
+            <g class="node"><rect x="598" y="78" width="380" height="106" rx="10"/><text x="788" y="110">Metrics + flags + disclosures</text><text class="sub" x="788" y="136">Sources · assumptions · limitations · warnings</text><text class="review-required" x="788" y="163">professional_review_required: true</text></g>
+            <line class="decision-line" x1="48" y1="245" x2="992" y2="245"/>
+            <rect class="decision-label" x="377" y="226" width="286" height="38" rx="19"/>
+            <text class="decision-label-text" x="520" y="250">DECISION BOUNDARY</text>
+            <path class="arrow" d="M788 184V294" marker-end="url(#arrow-e)"/>
+            <g class="node review"><rect x="598" y="302" width="380" height="82" rx="10"/><text x="788" y="334">Qualified professional + firm policy</text><text class="sub" x="788" y="358">Verify, contextualize, supervise, approve or reject</text></g>
+            <path class="arrow" d="M598 343H548" marker-end="url(#arrow-e)"/>
+            <g class="node"><rect x="248" y="302" width="292" height="82" rx="10"/><text x="394" y="334">Institution-controlled use</text><text class="sub" x="394" y="358">Communication or action, if approved</text></g>
+            <g class="decision-owner"><text x="64" y="326">GRANDICE</text><text x="64" y="350">provides reproducible</text><text x="64" y="372">analysis artifacts</text><text x="64" y="420">INSTITUTION</text><text x="64" y="444">owns the decision</text></g>
+          </svg>
+          <figcaption><b>Figure 5.</b> The professional-review flag is a response invariant. The current API does not perform, verify, or record completion of institutional review.</figcaption>
+        </figure>
+        <div class="review-checklist">
+          <h3>Recommended downstream review</h3>
+          <ol>
+            <li>Confirm source identity, dates, completeness, and authority.</li>
+            <li>Reconcile totals and period values to systems of record.</li>
+            <li>Validate classifications, currency consistency, and denominator rules.</li>
+            <li>Review triggered flags, omitted ratios, assumptions, and limitations.</li>
+            <li>Apply firm-approved suitability, supervisory, legal, and compliance processes.</li>
+            <li>Record reviewer identity, disposition, and any decision in the institution’s system.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section integration-section">
+      <div class="section-number">11</div>
+      <div>
+        <p class="section-kicker">INTEGRATION PATTERNS</p>
+        <h2>Embed analysis inside existing controlled workflows.</h2>
+        <div class="integration-grid">
+          <article><span>ADVISER WORKSTATION</span><h3>Concentration screening</h3><p>A portfolio system submits dated, locally tokenized holdings using opaque instrument IDs. Grandice returns allocation and concentration indicators. The adviser determines whether further analysis or communication is appropriate.</p></article>
+          <article><span>RISK INTAKE</span><h3>Transparent questionnaire scoring</h3><p>A firm-approved questionnaire maps responses to five bounded ratings. Grandice calculates the disclosed score and band. A separate supervisory workflow decides how, or whether, the result may be used.</p></article>
+          <article><span>EQUITY RESEARCH</span><h3>Historical ratio pipeline</h3><p>An analyst or controlled ETL process supplies at least two cited periods. Grandice computes supported ratios. Analysts reconcile values and add qualitative, forecast, peer, and market context outside the service.</p></article>
+          <article><span>DEVELOPER PLATFORM</span><h3>Direct API or registry dispatch</h3><p>Applications can call a known financial endpoint or discover and invoke a managed agent through a common envelope. Both paths preserve request ID, methodology, sources, warnings, and review requirements.</p></article>
+        </div>
+        <div class="api-paths">
+          <div><span>DIRECT</span><code>POST /v1/financial/portfolio/analyze</code></div>
+          <div><span>DIRECT</span><code>POST /v1/financial/risk-assessment</code></div>
+          <div><span>DIRECT</span><code>POST /v1/financial/company/analyze</code></div>
+          <div><span>REGISTRY</span><code>GET /v1/agents</code></div>
+          <div><span>DISPATCH</span><code>POST /v1/agents/runs</code></div>
+          <div><span>AUDIT</span><code>GET /v1/domain/runs/{request_id}</code></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section controls-section">
+      <div class="section-number">12</div>
+      <div>
+        <p class="section-kicker">RUNTIME CONTROLS</p>
+        <h2>Resource and schema limits narrow the operating envelope.</h2>
+        <div class="control-metrics">
+          <div><b>2 MiB</b><span>maximum domain request</span></div>
+          <div><b>14</b><span>maximum JSON levels</span></div>
+          <div><b>25,000</b><span>maximum JSON values</span></div>
+          <div><b>5,000</b><span>maximum positions</span></div>
+          <div><b>100</b><span>maximum periods or sources</span></div>
+          <div><b>34</b><span>maximum decimal digits</span></div>
+        </div>
+        <div class="control-notes">
+          <article><h3>Exact decimal contract</h3><p>Monetary values arrive as JSON strings or integers. Binary JSON floats, non-finite numbers, excessive magnitude, and excessive scale are rejected.</p></article>
+          <article><h3>Strict schema contract</h3><p>Extra fields, duplicate source IDs, unresolved references, inconsistent dates, duplicate instruments, and duplicate periods are rejected.</p></article>
+          <article><h3>Sanitized failures</h3><p>Validation responses describe field locations and rules without echoing rejected input values or validator context.</p></article>
+          <article><h3>Rate and tenancy controls</h3><p>API-key controls and configured member or organization limits run before JSON parsing. Audit retrieval requires the originating API key.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section evaluation-section">
+      <div class="section-number">13</div>
+      <div>
+        <p class="section-kicker">EVALUATION ROADMAP</p>
+        <h2>Implementation is the start of assurance—not evidence of production fitness.</h2>
+        <p>The following staged program is proposed. It is not a claim that these activities are complete.</p>
+        <div class="roadmap">
+          <article><span>PHASE 1</span><h3>Calculation assurance</h3><ul><li>Independent golden vectors</li><li>Threshold boundary tests</li><li>Property-based invariants</li><li>Spreadsheet/reference comparison</li><li>Methodology-version regression</li></ul></article>
+          <article><span>PHASE 2</span><h3>Schema + provenance</h3><ul><li>Malformed JSON fuzzing</li><li>Source/date mismatch tests</li><li>Coercion and float rejection</li><li>Error redaction verification</li><li>Cross-key receipt isolation</li></ul></article>
+          <article><span>PHASE 3</span><h3>Privacy evaluation</h3><ul><li>Labeled detector corpora</li><li>Precision and recall by entity</li><li>Obfuscation variants</li><li>Financial false positives</li><li>Policy regression fixtures</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section evaluation-section evaluation-continuation">
+      <div class="section-number">13B</div>
+      <div>
+        <p class="section-kicker">EVALUATION ROADMAP · CONTINUED</p>
+        <h2>Methodology, operations, and institutional adoption.</h2>
+        <div class="roadmap">
+          <article><span>PHASE 4</span><h3>Methodology review</h3><ul><li>Qualified practitioner challenge</li><li>Weights and threshold review</li><li>Population and use boundaries</li><li>Misinterpretation testing</li><li>Change-approval governance</li></ul></article>
+          <article><span>PHASE 5</span><h3>Operational readiness</h3><ul><li>Load and failure-mode tests</li><li>Security and threat modeling</li><li>Surrounding-log review</li><li>Recovery and rollback</li><li>Incident response</li></ul></article>
+          <article><span>PHASE 6</span><h3>Institution validation</h3><ul><li>Legal and compliance review</li><li>Representative UAT</li><li>Reviewer workflow testing</li><li>Controlled pilot</li><li>Ongoing monitoring</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section limitations-section">
+      <div class="section-number">14</div>
+      <div>
+        <p class="section-kicker">CURRENT LIMITATIONS</p>
+        <h2>Known boundaries should travel with the output.</h2>
+        <div class="limitations-columns">
+          <div>
+            <h3>Portfolio</h3>
+            <ul><li>No covariance, volatility, drawdown, liquidity, tax, fee, or look-through modeling.</li><li>Caller classifications and comparable positive values are assumed.</li><li>Screening thresholds are policy indicators, not recommendations.</li></ul>
+            <h3>Risk</h3>
+            <ul><li>Five caller-scored dimensions with fixed weights.</li><li>No psychometric validation or adaptive scoring.</li><li>Cannot be used alone for suitability or product selection.</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section limitations-section limitations-continuation">
+      <div class="section-number">14B</div>
+      <div>
+        <p class="section-kicker">CURRENT LIMITATIONS · CONTINUED</p>
+        <h2>Analytical and platform exclusions.</h2>
+        <div class="limitations-columns">
+          <div>
+            <h3>Company</h3>
+            <ul><li>No forecasts, peer context, accounting normalization, restatement handling, or one-time adjustments.</li><li>Multiples are omitted where inputs or positive denominators are unavailable.</li><li>Point-in-time arithmetic is not a valuation opinion.</li></ul>
+            <h3>Platform</h3>
+            <ul><li>Detector coverage is policy-based and should be evaluated against each institution’s representative data.</li><li>Sources are attributed but not independently verified.</li><li>Initial agents do not browse, stream, trade, or invoke external tools.</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section conclusion-section">
+      <div class="section-number">15</div>
+      <div>
+        <p class="section-kicker">CONCLUSION</p>
+        <h2>Useful automation can be narrow, explicit, and accountable.</h2>
+        <p class="lead">Grandice demonstrates a deliberately constrained approach to financial agents: typed workflow dispatch, deterministic arithmetic, caller-supplied provenance, best-effort privacy residual checks, metadata-only domain receipts, and an explicit professional-review boundary.</p>
+        <p>Its value proposition is controlled analytical consistency and integration—not autonomous judgment. Institutional deployment still requires use-case-specific validation, governance, security review, legal and compliance assessment, methodology approval, and qualified human supervision.</p>
+        <div class="conclusion-line"><span>REPRODUCIBLE CALCULATION</span><i></i><span>EXPLICIT LIMITS</span><i></i><span>HUMAN ACCOUNTABILITY</span></div>
+      </div>
+    </section>
+
+    <section class="paper-section appendix-section">
+      <div class="section-number">A</div>
+      <div>
+        <p class="section-kicker">APPENDIX</p>
+        <h2>Response invariants and implementation references</h2>
+        <div class="response-example">
+<pre><code>{
+  "request_id": "dom_...",
+  "privacy": {
+    "mode": "client",
+    "residual_check": {
+      "status": "passed",
+      "coverage": "configured_policy_detectors",
+      "guarantee": "best_effort"
+    },
+    "content_retained": false
+  },
+  "data": {
+    "methodology_version": "grandice-domain-1.0.0",
+    "assumptions": ["..."],
+    "limitations": ["..."],
+    "warnings": ["..."],
+    "professional_review_required": true
+  }
+}</code></pre>
+        </div>
+        <div class="reference-list">
+          <div><code>grandice_domain/common.py</code><span>Shared contracts, decimal bounds, disclosures, methodology version</span></div>
+          <div><code>grandice_domain/portfolio.py</code><span>Portfolio arithmetic and concentration rules</span></div>
+          <div><code>grandice_domain/risk.py</code><span>Weighted score and band methodology</span></div>
+          <div><code>grandice_domain/company.py</code><span>Historical ratios, leverage, and supported multiples</span></div>
+          <div><code>grandice_domain/agents.py</code><span>Versioned agent registry and authority declarations</span></div>
+          <div><code>gateway/domain_runtime.py</code><span>Request bounds, privacy check, audit write, response envelope</span></div>
+        </div>
+        <div class="legal-note">
+          <strong>Important notice</strong>
+          <p>This document describes the September 2026 initial implementation. It is technical product documentation, not legal, regulatory, investment, accounting, tax, or compliance advice. Capabilities, controls, and methodology may change under future versioning. Adopting institutions must perform their own review and validation.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paper-footer screen-only">
+    <a class="brand footer-brand" href="/">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+      <span>grandice</span>
+    </a>
+    <p>Controlled domain intelligence for developer-owned workflows.</p>
+    <div><a href="/api-docs#financial-apis">API documentation</a><a href="/assets/grandice-financial-analysis-agents-white-paper.pdf?v=20260914-privacy" download>PDF white paper</a><a href="/contact">Contact</a></div>
+  </footer>
+</body>
+</html>

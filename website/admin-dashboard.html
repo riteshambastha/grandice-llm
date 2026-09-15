@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Administrator Dashboard — Grandice</title>
+  <link rel="stylesheet" href="/assets/styles.css?v=20260914">
+  <link rel="stylesheet" href="/assets/admin-dashboard.css?v=20260914c">
+  <script src="/assets/admin-dashboard.js?v=20260914c" defer></script>
+</head>
+<body class="admin-body">
+  <div class="admin-login" data-login>
+    <form class="admin-login-card" data-login-form>
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+        <span>grandice</span>
+      </a>
+      <span class="admin-kicker">ADMINISTRATOR ACCESS</span>
+      <h1>Manage your AI platform.</h1>
+      <p>Enter the gateway administrator token. It remains in this browser tab only.</p>
+      <label for="admin-token">Administrator token</label>
+      <input id="admin-token" type="password" autocomplete="off" required>
+      <div class="admin-error" data-login-error role="alert"></div>
+      <button class="button button-primary" type="submit">Open dashboard <span>→</span></button>
+    </form>
+  </div>
+
+  <div class="admin-app" data-admin-app hidden>
+    <aside class="admin-sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+        <span>grandice</span><b>Admin</b>
+      </a>
+      <nav data-admin-nav>
+        <button class="active" data-section="overview"><span>⌂</span> Overview</button>
+        <button data-section="organizations"><span>◇</span> Organizations</button>
+        <button data-section="members"><span>◎</span> Members</button>
+        <button data-section="keys"><span>⌁</span> API keys</button>
+        <button data-section="usage"><span>↗</span> Usage</button>
+        <button data-section="monitoring"><span>◉</span> Monitoring</button>
+      </nav>
+      <div class="admin-sidebar-footer">
+        <a href="/api-docs">API documentation ↗</a>
+        <button data-logout>Sign out</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <span class="admin-breadcrumb">GRANDICE / ADMIN</span>
+          <h1 data-page-title>Overview</h1>
+        </div>
+        <div class="admin-live"><i></i><span data-stack-label>Checking stack</span></div>
+      </header>
+
+      <div class="admin-alert" data-admin-alert role="alert"></div>
+
+      <section class="admin-section active" data-panel="overview">
+        <div class="metric-grid">
+          <article><span>ACTIVE ORGANIZATIONS</span><strong data-metric="organizations">—</strong><small>Client accounts</small></article>
+          <article><span>ACTIVE MEMBERS</span><strong data-metric="members">—</strong><small>Across all organizations</small></article>
+          <article><span>ACTIVE API KEYS</span><strong data-metric="active_keys">—</strong><small>Revocable credentials</small></article>
+          <article><span>REQUESTS · 24H</span><strong data-metric="requests_24h">—</strong><small><b data-metric="errors_24h">—</b> errors</small></article>
+        </div>
+        <div class="admin-grid-two">
+          <article class="admin-card">
+            <div class="card-heading"><div><span>ACCOUNT MODEL</span><h2>Hierarchical controls</h2></div></div>
+            <div class="hierarchy">
+              <div><i>01</i><strong>Organization</strong><span>License, member allowance and shared RPM ceiling</span></div>
+              <div><i>02</i><strong>Member</strong><span>Individual identity, role and RPM ceiling</span></div>
+              <div><i>03</i><strong>Application key</strong><span>Model permissions and application RPM ceiling</span></div>
+            </div>
+          </article>
+          <article class="admin-card">
+            <div class="card-heading"><div><span>LIVE CAPACITY</span><h2>Inference workload</h2></div><button class="link-button" data-refresh-monitoring>Refresh</button></div>
+            <div class="capacity-summary">
+              <div><span>GPU utilization</span><strong data-overview-gpu>—</strong></div>
+              <div><span>VRAM</span><strong data-overview-vram>—</strong></div>
+              <div><span>Active / queued</span><strong data-overview-queue>—</strong></div>
+              <div><span>Loaded models</span><strong data-overview-models>—</strong></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="admin-section" data-panel="organizations">
+        <div class="section-toolbar">
+          <div><span>CLIENT ACCOUNTS</span><h2>Organizations</h2><p>Each organization has its own license, member allowance and aggregate request limit.</p></div>
+          <button class="button button-primary" data-open-modal="organization">Add organization</button>
+        </div>
+        <div class="admin-table-card">
+          <table>
+            <thead><tr><th>Organization</th><th>License</th><th>Members</th><th>Org RPM</th><th>Requests · 7d</th><th>Status</th><th></th></tr></thead>
+            <tbody data-organizations-table></tbody>
+          </table>
+          <div class="empty-state" data-organizations-empty>No organizations yet. Add the first client account.</div>
+        </div>
+      </section>
+
+      <section class="admin-section" data-panel="members">
+        <div class="section-toolbar">
+          <div><span>TEAM ACCESS</span><h2>Members</h2><p>Members belong to one organization and can own multiple application keys.</p></div>
+          <button class="button button-primary" data-open-modal="member">Add member</button>
+        </div>
+        <div class="filter-row">
+          <label>Organization <select data-member-org-filter><option value="">All organizations</option></select></label>
+        </div>
+        <div class="admin-table-card">
+          <table>
+            <thead><tr><th>Member</th><th>Organization</th><th>Role</th><th>Member RPM</th><th>Keys</th><th>Requests · 7d</th><th>Status</th><th></th></tr></thead>
+            <tbody data-members-table></tbody>
+          </table>
+          <div class="empty-state" data-members-empty>No members match this view.</div>
+        </div>
+      </section>
+
+      <section class="admin-section" data-panel="keys">
+        <div class="section-toolbar">
+          <div><span>APPLICATION ACCESS</span><h2>API keys</h2><p>Issue a separate key per application, restrict its models and rotate it safely.</p></div>
+          <button class="button button-primary" data-open-modal="key">Create API key</button>
+        </div>
+        <div class="admin-table-card">
+          <table>
+            <thead><tr><th>Application</th><th>Owner</th><th>Key</th><th>Key RPM</th><th>Models</th><th>Last used</th><th>Status</th><th></th></tr></thead>
+            <tbody data-keys-table></tbody>
+          </table>
+          <div class="empty-state" data-keys-empty>No API keys available.</div>
+        </div>
+      </section>
+
+      <section class="admin-section" data-panel="usage">
+        <div class="section-toolbar">
+          <div><span>CONSUMPTION</span><h2>Usage analytics</h2><p>Attribute requests, tokens, latency and failures to each client and member.</p></div>
+          <button class="button button-secondary-admin" data-refresh-usage>Refresh</button>
+        </div>
+        <div class="filter-row">
+          <label>Period <select data-usage-days><option value="1">24 hours</option><option value="7" selected>7 days</option><option value="30">30 days</option><option value="90">90 days</option></select></label>
+          <label>Organization <select data-usage-org><option value="">All organizations</option></select></label>
+          <label>Member <select data-usage-member><option value="">All members</option></select></label>
+        </div>
+        <div class="metric-grid usage-metrics">
+          <article><span>REQUESTS</span><strong data-usage-metric="requests">—</strong></article>
+          <article><span>TOKENS</span><strong data-usage-metric="total_tokens">—</strong></article>
+          <article><span>AVG LATENCY</span><strong data-usage-metric="avg_duration_ms">—</strong><small>milliseconds</small></article>
+          <article><span>ERRORS</span><strong data-usage-metric="errors">—</strong></article>
+        </div>
+        <div class="admin-grid-two">
+          <article class="admin-card"><div class="card-heading"><div><span>REQUEST VOLUME</span><h2>Daily activity</h2></div></div><div class="usage-chart" data-usage-chart></div></article>
+          <article class="admin-card"><div class="card-heading"><div><span>CLIENT BREAKDOWN</span><h2>Organizations</h2></div></div><div class="rank-list" data-usage-organizations></div></article>
+          <article class="admin-card"><div class="card-heading"><div><span>PEOPLE</span><h2>Members</h2></div></div><div class="rank-list" data-usage-members></div></article>
+          <article class="admin-card"><div class="card-heading"><div><span>WORKLOADS</span><h2>Models</h2></div></div><div class="rank-list" data-usage-models></div></article>
+        </div>
+      </section>
+
+      <section class="admin-section" data-panel="monitoring">
+        <div class="section-toolbar">
+          <div><span>OPERATIONS</span><h2>System monitoring</h2><p>Live GPU, queue, model and request-health information from this gateway.</p></div>
+          <button class="button button-secondary-admin" data-refresh-monitoring>Refresh</button>
+        </div>
+        <div class="metric-grid">
+          <article><span>GPU UTILIZATION</span><strong data-monitor="gpu_utilization">—</strong></article>
+          <article><span>VRAM USED</span><strong data-monitor="vram">—</strong></article>
+          <article><span>ACTIVE REQUESTS</span><strong data-monitor="active">—</strong><small><b data-monitor="queued">—</b> queued</small></article>
+          <article><span>AVG LATENCY · 24H</span><strong data-monitor="latency">—</strong><small><b data-monitor="errors">—</b> errors</small></article>
+        </div>
+        <div class="admin-grid-two">
+          <article class="admin-card"><div class="card-heading"><div><span>ACCELERATOR</span><h2 data-gpu-name>GPU</h2></div><span class="health-pill" data-gpu-health>Checking</span></div><div class="gauge-row"><div><span>Utilization</span><div class="gauge"><i data-gpu-gauge></i></div></div><div><span>Memory</span><div class="gauge"><i data-vram-gauge></i></div></div><div><span>Temperature</span><strong data-gpu-temperature>—</strong></div><div><span>Power</span><strong data-gpu-power>—</strong></div></div></article>
+          <article class="admin-card"><div class="card-heading"><div><span>GATEWAY</span><h2>Request queue</h2></div><span class="health-pill" data-ollama-health>Checking</span></div><div class="queue-visual"><div><strong data-queue-active>—</strong><span>Active</span></div><div><strong data-queue-waiting>—</strong><span>Waiting</span></div><div><strong data-queue-capacity>—</strong><span>Capacity</span></div></div></article>
+          <article class="admin-card models-card"><div class="card-heading"><div><span>MODEL FLEET</span><h2>Installed and loaded</h2></div></div><div class="monitor-models" data-monitor-models></div></article>
+          <article class="admin-card models-card">
+            <div class="card-heading"><div><span>DATA PROTECTION</span><h2>Encrypted database backups</h2></div><button class="link-button" data-run-backup>Back up now</button></div>
+            <div class="backup-summary">
+              <div><span>Status</span><strong data-backup-status>—</strong></div>
+              <div><span>Last successful backup</span><strong data-backup-time>—</strong></div>
+              <div><span>Local file</span><strong data-backup-file>—</strong></div>
+              <div><span>Off-site copy</span><strong data-backup-r2>—</strong></div>
+            </div>
+            <div class="backup-history" data-backup-history></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="admin-modal" data-modal="organization">
+    <form method="dialog" data-organization-form>
+      <div class="modal-heading"><div><span>NEW CLIENT ACCOUNT</span><h2>Add organization</h2></div><button type="button" data-close-dialog aria-label="Close">×</button></div>
+      <label>Name<input name="name" required minlength="2" maxlength="100"></label>
+      <div class="form-columns"><label>License tier<input name="license_tier" value="free" required></label><label>Member allowance<input name="member_limit" type="number" value="5" min="1" required></label></div>
+      <label>Organization RPM limit<input name="rpm_limit" type="number" value="120" min="1" required><small>Shared across every member and key in this organization.</small></label>
+      <div class="modal-actions"><button type="button" data-close-dialog class="button button-secondary-admin">Cancel</button><button type="submit" class="button button-primary">Create organization</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="admin-modal" data-modal="member">
+    <form method="dialog" data-member-form>
+      <div class="modal-heading"><div><span>NEW TEAM MEMBER</span><h2>Add member</h2></div><button type="button" data-close-dialog aria-label="Close">×</button></div>
+      <label>Organization<select name="org_id" required></select></label>
+      <label>Name<input name="name" required minlength="2"></label>
+      <label>Email<input name="email" type="email" required></label>
+      <div class="form-columns"><label>Role<select name="role"><option value="member">Member</option><option value="admin">Organization admin</option></select></label><label>Member RPM limit<input name="rpm_limit" type="number" value="60" min="1" required></label></div>
+      <div class="modal-actions"><button type="button" data-close-dialog class="button button-secondary-admin">Cancel</button><button type="submit" class="button button-primary">Add member</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="admin-modal" data-modal="key">
+    <form method="dialog" data-key-form>
+      <div class="modal-heading"><div><span>NEW CREDENTIAL</span><h2>Create API key</h2></div><button type="button" data-close-dialog aria-label="Close">×</button></div>
+      <label>Member<select name="member_id" required></select></label>
+      <label>Application name<input name="name" placeholder="e.g. production-chatbot" required></label>
+      <label>Application RPM limit<input name="rpm_limit" type="number" value="30" min="1" required></label>
+      <label>Allowed models<input name="allowed_models" placeholder="chat, smart, code"><small>Comma-separated aliases or model IDs. Leave blank for all models.</small></label>
+      <div class="modal-actions"><button type="button" data-close-dialog class="button button-secondary-admin">Cancel</button><button type="submit" class="button button-primary">Create key</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="admin-modal secret-modal" data-modal="secret">
+    <div>
+      <div class="modal-heading"><div><span>SHOWN ONCE</span><h2>Store this API key now</h2></div><button data-close-secret aria-label="Close">×</button></div>
+      <p>This key cannot be retrieved later. Copy it to the application before closing.</p>
+      <div class="secret-value"><code data-secret-value></code><button data-copy-secret>Copy</button></div>
+      <div class="modal-actions"><button class="button button-primary" data-close-secret>Done</button></div>
+    </div>
+  </dialog>
+</body>
+</html>

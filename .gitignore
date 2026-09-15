@@ -1,0 +1,16 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+data/
+backups/
+logs/
+*.log
+.cloudflared/
+tools/
+node_modules/
+dist/
+*.pem
+.webui_secret_key
