@@ -13,7 +13,9 @@ shared by client SDKs, a local sidecar, and hosted privacy endpoints.
 The [Domain APIs](DOMAIN-APIS.md) provide deterministic financial analysis and
 constrained managed agents. [Legal Contract Intelligence](LEGAL-APIS.md) adds
 caller-source-attributed clause review, bounded playbook checks and directional
-contract comparison.
+contract comparison. [Market Research Intelligence](MARKET-APIS.md) adds
+deterministic evidence analysis and non-ranking competitive comparisons over
+explicitly aligned metrics.
 
 ## How it fits together
 
@@ -149,6 +151,8 @@ structured output are in [`examples/`](examples/).
 | `POST`   | `/v1/financial/company/analyze` | API key | Historical financial ratio analysis |
 | `POST`   | `/v1/legal/contracts/review` | API key | Clause extraction and playbook issue spotting |
 | `POST`   | `/v1/legal/contracts/compare` | API key | Directional clause and supported-risk comparison |
+| `POST`   | `/v1/market/research/analyze` | API key | Dated evidence, trend, contradiction, and coverage analysis |
+| `POST`   | `/v1/market/competitive-landscape/compare` | API key | Non-ranking comparable market dimensions |
 | `GET`    | `/v1/agents`           | API key   | List typed managed agents            |
 | `POST`   | `/v1/agents/runs`      | API key   | Run a constrained domain workflow    |
 | `GET`    | `/v1/domain/runs/{request_id}` | API key | Retrieve body-free domain audit metadata |

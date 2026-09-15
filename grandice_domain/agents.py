@@ -12,6 +12,12 @@ from .legal import (
     analyze_contract,
     compare_contracts,
 )
+from .market import (
+    CompetitiveLandscapeInput,
+    MarketResearchInput,
+    analyze_market_evidence,
+    compare_competitive_landscape,
+)
 from .portfolio import PortfolioAnalysisInput, analyze_portfolio
 from .risk import RiskAssessmentInput, assess_client_risk
 
@@ -131,6 +137,45 @@ AGENTS: dict[str, AgentDefinition] = {
             "source_span_hasher",
         ),
         privacy_policy="legal-strict-v1",
+        execution_timeout_seconds=10.0,
+    ),
+    "market.evidence-analyst.v1": AgentDefinition(
+        id="market.evidence-analyst.v1",
+        domain="market_research",
+        name="Market Evidence Analysis Agent",
+        description=(
+            "Analyzes caller-provided dated market evidence for exact metric "
+            "trends, freshness, contradictions, concentration, and coverage."
+        ),
+        input_model=MarketResearchInput,
+        analyzer=analyze_market_evidence,
+        capabilities=(
+            "typed_market_evidence",
+            "exact_metric_trends",
+            "freshness_and_coverage",
+            "contradiction_detection",
+            "source_binding_hashes",
+        ),
+        privacy_policy="market-strict-v1",
+        execution_timeout_seconds=8.0,
+    ),
+    "market.competitive-landscape.v1": AgentDefinition(
+        id="market.competitive-landscape.v1",
+        domain="market_research",
+        name="Competitive Landscape Agent",
+        description=(
+            "Compares declared entities only across aligned metric, unit, "
+            "currency, scale, period, and accounting dimensions without ranking."
+        ),
+        input_model=CompetitiveLandscapeInput,
+        analyzer=compare_competitive_landscape,
+        capabilities=(
+            "comparability_validation",
+            "non_ranking_entity_profiles",
+            "missing_evidence_disclosure",
+            "bounded_evidence_bindings",
+        ),
+        privacy_policy="market-strict-v1",
         execution_timeout_seconds=10.0,
     ),
 }

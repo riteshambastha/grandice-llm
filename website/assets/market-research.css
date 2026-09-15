@@ -1,0 +1,143 @@
+.market-cover {
+  background:
+    radial-gradient(circle at 80% 36%, rgba(54,210,184,.14), transparent 27%),
+    #071722;
+}
+.market-cover .cover-copy { max-width: 825px; }
+.market-cover .cover-copy h1 { max-width: 800px; font-size: clamp(50px, 6.4vw, 80px); }
+.market-cover .cover-positioning { max-width: 700px; }
+
+.market-orbit {
+  position: absolute;
+  top: 125px;
+  right: 55px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(115,239,246,.14);
+  border-radius: 50%;
+}
+.market-orbit::before,
+.market-orbit::after {
+  position: absolute;
+  border: 1px solid rgba(115,239,246,.11);
+  border-radius: 50%;
+  content: "";
+}
+.market-orbit::before { inset: 47px; }
+.market-orbit::after { inset: 96px; }
+.market-orbit i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #071722;
+  border-radius: 50%;
+  background: #51d8d3;
+  box-shadow: 0 0 17px rgba(81,216,211,.55);
+}
+.market-orbit i:nth-child(1) { top: 22px; left: 78px; }
+.market-orbit i:nth-child(2) { top: 94px; right: 38px; }
+.market-orbit i:nth-child(3) { right: 92px; bottom: 37px; }
+.market-orbit i:nth-child(4) { bottom: 87px; left: 54px; }
+
+.agent-detail-grid.two-up { grid-template-columns: repeat(2, 1fr); }
+.market-invariant {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin-top: 20px;
+  background: #dce5e7;
+}
+.market-invariant strong,
+.market-invariant span {
+  flex: 1 1 180px;
+  padding: 15px 17px;
+  background: #fff;
+  color: #526a74;
+  font-family: var(--mono);
+  font-size: 9px;
+}
+.market-invariant strong { color: #087888; }
+
+.coverage-formula {
+  margin-top: 30px;
+  padding: 34px;
+  border: 1px solid #cce1df;
+  border-left: 5px solid #2aafa5;
+  background: #f1faf8;
+}
+.coverage-formula > span {
+  color: #168b83;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.coverage-formula strong {
+  display: block;
+  margin: 17px 0 13px;
+  color: #173b3d;
+  font-size: 20px;
+  line-height: 1.4;
+}
+.coverage-formula p { margin: 0; color: #60747e; font-size: 12px; }
+
+.comparison-stack {
+  margin: 32px 0;
+  border-top: 1px solid #dce5e7;
+}
+.comparison-stack > div {
+  display: grid;
+  grid-template-columns: 54px 200px 1fr;
+  align-items: center;
+  padding: 17px 8px;
+  border-bottom: 1px solid #dce5e7;
+}
+.comparison-stack b { color: #20a59c; font-family: var(--mono); font-size: 10px; }
+.comparison-stack span { color: #1a3540; font-size: 13px; font-weight: 700; }
+.comparison-stack code { color: #647b84; font-size: 10px; }
+.market-status-scale { grid-template-columns: repeat(3, 1fr); }
+
+.market-control-metrics b { font-size: 19px; }
+.market-paper-body code { overflow-wrap: anywhere; }
+.market-paper-body .compare-section code,
+.market-paper-body .integration-section code { color: #087888; }
+
+@media (max-width: 900px) {
+  .market-orbit { opacity: .28; right: -110px; }
+  .agent-detail-grid.two-up { grid-template-columns: 1fr; }
+  .comparison-stack > div { grid-template-columns: 42px 1fr; }
+  .comparison-stack code { grid-column: 2; margin-top: 7px; }
+}
+
+@media print {
+  .market-orbit { top: 32mm; right: 4mm; transform: scale(.72); transform-origin: top right; }
+  .market-cover .cover-copy h1 { font-size: 45pt; }
+  .agents-section,
+  .methodology-section,
+  .metrics-section,
+  .coverage-section,
+  .contradiction-section,
+  .compare-section,
+  .source-section,
+  .privacy-paper-section,
+  .runtime-section,
+  .governance-section,
+  .integration-section,
+  .evaluation-section,
+  .limitations-section,
+  .conclusion-section,
+  .appendix-section { break-before: page; }
+  .agent-detail-grid.two-up { display: block !important; }
+  .agent-detail-grid.two-up article { margin-bottom: 3mm; }
+  .market-invariant { display: block; background: transparent; }
+  .market-invariant strong,
+  .market-invariant span { display: block; border-bottom: 1px solid #dce5e7; }
+  .coverage-formula,
+  .comparison-stack,
+  .market-status-scale { break-inside: avoid; }
+  .evaluation-section { padding-top: 8mm; padding-bottom: 8mm; }
+  .evaluation-section .roadmap { margin-top: 5mm; }
+  .evaluation-section .roadmap article { margin-bottom: 2mm; padding: 10px 14px; }
+  .evaluation-section .roadmap h3 { margin: 5px 0 7px; }
+  .evaluation-section .roadmap li { margin: 3px 0; font-size: 7.5pt; }
+}

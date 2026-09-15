@@ -21,6 +21,7 @@
       <a class="status-chip" href="/health"><i></i> API status</a>
       <a href="/financial-advisor">Financial agents</a>
       <a href="/legal-contracts">Legal contracts</a>
+      <a href="/market-research">Market research</a>
       <a href="/contact">Contact us</a>
       <a href="/">Back to website</a>
     </div>
@@ -45,6 +46,8 @@
         <a href="#managed-agents">Managed agents</a>
         <a href="/legal-contracts">Legal white paper ↗</a>
         <a href="#legal-contracts">Legal contract APIs</a>
+        <a href="/market-research">Market white paper ↗</a>
+        <a href="#market-research">Market research APIs</a>
         <a href="#models">Models</a>
         <span>Core endpoints</span>
         <a href="#list-models">List models</a>
@@ -373,7 +376,7 @@ Content-Type: application/json
     }
   }
 }</code></pre>
-        <div class="docs-note">Available agents include three financial workflows plus <code>legal.contract-reviewer.v1</code> and <code>legal.contract-comparator.v1</code>. Market-research agents will follow after their retrieval, freshness and citation contracts are implemented.</div>
+        <div class="docs-note">Available agents include three financial workflows, two legal workflows, <code>market.evidence-analyst.v1</code>, and <code>market.competitive-landscape.v1</code>.</div>
       </section>
 
       <section class="doc-section docs-anchor" id="legal-contracts">
@@ -397,6 +400,29 @@ Content-Type: application/json
           <p>Contract text cannot select an agent, alter a playbook, call a tool, browse, change severity or approve an outcome. The current implementation contains no model or network call in legal analysis.</p>
         </div>
         <a class="docs-inline-link" href="/legal-contracts">Read the architecture and governance white paper →</a>
+      </section>
+
+      <section class="doc-section docs-anchor" id="market-research">
+        <div class="doc-kicker">DOMAIN INTELLIGENCE · MARKET</div>
+        <h2>Market Research Intelligence APIs</h2>
+        <p>Deterministic analysis of caller-provided, dated market evidence. The initial workflows calculate exact metric changes, source and observation recency, declared source-ID concentration, contradictions, research gaps, and non-ranking competitive comparisons.</p>
+        <div class="admin-endpoints">
+          <div><span class="method post">POST</span><code>/v1/market/research/analyze</code><p>Analyze evidence coverage, exact trends, disagreements, contradictions, reversals, recency, and declared research gaps.</p></div>
+          <div><span class="method post">POST</span><code>/v1/market/competitive-landscape/compare</code><p>Compare entities only when metric, unit, currency, scale, period, fiscal calendar, and accounting basis align.</p></div>
+        </div>
+        <ul class="docs-list">
+          <li>Sources, citation labels, publication dates, and source identities are caller provided and unverified.</li>
+          <li>Evidence bindings include statement, canonical-record, source, and analysis-manifest digests.</li>
+          <li>Coverage measures supplied evidence coverage—not confidence, accuracy, quality, independence, or truth.</li>
+          <li>Same-period disputed metric values remain unresolved and are excluded from trend arithmetic.</li>
+          <li>No browsing, live retrieval, currency conversion, normalization, forecasting, ranking, or recommendation occurs.</li>
+          <li>Market analysis runs in capacity-limited child processes that are terminated on deadline.</li>
+        </ul>
+        <div class="docs-callout">
+          <strong>Comparability is explicit.</strong>
+          <p>Grandice does not call metrics comparable because their names look similar. Every declared dimension and period boundary must match; unknown, missing, disputed, or misaligned evidence remains incomparable.</p>
+        </div>
+        <a class="docs-inline-link" href="/market-research">Read the market research architecture and governance white paper →</a>
       </section>
 
       <section class="doc-section docs-anchor" id="models">

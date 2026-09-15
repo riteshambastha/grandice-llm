@@ -39,6 +39,11 @@ POLICIES: dict[str, PrivacyPolicy] = {
         entities=GENERAL_ENTITIES | {"ACCOUNT_NUMBER", "DATE_OF_BIRTH", "CASE_NUMBER"},
         min_confidence=0.70,
     ),
+    "market-strict-v1": PrivacyPolicy(
+        id="market-strict-v1",
+        entities=GENERAL_ENTITIES | {"ACCOUNT_NUMBER", "DATE_OF_BIRTH"},
+        min_confidence=0.70,
+    ),
 }
 
 

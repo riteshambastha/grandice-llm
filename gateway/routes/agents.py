@@ -18,6 +18,7 @@ from ..domain_runtime import (
     read_domain_json,
     record_domain_run,
 )
+from .market import MARKET_MAX_RESPONSE_BYTES, _run_in_killable_process
 from .openai import _enforce_limit
 
 router = APIRouter(prefix="/v1/agents", tags=["agents"])
@@ -147,15 +148,31 @@ async def run_agent(
             json.dumps(run.inputs, separators=(",", ":"))
         )
         try:
-            result = await asyncio.wait_for(
-                asyncio.to_thread(definition.analyzer, payload),
-                timeout=definition.execution_timeout_seconds,
-            )
+            if definition.domain == "market_research":
+                result = await _run_in_killable_process(
+                    definition.analyzer,
+                    payload,
+                    deadline=started + definition.execution_timeout_seconds,
+                )
+            else:
+                result = await asyncio.wait_for(
+                    asyncio.to_thread(definition.analyzer, payload),
+                    timeout=definition.execution_timeout_seconds,
+                )
         except TimeoutError as exc:
             raise HTTPException(
                 503,
                 "Agent execution exceeded its bounded processing deadline.",
             ) from exc
+        if (
+            definition.domain == "market_research"
+            and len(result.model_dump_json().encode("utf-8"))
+            > MARKET_MAX_RESPONSE_BYTES
+        ):
+            raise HTTPException(
+                500,
+                "Market research output exceeded the bounded response limit.",
+            )
     except ValidationError as exc:
         errors = exc.errors(include_input=False, include_context=False)
         await record_domain_run(
@@ -231,6 +248,9 @@ async def run_agent(
     response.headers["X-Grandice-Content-Retained"] = "false"
     if definition.domain == "legal":
         response.headers["X-Grandice-Legal-Advice"] = "false"
+    if definition.domain == "market_research":
+        response.headers["X-Grandice-Market-Advice"] = "false"
+        response.headers["X-Grandice-Source-Verification"] = "unverified"
     envelope = domain_envelope(
         request_id=request_id,
         privacy_mode=privacy_mode,

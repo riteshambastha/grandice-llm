@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Grandice Market Research Intelligence white paper: deterministic evidence analysis, exact trends, contradiction handling, strict comparability, Privacy Shield, and caller-attributed source manifests.">
+  <title>Market Research Intelligence White Paper — Grandice</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/financial-advisor.css">
+  <link rel="stylesheet" href="/assets/market-research.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body class="paper-body market-paper-body">
+  <header class="paper-header screen-only">
+    <a class="brand" href="/" aria-label="Grandice home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+      <span>grandice</span><b>Market research</b>
+    </a>
+    <nav>
+      <a href="#architecture">Architecture</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#comparability">Comparability</a>
+      <a href="/api-docs#market-research">API docs</a>
+      <a class="paper-download" href="/assets/grandice-market-research-intelligence-white-paper-v4.pdf" download>Download PDF</a>
+    </nav>
+  </header>
+
+  <main class="white-paper market-white-paper">
+    <section class="paper-cover market-cover">
+      <div class="cover-grid" aria-hidden="true"></div>
+      <div class="market-orbit" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="cover-mark">
+        <span class="brand-mark"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span>
+        GRANDICE DOMAIN INTELLIGENCE
+      </div>
+      <div class="cover-copy">
+        <div class="paper-label">TECHNICAL WHITE PAPER · VERSION 1.0</div>
+        <h1>Market Research Intelligence</h1>
+        <p class="cover-subtitle">Deterministic evidence analysis with exact metrics, explicit comparability, contradiction-aware outputs, and caller-attributed provenance.</p>
+        <p class="cover-positioning">An implementation-oriented architecture for dated market evidence, competitive landscape analysis, bounded privacy controls, and professional review.</p>
+      </div>
+      <div class="cover-boundary">
+        <span>ATTRIBUTE</span><i></i><span>COMPARE</span><i></i><span>DISCLOSE</span>
+      </div>
+      <div class="cover-meta">
+        <div><span>Published</span><strong>September 2026</strong></div>
+        <div><span>Methodology</span><strong>grandice-market-deterministic-1.3.0</strong></div>
+        <div><span>Status</span><strong>Initial implementation</strong></div>
+      </div>
+    </section>
+
+    <section class="paper-section abstract-section">
+      <div class="section-number">00</div>
+      <div>
+        <p class="section-kicker">ABSTRACT</p>
+        <h2>Evidence organization—not autonomous market judgment.</h2>
+        <p class="lead">Grandice provides two constrained market-research workflows. The first analyzes caller-provided dated evidence for exact metric changes, recency, declared source concentration, contradictions, and research gaps. The second compares declared entities only across fully aligned metric dimensions.</p>
+        <p>The current implementation contains no model, browser, retrieval, forecasting, ranking, or recommendation step. Source text remains inert data. Every displayed evidence reference carries raw-statement and canonical-record digests, and an analysis manifest binds the methodology, scope, source registry, and evidence set.</p>
+        <p>Sources remain caller attributed and unverified. Coverage measures the shape of submitted evidence; it does not measure source independence, factual truth, research quality, accuracy, or confidence.</p>
+        <aside class="thesis">
+          <strong>Core thesis</strong>
+          <p>A trustworthy market-research workflow must disclose what it received, what is comparable, what conflicts, and what is missing before it attempts to summarize what the market means.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="paper-section scope-section">
+      <div class="section-number">01</div>
+      <div>
+        <p class="section-kicker">EXECUTIVE PERSPECTIVE</p>
+        <h2>Separate evidence processing from source truth and strategic interpretation.</h2>
+        <p>Research teams routinely combine analyst reports, filings, surveys, announcements, internal observations, and structured metrics. Similar labels may hide different currencies, scales, periods, scopes, or accounting bases. Fresh-looking evidence can repeat one underlying source, while unresolved conflicts disappear inside narrative synthesis.</p>
+        <div class="problem-grid">
+          <article><span>01</span><h3>False comparability</h3><p>Metrics with matching names are compared despite incompatible units, periods, currencies, or bases.</p></article>
+          <article><span>02</span><h3>Source inflation</h3><p>Multiple caller IDs can describe one publisher or syndicated underlying record.</p></article>
+          <article><span>03</span><h3>Conflict suppression</h3><p>A selected “latest” value can hide same-period disagreement or directional ambiguity.</p></article>
+          <article><span>04</span><h3>Advice drift</h3><p>Research summaries can become rankings, forecasts, or recommendations without an approval boundary.</p></article>
+        </div>
+        <p>Grandice addresses the bounded evidence-processing layer. The adopting organization remains responsible for retrieval, source licensing, authenticity, independence, domain interpretation, methodology approval, decisions, and externally distributed conclusions.</p>
+      </div>
+    </section>
+
+    <section class="paper-section nonclaims-section">
+      <div class="section-number">02</div>
+      <div>
+        <p class="section-kicker">SCOPE AND RESPONSIBILITY BOUNDARY</p>
+        <h2>Useful structure without claiming market truth.</h2>
+        <div class="boundary-grid">
+          <div class="boundary-yes">
+            <h3>Implemented</h3>
+            <ul>
+              <li>Typed caller-provided evidence and research scopes</li>
+              <li>Exact Decimal interval arithmetic</li>
+              <li>Observation and unique-source recency summaries</li>
+              <li>Declared source-ID concentration and HHI</li>
+              <li>Disagreement, contradiction, reversal, and gap counts</li>
+              <li>Strict cross-entity comparability dimensions</li>
+              <li>Canonical evidence, source, and manifest digests</li>
+              <li>Killable capacity-limited analysis workers</li>
+              <li>Privacy Shield and metadata-only domain audit</li>
+            </ul>
+          </div>
+          <div class="boundary-no">
+            <h3>Outside current authority</h3>
+            <ul>
+              <li>Live browsing, URL retrieval, or source verification</li>
+              <li>Currency, unit, accounting, or period conversion</li>
+              <li>Forecasts, causal conclusions, and market predictions</li>
+              <li>Objective source quality or independence scoring</li>
+              <li>Vendor, company, product, or opportunity rankings</li>
+              <li>Investment, market, commercial, or strategic advice</li>
+              <li>Price targets, expected returns, or buy/sell/hold language</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section principles-section">
+      <div class="section-number">03</div>
+      <div>
+        <p class="section-kicker">DESIGN PRINCIPLES</p>
+        <h2>Make uncertainty inspectable before making evidence convenient.</h2>
+        <div class="principle-list">
+          <article><b>01</b><div><h3>Caller attribution is not verification</h3><p>Source labels, dates, publishers, and identities remain caller assertions. Digests bind records; they do not prove truth.</p></div></article>
+          <article><b>02</b><div><h3>Comparability is a schema decision</h3><p>Name, unit, kind, scale, currency, period, fiscal calendar, and accounting basis must align explicitly.</p></div></article>
+          <article><b>03</b><div><h3>Conflicts remain visible</h3><p>Disputed endpoints are not selected as authoritative and cannot silently drive trend arithmetic.</p></div></article>
+          <article><b>04</b><div><h3>Coverage is not confidence</h3><p>A deterministic coverage score reports supplied cells, source IDs, and recency—not accuracy or truth probability.</p></div></article>
+          <article><b>05</b><div><h3>Every output path is bounded</h3><p>Evidence, rows, bindings, excerpts, response bytes, worker slots, and execution time have enforced limits.</p></div></article>
+          <article><b>06</b><div><h3>Research cannot authorize action</h3><p>Outputs require professional review and cannot rank, recommend, forecast, trade, purchase, or publish.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section architecture-section" id="architecture">
+      <div class="section-number">04</div>
+      <div>
+        <p class="section-kicker">SYSTEM ARCHITECTURE</p>
+        <h2>A constrained path from protected evidence to inspectable market outputs.</h2>
+        <p>The gateway validates authentication, quotas, JSON bounds, and configured privacy patterns before strict schema validation. Validated analysis then runs inside a capacity-limited child process. A deadline terminates the worker instead of leaving expensive work running in a thread.</p>
+        <figure class="diagram">
+          <svg viewBox="0 0 1040 500" role="img" aria-label="Market research intelligence architecture">
+            <defs><marker id="market-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z"/></marker></defs>
+            <rect class="lane" x="18" y="38" width="292" height="410" rx="14"/><text class="lane-title" x="42" y="70">CALLER TRUST BOUNDARY</text>
+            <rect class="lane" x="330" y="38" width="292" height="410" rx="14"/><text class="lane-title" x="354" y="70">GRANDICE GATEWAY</text>
+            <rect class="lane" x="642" y="38" width="380" height="410" rx="14"/><text class="lane-title" x="666" y="70">MARKET DOMAIN WORKER</text>
+            <g class="node primary"><rect x="52" y="105" width="225" height="74" rx="8"/><text x="165" y="136">Privacy SDK / sidecar</text><text class="sub" x="165" y="157">LOCAL TOKEN MAP</text></g>
+            <g class="node"><rect x="52" y="250" width="225" height="74" rx="8"/><text x="165" y="281">Scope + evidence</text><text class="sub" x="165" y="302">CALLER ATTRIBUTED</text></g>
+            <g class="node"><rect x="366" y="105" width="220" height="74" rx="8"/><text x="476" y="136">Auth + structural bounds</text><text class="sub" x="476" y="157">2 MiB · DEPTH · NODES</text></g>
+            <g class="node caution"><rect x="366" y="250" width="220" height="74" rx="8"/><text x="476" y="281">Residual privacy scan</text><text class="sub" x="476" y="302">MARKET-STRICT-V1</text></g>
+            <g class="node primary"><rect x="680" y="105" width="304" height="74" rx="8"/><text x="832" y="136">Killable child process</text><text class="sub" x="832" y="157">2 CONCURRENT SLOTS</text></g>
+            <g class="node"><rect x="680" y="250" width="304" height="74" rx="8"/><text x="832" y="281">Metrics + conflicts + gaps</text><text class="sub" x="832" y="302">DETERMINISTIC · BOUNDED</text></g>
+            <g class="node review"><rect x="680" y="365" width="304" height="55" rx="8"/><text x="832" y="397">Professional review</text></g>
+            <path class="arrow" marker-end="url(#market-arrow)" d="M277 142H366"/><path class="arrow" marker-end="url(#market-arrow)" d="M277 287H366"/>
+            <path class="arrow" marker-end="url(#market-arrow)" d="M476 179V250"/><path class="arrow" marker-end="url(#market-arrow)" d="M586 287H680"/>
+            <path class="arrow" marker-end="url(#market-arrow)" d="M832 179V250"/><path class="arrow" marker-end="url(#market-arrow)" d="M832 324V365"/>
+          </svg>
+          <figcaption>Figure 1. Market evidence never gains control-plane authority. Embedded instructions, HTML, URLs, and recommendation language remain inert input text.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="paper-section agents-section">
+      <div class="section-number">05</div>
+      <div>
+        <p class="section-kicker">MANAGED WORKFLOWS</p>
+        <h2>Two deterministic agents with no retrieval or recommendation tools.</h2>
+        <div class="agent-detail-grid two-up">
+          <article><span class="agent-tag">EVIDENCE</span><h3>Market Evidence Analysis</h3><code>market.evidence-analyst.v1</code><p>Calculates exact trends, recency, source concentration, coverage, disagreements, contradictions, transitions, and research gaps.</p><p class="exclusion">No browsing, source verification, forecasts, ranking, or strategic recommendation.</p></article>
+          <article><span class="agent-tag">LANDSCAPE</span><h3>Competitive Landscape</h3><code>market.competitive-landscape.v1</code><p>Builds non-ranking entity profiles and compares only complete, aligned metric dimensions and period boundaries.</p><p class="exclusion">No conversion, imputation, “best” vendor, investment attractiveness, or decision.</p></article>
+        </div>
+        <div class="market-invariant"><strong>Registry invariant</strong><span>deterministic = true</span><span>source verification = unverified</span><span>professional review = required</span></div>
+      </div>
+    </section>
+
+    <section class="paper-section methodology-section" id="methodology">
+      <div class="section-number">06</div>
+      <div>
+        <p class="section-kicker">EVIDENCE CONTRACT</p>
+        <h2>Structured observations replace unconstrained research prompts.</h2>
+        <div class="method-block"><div class="method-heading"><span>06.1</span><h3>Research scope</h3></div><p>A scope declares subject IDs, date boundaries, and expected metric dimensions. Metric evidence outside those dimensions is rejected rather than allowed to inflate coverage or suppress declared gaps.</p></div>
+        <div class="method-block"><div class="method-heading"><span>06.2</span><h3>Evidence record</h3></div><p>Each item carries an opaque evidence ID, caller source ID, subject, type, observation/publication date, bounded title and statement, evidence kind, signal, tags, and optional complete metric record.</p></div>
+        <div class="method-block"><div class="method-heading"><span>06.3</span><h3>Metric semantics</h3></div><p>Metric values declare kind, unit, scale, optional ISO currency, period type, start, end, fiscal calendar, and accounting basis. Floats and incomplete metric tuples are rejected.</p></div>
+        <div class="method-block"><div class="method-heading"><span>06.4</span><h3>Date separation</h3></div><p><code>observed_date</code> represents the caller-declared evidence observation/publication date. Metric periods have independent start and end fields. Future-period forecasts are outside this v1 contract.</p></div>
+      </div>
+    </section>
+
+    <section class="paper-section metrics-section">
+      <div class="section-number">07</div>
+      <div>
+        <p class="section-kicker">EXACT METRICS AND TRENDS</p>
+        <h2>Exact interval values; explicit quantization where division is required.</h2>
+        <p>Accepted metric numbers contain at most 34 digits, twelve decimal places, and magnitude below 1e25. Interval subtraction uses an 80-digit local Decimal context so accepted values do not inherit ambient 28-digit rounding.</p>
+        <div class="formula-row two">
+          <div class="formula-card"><span>INTERVAL CHANGE</span><strong>Δ = V<sub>end</sub> − V<sub>start</sub></strong><p>Exact for accepted values.</p></div>
+          <div class="formula-card"><span>RELATIVE CHANGE</span><strong>100 × Δ / V<sub>start</sub></strong><p>Half-even quantized to six places; unavailable at zero or disputed baselines.</p></div>
+        </div>
+        <div class="validation-strip"><span>JSON FLOATS REJECTED</span><span>CAGR NOT INFERRED</span><span>DISPUTED ENDPOINTS BLOCKED</span><span>PERCENT UNITS EXPLICIT</span></div>
+        <p>A percentage value of <code>"12.5"</code> means 12.5%, not the ratio 0.125. Percentage-point deltas use a distinct value kind and unit.</p>
+      </div>
+    </section>
+
+    <section class="paper-section coverage-section">
+      <div class="section-number">08</div>
+      <div>
+        <p class="section-kicker">RECENCY, CONCENTRATION, AND COVERAGE</p>
+        <h2>Describe the submitted evidence without calling it trustworthy.</h2>
+        <p>Observation recency uses caller-declared evidence dates. Source recency uses each referenced source ID once, based on its caller-declared <code>as_of</code> date. Repeating rows from one source cannot improve the recency component.</p>
+        <div class="coverage-formula">
+          <span>EVIDENCE COVERAGE SCORE</span>
+          <strong>25% subject cells + 25% expected metric cells + 25% declared source-ID diversity + 25% unique-source recency</strong>
+          <p>Each weighted component contribution is exposed. The result is not a confidence score or truth probability.</p>
+        </div>
+        <div class="control-notes">
+          <article><h3>Declared source concentration</h3><p>Counts, largest share, and HHI operate on caller source IDs. Duplicate or syndicated sources can still game this measure.</p></article>
+          <article><h3>Research gaps</h3><p>No evidence, missing dimensions, single-source support, and stale evidence are emitted under reserved quotas.</p></article>
+          <article><h3>Completeness</h3><p>Any row or evidence-binding omission sets <code>complete=false</code> and reports section-level totals.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section contradiction-section">
+      <div class="section-number">09</div>
+      <div>
+        <p class="section-kicker">CONTRADICTION SEMANTICS</p>
+        <h2>Disagreement, material conflict, and temporal change are different events.</h2>
+        <figure class="diagram">
+          <svg viewBox="0 0 1040 360" role="img" aria-label="Contradiction and transition classification">
+            <defs><marker id="conflict-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z"/></marker></defs>
+            <g class="node"><rect x="24" y="140" width="185" height="78" rx="8"/><text x="116" y="173">Grouped evidence</text><text class="sub" x="116" y="195">SUBJECT + DIMENSION</text></g>
+            <g class="node primary"><rect x="283" y="45" width="205" height="78" rx="8"/><text x="386" y="78">Same period</text><text class="sub" x="386" y="100">MULTIPLE VALUES</text></g>
+            <g class="node primary"><rect x="283" y="235" width="205" height="78" rx="8"/><text x="386" y="268">Different dates</text><text class="sub" x="386" y="290">DIRECTIONAL SIGNALS</text></g>
+            <g class="node caution"><rect x="565" y="45" width="210" height="78" rx="8"/><text x="670" y="78">Disagreement</text><text class="sub" x="670" y="100">NO VALUE SELECTED</text></g>
+            <g class="node reject"><rect x="825" y="45" width="190" height="78" rx="8"/><text x="920" y="78">Material conflict</text><text class="sub" x="920" y="100">≥ 1% THRESHOLD</text></g>
+            <g class="node review"><rect x="565" y="235" width="210" height="78" rx="8"/><text x="670" y="268">Clean reversal</text><text class="sub" x="670" y="290">UNAMBIGUOUS ENDS</text></g>
+            <g class="node caution"><rect x="825" y="235" width="190" height="78" rx="8"/><text x="920" y="268">Ambiguous transition</text><text class="sub" x="920" y="290">DISPUTED ENDPOINT</text></g>
+            <path class="arrow" marker-end="url(#conflict-arrow)" d="M209 179C245 179 248 84 283 84"/><path class="arrow" marker-end="url(#conflict-arrow)" d="M209 179C245 179 248 274 283 274"/>
+            <path class="arrow" marker-end="url(#conflict-arrow)" d="M488 84H565"/><path class="arrow" marker-end="url(#conflict-arrow)" d="M775 84H825"/>
+            <path class="arrow" marker-end="url(#conflict-arrow)" d="M488 274H565"/><path class="arrow" marker-end="url(#conflict-arrow)" d="M775 274H825"/>
+          </svg>
+          <figcaption>Figure 2. A disputed endpoint prevents authoritative latest-value selection and trend arithmetic. A temporal reversal requires one unambiguous opposing signal at each endpoint.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="paper-section compare-section" id="comparability">
+      <div class="section-number">10</div>
+      <div>
+        <p class="section-kicker">COMPETITIVE COMPARABILITY</p>
+        <h2>Matching names are necessary—and nowhere near sufficient.</h2>
+        <div class="comparison-stack">
+          <div><b>01</b><span>Metric identity</span><code>name + unit + value kind</code></div>
+          <div><b>02</b><span>Numeric basis</span><code>scale + ISO currency</code></div>
+          <div><b>03</b><span>Time basis</span><code>period type + start + end</code></div>
+          <div><b>04</b><span>Reporting basis</span><code>fiscal calendar + accounting basis</code></div>
+          <div><b>05</b><span>Evidence state</span><code>present + undisputed + known basis</code></div>
+        </div>
+        <p>A row becomes comparable only when every required dimension aligns for at least two entities and no entity is missing or disputed. Unknown accounting bases are incomparable. Grandice performs no conversion or imputation.</p>
+        <div class="risk-scale market-status-scale"><div class="lower"><b>COMPARABLE</b><span>all dimensions aligned</span></div><div class="moderate"><b>INCOMPLETE</b><span>missing entity evidence</span></div><div class="higher"><b>INCOMPARABLE</b><span>mismatch or dispute</span></div></div>
+      </div>
+    </section>
+
+    <section class="paper-section source-section">
+      <div class="section-number">11</div>
+      <div>
+        <p class="section-kicker">EVIDENCE AND MANIFEST INTEGRITY</p>
+        <h2>Bind the analysis record without pretending to authenticate the source.</h2>
+        <figure class="diagram source-diagram">
+          <svg viewBox="0 0 1040 410" role="img" aria-label="Market evidence integrity manifest">
+            <defs><marker id="manifest-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z"/></marker></defs>
+            <g class="source-box"><rect x="25" y="70" width="230" height="260" rx="8"/><text x="140" y="108">CALLER SOURCE</text><text class="sub" x="140" y="145">source_id</text><text class="sub" x="140" y="172">citation_sha256</text><text class="sub" x="140" y="199">as_of</text><text class="note" x="140" y="295">UNVERIFIED</text></g>
+            <g class="record-box"><rect x="307" y="70" width="230" height="260" rx="8"/><text x="422" y="108">EVIDENCE RECORD</text><text class="sub" x="422" y="145">statement_sha256</text><text class="sub" x="422" y="172">evidence_sha256</text><text class="sub" x="422" y="199">safe_rendering_required</text><text class="sub" x="422" y="226">render_as = text</text></g>
+            <g class="record-box"><rect x="589" y="70" width="230" height="260" rx="8"/><text x="704" y="108">RESEARCH SCOPE</text><text class="sub" x="704" y="145">subjects</text><text class="sub" x="704" y="172">dimensions</text><text class="sub" x="704" y="199">date bounds</text><text class="sub" x="704" y="226">methodology</text></g>
+            <g class="source-box"><rect x="871" y="70" width="145" height="260" rx="8"/><text x="944" y="108">MANIFEST</text><text class="sub" x="944" y="158">analysis_manifest</text><text class="sub" x="944" y="185">_sha256</text><text class="note" x="944" y="295">VERSION BINDING</text></g>
+            <path class="arrow" marker-end="url(#manifest-arrow)" d="M255 200H307"/><path class="arrow" marker-end="url(#manifest-arrow)" d="M537 200H589"/><path class="arrow" marker-end="url(#manifest-arrow)" d="M819 200H871"/>
+          </svg>
+          <figcaption>Figure 3. The manifest detects record substitution across a completed analysis. It does not verify publishers, dates, source independence, licenses, or factual claims.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="paper-section privacy-paper-section">
+      <div class="section-number">12</div>
+      <div>
+        <p class="section-kicker">PRIVACY AND CONFIDENTIAL RESEARCH</p>
+        <h2>Protect locally and treat privacy headers as assertions.</h2>
+        <p>Market evidence can contain contacts, account details, confidential strategy, product roadmaps, pricing, acquisition targets, and trade secrets. Local tokenization is the preferred path for confidential workloads. Pattern detection cannot identify every contextual secret.</p>
+        <figure class="diagram privacy-diagram">
+          <svg viewBox="0 0 1040 340" role="img" aria-label="Market evidence privacy controls">
+            <defs><marker id="market-privacy-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z"/></marker></defs>
+            <g class="privacy-step"><rect x="30" y="85" width="205" height="155" rx="8"/><text class="step-no" x="52" y="112">01 · LOCAL</text><text class="step-title" x="52" y="150">SDK / sidecar</text><text x="52" y="183">TOKENIZE VALUES</text><text x="52" y="207">MAP STAYS LOCAL</text></g>
+            <g class="privacy-step"><rect x="288" y="85" width="205" height="155" rx="8"/><text class="step-no" x="310" y="112">02 · GATEWAY</text><text class="step-title" x="310" y="150">Residual scan</text><text x="310" y="183">MARKET-STRICT-V1</text><text x="310" y="207">BEFORE VALIDATION</text></g>
+            <g class="privacy-step"><rect x="546" y="85" width="205" height="155" rx="8"/><text class="step-no" x="568" y="112">03 · RESPONSE</text><text class="step-title" x="568" y="150">Mode disclosure</text><text x="568" y="183">CALLER ASSERTED</text><text x="568" y="207">NOT ATTESTED</text></g>
+            <g class="privacy-step"><rect x="804" y="85" width="205" height="155" rx="8"/><text class="step-no" x="826" y="112">04 · CONSUMER</text><text class="step-title" x="826" y="150">Render as text</text><text x="826" y="183">NO ACTIVE HTML</text><text x="826" y="207">NO URL UNFURL</text></g>
+            <path class="arrow" marker-end="url(#market-privacy-arrow)" d="M235 162H288"/><path class="arrow" marker-end="url(#market-privacy-arrow)" d="M493 162H546"/><path class="arrow" marker-end="url(#market-privacy-arrow)" d="M751 162H804"/>
+          </svg>
+          <figcaption>Figure 4. <code>X-Grandice-Privacy-Mode</code> is reported as a caller assertion with <code>mode_attested=false</code>. The gateway does not infer that local protection actually occurred.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="paper-section runtime-section">
+      <div class="section-number">13</div>
+      <div>
+        <p class="section-kicker">BOUNDED EXECUTION</p>
+        <h2>Resource controls are part of research integrity.</h2>
+        <div class="control-metrics market-control-metrics">
+          <div><b>2 MiB</b><span>request / result ceiling</span></div>
+          <div><b>2,000</b><span>evidence records</span></div>
+          <div><b>100</b><span>sources / subjects / dimensions</span></div>
+          <div><b>25</b><span>competitive entities</span></div>
+          <div><b>300</b><span>total section rows</span></div>
+          <div><b>8</b><span>bindings per displayed row</span></div>
+          <div><b>160</b><span>excerpt characters</span></div>
+          <div><b>2</b><span>worker slots per gateway process</span></div>
+          <div><b>8s / 10s</b><span>analysis / landscape deadline</span></div>
+        </div>
+        <p>Latest metrics, trends, contradictions, and gaps receive independent quotas so high-volume metric rows cannot hide critical conflict or gap summaries. Every omission contributes to explicit section counts and sets <code>complete=false</code>.</p>
+      </div>
+    </section>
+
+    <section class="paper-section governance-section">
+      <div class="section-number">14</div>
+      <div>
+        <p class="section-kicker">AUDIT AND RETENTION</p>
+        <h2>Operational receipts exclude research content.</h2>
+        <p>Domain audits retain request ID, timestamp, authenticated key and available organization/member references, endpoint, agent, requested privacy mode, status, duration, schema names, source/warning counts, and methodology version. Evidence statements, citations, metrics, excerpts, digests, manifests, and responses are excluded.</p>
+        <div class="audit-receipt">
+          <div class="receipt-head"><span>domain.run</span><b>CONTENT RETAINED: FALSE</b></div>
+          <div class="receipt-grid">
+            <span>request_id</span><code>dom_...</code><span>agent</span><code>market.evidence-analyst.v1</code>
+            <span>status</span><code>200</code><span>privacy_mode</span><code>sidecar · asserted</code>
+            <span>input_schema</span><code>MarketResearchInput</code><span>output_schema</span><code>MarketResearchAnalysis</code>
+            <span>methodology</span><code>grandice-market-deterministic-1.3.0</code><span>content</span><code>not stored</code>
+          </div>
+        </div>
+        <p>Primary domain audit metadata is purged at startup and by hourly opportunistic cleanup after the configured period—90 days by default. Infrastructure logs, crash reporting, and encrypted backups have separate deployment-specific lifecycles.</p>
+      </div>
+    </section>
+
+    <section class="paper-section integration-section">
+      <div class="section-number">15</div>
+      <div>
+        <p class="section-kicker">DEVELOPER INTEGRATION</p>
+        <h2>Direct market APIs or the common managed-agent envelope.</h2>
+        <div class="api-paths">
+          <div><span>POST</span><code>/v1/market/research/analyze</code></div>
+          <div><span>POST</span><code>/v1/market/competitive-landscape/compare</code></div>
+          <div><span>GET</span><code>/v1/agents</code></div>
+          <div><span>POST</span><code>/v1/agents/runs</code></div>
+          <div><span>GET</span><code>/v1/domain/runs/{request_id}</code></div>
+        </div>
+        <div class="response-example">
+<pre><code>{
+  "metadata": {
+    "as_of": "2026-09-15",
+    "sources": [{
+      "source_id": "filing-a",
+      "citation": "Caller repository record",
+      "as_of": "2026-09-01"
+    }]
+  },
+  "scope": {
+    "scope_id": "software-market",
+    "start_date": "2024-01-01",
+    "end_date": "2026-09-15",
+    "subject_ids": ["entity-a"],
+    "metric_dimensions": [{
+      "metric_name": "Revenue",
+      "metric_unit": "USD",
+      "value_kind": "currency",
+      "scale": "millions",
+      "currency": "USD",
+      "period_type": "fiscal_year",
+      "accounting_basis": "gaap",
+      "fiscal_calendar_id": "dec31"
+    }]
+  },
+  "evidence": ["..."]
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section evaluation-section">
+      <div class="section-number">16</div>
+      <div>
+        <p class="section-kicker">EVALUATION ROADMAP</p>
+        <h2>Evaluate arithmetic, coverage, comparability, and reviewer utility separately.</h2>
+        <div class="roadmap">
+          <article><span>TRACK 01</span><h3>Data contracts</h3><ul><li>Decimal precision and boundary values</li><li>Period-duration and fiscal-calendar validity</li><li>Currency, scale, unit, and basis mismatches</li><li>Canonical digest reproducibility</li></ul></article>
+          <article><span>TRACK 02</span><h3>Conflict behavior</h3><ul><li>Threshold boundary fixtures</li><li>Disputed latest observations</li><li>Clean reversals and ambiguous transitions</li><li>Contradiction quota preservation</li></ul></article>
+          <article><span>TRACK 03</span><h3>Research coverage</h3><ul><li>Declared-dimension cell accounting</li><li>Duplicate source-ID gaming</li><li>Missing entity and one-sided evidence</li><li>Stale and sparse evidence corpora</li></ul></article>
+          <article><span>TRACK 04</span><h3>Operational safety</h3><ul><li>Near-limit request and response bytes</li><li>Worker termination and queue saturation</li><li>Privacy and trade-secret limitations</li><li>Unsafe HTML and URL rendering tests</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section limitations-section">
+      <div class="section-number">17</div>
+      <div>
+        <p class="section-kicker">CURRENT LIMITATIONS</p>
+        <h2>What this initial evidence engine does not know.</h2>
+        <div class="limitations-columns">
+          <article><h3>Source limits</h3><ul><li>No publisher, author, domain, or license verification</li><li>No retrieval timestamp or independent fetch record</li><li>Source IDs can duplicate or disguise one underlying source</li><li>Citations can be false, stale, incomplete, or biased</li><li>Digests prove record consistency—not factual truth</li></ul></article>
+          <article><h3>Analytical limits</h3><ul><li>No semantic extraction from unstructured reports</li><li>No causal inference, forecast, or market-size model</li><li>No currency, scope, or accounting conversion</li><li>No source quality or confidence calibration</li><li>No ranking, recommendation, or decision optimization</li></ul></article>
+          <article><h3>Privacy limits</h3><ul><li>Trade secrets and strategy may evade pattern detection</li><li>Direct hosted requests expose content to process memory</li><li>Privacy-mode headers are caller assertions</li><li>Audit metadata and backups have separate lifecycles</li><li>Downstream consumers must escape untrusted text</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section conclusion-section">
+      <div class="section-number">18</div>
+      <div>
+        <p class="section-kicker">CONCLUSION</p>
+        <h2>Reliable market intelligence begins by refusing to hide incompatible or missing evidence.</h2>
+        <p class="lead">Grandice combines exact deterministic arithmetic, strict metric comparability, contradiction-aware evidence handling, caller-attributed manifests, bounded process isolation, Privacy Shield integration, metadata-only audit, and mandatory professional review.</p>
+        <p>The result is an evidence-processing foundation—not autonomous research, verified market truth, or strategic advice. Production adoption still requires approved retrieval, licensing, source validation, representative evaluation, governance, and accountable human interpretation.</p>
+        <div class="conclusion-line"><span>EXACT METRICS</span><i></i><span>EXPLICIT CONFLICTS</span><i></i><span>HUMAN INTERPRETATION</span></div>
+      </div>
+    </section>
+
+    <section class="paper-section appendix-section">
+      <div class="section-number">A</div>
+      <div>
+        <p class="section-kicker">APPENDIX</p>
+        <h2>Response invariants and implementation references</h2>
+        <div class="response-example">
+<pre><code>{
+  "privacy": {
+    "mode": "sidecar",
+    "mode_attested": false,
+    "mode_source": "caller_asserted_header",
+    "content_retained": false
+  },
+  "data": {
+    "methodology_version": "grandice-market-deterministic-1.3.0",
+    "evidence_provenance": "caller_provided",
+    "verification_status": "unverified",
+    "coverage": {
+      "interpretation": "evidence_coverage_not_truth_probability"
+    },
+    "complete": true,
+    "market_research_advice": false,
+    "professional_review_required": true
+  }
+}</code></pre>
+        </div>
+        <div class="reference-list">
+          <div><code>grandice_domain/market.py</code><span>Evidence schemas, metrics, recency, coverage, conflicts, manifests, and comparison</span></div>
+          <div><code>grandice_domain/agents.py</code><span>Versioned market workflow registry and declared capabilities</span></div>
+          <div><code>gateway/routes/market.py</code><span>Authenticated APIs, process isolation, deadlines, output ceiling, audit, and headers</span></div>
+          <div><code>gateway/domain_runtime.py</code><span>Raw-JSON limits, privacy-mode disclosure, residual checks, and body-free audit</span></div>
+          <div><code>MARKET-APIS.md</code><span>Input contracts, limits, privacy guidance, and responsibility boundary</span></div>
+          <div><code>tests/test_market_domain.py</code><span>Precision, comparability, conflicts, provenance, bounds, and adversarial tests</span></div>
+        </div>
+        <div class="legal-note">
+          <strong>Important notice</strong>
+          <p>This document describes the September 2026 initial implementation. It is technical product documentation, not investment, market, commercial, strategic, legal, privacy, security, or compliance advice. Sources are caller provided and unverified. Adopting institutions must perform their own validation and professional review.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paper-footer screen-only">
+    <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 35.6 11v18L20 38 4.4 29V11L20 2Z"/><path d="m20 9.5 9 5.2v10.6l-9 5.2-9-5.2V14.7l9-5.2Z"/></svg></span><span>grandice</span></a>
+    <p>Controlled domain intelligence for developer-owned workflows.</p>
+    <div><a href="/api-docs#market-research">API documentation</a><a href="/assets/grandice-market-research-intelligence-white-paper-v4.pdf" download>PDF white paper</a><a href="/contact">Contact</a></div>
+  </footer>
+</body>
+</html>

@@ -175,7 +175,7 @@ class DomainApiTests(unittest.TestCase):
         response = self.client.get("/v1/agents")
         self.assertEqual(response.status_code, 200)
         definitions = response.json()["data"]
-        self.assertEqual(len(definitions), 5)
+        self.assertEqual(len(definitions), 7)
         self.assertEqual(
             {item["id"] for item in definitions},
             {
@@ -184,6 +184,8 @@ class DomainApiTests(unittest.TestCase):
                 "financial.company-analyst.v1",
                 "legal.contract-reviewer.v1",
                 "legal.contract-comparator.v1",
+                "market.evidence-analyst.v1",
+                "market.competitive-landscape.v1",
             },
         )
         self.assertTrue(

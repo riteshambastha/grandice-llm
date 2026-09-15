@@ -179,6 +179,8 @@ def domain_envelope(
         "request_id": request_id,
         "privacy": {
             "mode": privacy_mode,
+            "mode_attested": False,
+            "mode_source": "caller_asserted_header",
             "residual_check": {
                 "status": "passed",
                 "coverage": "configured_policy_detectors",
