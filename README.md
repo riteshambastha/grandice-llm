@@ -3,6 +3,8 @@
 Self-hosted open-weight language models running on this desktop, exposed to your
 applications as an authenticated, OpenAI-compatible API.
 
+More details: http: https://grand-ice.com/api-docs by Ritesh Ambastha
+
 Nothing leaves the machine unless you start the tunnel, there are no per-token
 costs, and any client library that can talk to OpenAI can talk to this.
 
